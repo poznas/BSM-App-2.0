@@ -1,10 +1,17 @@
 package com.bsm.android.home;
 
 
+import android.util.Log;
+
+import com.bsm.android.model.User;
+
 import java.util.LinkedList;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
+import static com.bsm.android.Constants.*;
 import static com.bsm.android.home.HomeActivityMVP.*;
 
 public class HomePresenter implements Presenter {
@@ -26,12 +33,71 @@ public class HomePresenter implements Presenter {
 
     @Override
     public void unsubscribe() {
-
+        clearSubscriptions(subscriptions);
     }
 
     @Override
     public void subscribeForData() {
+        subscribeForAuth();
+        subscribeForUserData();
+    }
 
+    private void subscribeForAuth() {
+        Disposable authSubscription = model.getSignInStatus()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(isSignedIn -> {
+                    if(isSignedIn){
+                        Log.i(getTag(), "auth state - signed in");
+                    }else {
+                        Log.i(getTag(), "auth state - signed out");
+                        if(view != null){
+                            view.goLoginActivity();
+                        }
+                    }
+                });
+        subscriptions.add(authSubscription);
+    }
+
+    private void subscribeForUserData() {
+        view.showProgress();
+
+        Disposable userSubscription = model.getUser()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnTerminate(() -> view.hideProgress())
+                .subscribe(user -> {
+                    Log.d(getTag(), "user data: " + user);
+                    if( user != null && user.getLabel() != null ){
+
+                        subscribeForPrivileges(user);
+
+                        if( user.getLabel().equals(LABEL_JUDGE)){
+
+                            subscribeForPendingReports(user);
+                            model.makeDeviceSubscribeForJudgeNotifications();
+                        }else {
+                            model.makeDeviceUnsubscribeFromJudgeNotifications();
+                        }
+                    }
+                });
+        subscriptions.add(userSubscription);
+    }
+
+    private void subscribeForPrivileges(User user) {
+        view.showProgress();
+
+        Disposable privilegesSubscription = model.getUserPrivileges(user)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnTerminate(()-> view.hideProgress())
+                .subscribe(privileges -> {
+                    view.updatePrivileges(privileges);
+                });
+        subscriptions.add(privilegesSubscription);
+    }
+
+    private void subscribeForPendingReports(User user) {
     }
 
     @Override

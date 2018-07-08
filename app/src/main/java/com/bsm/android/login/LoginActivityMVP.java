@@ -1,5 +1,6 @@
 package com.bsm.android.login;
 
+import com.bsm.android.core.MultiSubscriber;
 import com.bsm.android.core.Tagable;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
@@ -20,7 +21,7 @@ public interface LoginActivityMVP {
         void hideProgress();
     }
 
-    interface Presenter extends Tagable{
+    interface Presenter extends Tagable, MultiSubscriber{
 
         void attachView(View view);
 

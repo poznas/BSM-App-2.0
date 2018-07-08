@@ -1,5 +1,9 @@
 package com.bsm.android.home;
 
+import com.bsm.android.firebase.notifications.INotificationService;
+import com.bsm.android.firebase.user.IUserAuthService;
+import com.bsm.android.firebase.user.IUserRepository;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -14,7 +18,10 @@ public class HomeActivityModule {
     }
 
     @Provides
-    public Model provideHomeModel(){
-        return new HomeModel();
+    public Model provideHomeModel(IUserAuthService authService,
+                                  IUserRepository repository,
+                                  INotificationService notificationService){
+
+        return new HomeModel(authService, repository, notificationService);
     }
 }

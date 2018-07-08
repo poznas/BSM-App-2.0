@@ -50,14 +50,7 @@ public class LoginPresenter implements Presenter {
 
     @Override
     public void unsubscribe() {
-        if(subscriptions == null){ return; }
-        for(Disposable subscription : subscriptions){
-            if(!subscription.isDisposed()){
-                subscription.dispose();
-            }
-        }
-        subscriptions.clear();
-
+        clearSubscriptions(subscriptions);
     }
 
     @Override

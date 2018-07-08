@@ -15,7 +15,10 @@ import android.widget.TextView;
 import com.bsm.android.R;
 import com.bsm.android.firebase.google.GoogleAuthService;
 import com.bsm.android.login.LoginActivity;
+import com.bsm.android.model.Privilege;
 import com.bsm.android.root.App;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -58,7 +61,11 @@ public class HomeActivity extends AppCompatActivity implements View {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         ((App) getApplication()).getComponent().inject(this);
-        displayLoadingState();
+        initializePrivilegesRecycler();
+    }
+
+    private void initializePrivilegesRecycler() {
+
     }
 
     @Override
@@ -112,6 +119,11 @@ public class HomeActivity extends AppCompatActivity implements View {
     @Override
     public void signOutFromGoogle() {
         GoogleAuthService.signOut(this);
+    }
+
+    @Override
+    public void updatePrivileges(List<Privilege> privileges) {
+
     }
 
     private void displayLoadingState() {
