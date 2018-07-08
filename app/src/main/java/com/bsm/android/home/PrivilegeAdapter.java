@@ -3,6 +3,8 @@ package com.bsm.android.home;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
+import android.support.v7.util.DiffUtil.DiffResult;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +34,7 @@ public class PrivilegeAdapter extends RecyclerView.Adapter<PrivilegeAdapter.Priv
 
     public PrivilegeAdapter(List<Privilege> privileges, Context context) {
         this.privileges = privileges;
-        privilegeIntentMap = PrivilegeIntentFactory.getMap(context);
+        privilegeIntentMap = HomeIntentFactory.getPrivilegeIntentMap(context);
     }
 
     @NonNull
@@ -55,7 +57,11 @@ public class PrivilegeAdapter extends RecyclerView.Adapter<PrivilegeAdapter.Priv
     }
 
     public void updatePrivileges(List<Privilege> newPrivileges){
-        //TODO:
+        PrivilegeDiffUtil diffUtil = new PrivilegeDiffUtil(privileges, newPrivileges);
+        DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
+        privileges.clear();
+        privileges.addAll(newPrivileges);
+        diffResult.dispatchUpdatesTo(this);
     }
 
     public class PrivilegeViewHolder extends RecyclerView.ViewHolder implements OnClickListener {

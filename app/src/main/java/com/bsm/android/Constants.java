@@ -2,7 +2,13 @@ package com.bsm.android;
 
 public class Constants {
 
-    public static final String USERS_BRANCH = "users";
+    public static final String KEY_TEAM = "team";
+    public static final String TEAM_CORMEUM = "cormeum";
+    public static final String TEAM_SENSUM = "sensum";
+    public static final String TEAM_MUTINIUM = "mutinium";
+
+    public static final String BRANCH_USERS = "users";
+    public static final String BRANCH_SCORES = "SCORES";
     public static final String DEFAULT_USER_PHOTO_URL = "http://i.kafeteria.pl/0991f9c6631ca79a8bb5b5199b2c39df1fc77dc4";
 
     public static final String LABEL_JUDGE = "judge";
@@ -26,4 +32,5 @@ public class Constants {
 
     public static final int REPORTS_LOADING = -1;
     public static final int REPORTS_NO_PENDING = 0;
+
 }

@@ -64,16 +64,16 @@ public class LoginPresenter implements Presenter {
             Disposable subscription = model.authWithGoogle(account)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doOnTerminate(() -> view.hideProgress())
+                    .doOnTerminate(view::hideProgress)
                     .subscribe(
                             authResult ->
                                     subscribeForAuth(),
                             error ->
-                                    view.showSnackBarMessage(error.getLocalizedMessage())
+                                    view.showMessage(error.getLocalizedMessage())
                     );
             subscriptions.add(subscription);
         }else {
-            view.showSnackBarMessage(result.getStatus().getStatusMessage());
+            view.showMessage(result.getStatus().getStatusMessage());
         }
     }
 }

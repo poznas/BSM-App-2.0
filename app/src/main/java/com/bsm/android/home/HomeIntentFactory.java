@@ -9,9 +9,9 @@ import java.util.HashMap;
 
 import static com.bsm.android.Constants.*;
 
-public class PrivilegeIntentFactory {
+public class HomeIntentFactory {
 
-    public static HashMap<String, Intent> getMap(Context context){
+    public static HashMap<String, Intent> getPrivilegeIntentMap(Context context){
         return new HashMap<String, Intent>(){{
             put(BRAND_WIZARDS, new Intent(context, LoginActivity.class));
             put(BRAND_SM_INFO, new Intent(context, LoginActivity.class));
@@ -24,6 +24,14 @@ public class PrivilegeIntentFactory {
             put(BRAND_REPORT, new Intent(context, LoginActivity.class));
             put(BRAND_JUDGE, new Intent(context, LoginActivity.class));
             put(BRAND_PROF_RATE, new Intent(context, LoginActivity.class));
+        }};
+    }
+
+    public static HashMap<String, Intent> getTeamIntentMap(Context context){
+        return new HashMap<String, Intent>(){{
+            put(TEAM_CORMEUM, new Intent(context, LoginActivity.class).putExtra(KEY_TEAM, TEAM_CORMEUM));
+            put(TEAM_SENSUM, new Intent(context, LoginActivity.class).putExtra(KEY_TEAM, TEAM_SENSUM));
+            put(TEAM_MUTINIUM, new Intent(context, LoginActivity.class).putExtra(KEY_TEAM, TEAM_MUTINIUM));
         }};
     }
 }

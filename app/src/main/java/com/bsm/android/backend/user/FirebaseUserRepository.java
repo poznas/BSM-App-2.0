@@ -1,8 +1,8 @@
-package com.bsm.android.firebase.user;
+package com.bsm.android.backend.user;
 
 import android.support.annotation.NonNull;
 
-import com.bsm.android.firebase.AbstractFirebaseRepository;
+import com.bsm.android.backend.AbstractFirebaseRepository;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,7 +19,7 @@ public class FirebaseUserRepository extends AbstractFirebaseRepository implement
     private ValueEventListener userListener;
 
     private DatabaseReference getUserDataReference(String userId) {
-        return getRoot().child(USERS_BRANCH).child(userId);
+        return getRoot().child(BRANCH_USERS).child(userId);
     }
 
     @Override
@@ -42,7 +42,9 @@ public class FirebaseUserRepository extends AbstractFirebaseRepository implement
                 }
 
                 @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) { }
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    emitter.onError(databaseError.toException());
+                }
             };
             userDataReference.addValueEventListener(userListener);
         });

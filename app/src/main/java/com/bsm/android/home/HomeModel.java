@@ -1,13 +1,15 @@
 package com.bsm.android.home;
 
-import com.bsm.android.firebase.notifications.INotificationService;
-import com.bsm.android.firebase.user.IUserAuthService;
-import com.bsm.android.firebase.user.IUserPrivilegeRepository;
-import com.bsm.android.firebase.user.IUserRepository;
+import com.bsm.android.backend.notifications.INotificationService;
+import com.bsm.android.backend.score.IScoreRepository;
+import com.bsm.android.backend.user.IUserAuthService;
+import com.bsm.android.backend.user.IUserPrivilegeRepository;
+import com.bsm.android.backend.user.IUserRepository;
 import com.bsm.android.model.Privilege;
 import com.bsm.android.model.User;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -23,6 +25,7 @@ public class HomeModel implements Model {
     private IUserRepository userRepository;
     private INotificationService notificationService;
     private IUserPrivilegeRepository privilegeRepository;
+    private IScoreRepository scoreRepository;
 
     @Override
     public Observable<Boolean> getSignInStatus() {
@@ -52,5 +55,15 @@ public class HomeModel implements Model {
     @Override
     public Observable<List<Privilege>> getUserPrivileges(User user) {
         return privilegeRepository.getUserPrivileges(user);
+    }
+
+    @Override
+    public Observable<HashMap<String, Long>> getScores() {
+        return scoreRepository.getScoresStream();
+    }
+
+    @Override
+    public void shutdown() {
+        scoreRepository.shutdown();
     }
 }

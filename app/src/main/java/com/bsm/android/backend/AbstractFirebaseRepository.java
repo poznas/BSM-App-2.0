@@ -1,4 +1,4 @@
-package com.bsm.android.firebase;
+package com.bsm.android.backend;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

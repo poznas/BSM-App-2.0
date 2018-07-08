@@ -1,6 +1,7 @@
 package com.bsm.android.login;
 
 import com.bsm.android.core.MultiSubscriber;
+import com.bsm.android.core.SnackMessage;
 import com.bsm.android.core.Tagable;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
@@ -10,11 +11,11 @@ import io.reactivex.Observable;
 
 public interface LoginActivityMVP {
 
-    interface View{
+    interface View extends SnackMessage{
 
         void goHomeActivity();
 
-        void showSnackBarMessage(String message);
+        void showMessage(String message);
 
         void showProgress();
 

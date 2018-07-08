@@ -1,10 +1,9 @@
-package com.bsm.android.firebase.user;
+package com.bsm.android.backend.user;
 
 import com.bsm.android.R;
 import com.bsm.android.model.Privilege;
 import com.bsm.android.model.User;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 

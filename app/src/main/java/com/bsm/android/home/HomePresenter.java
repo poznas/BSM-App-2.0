@@ -34,12 +34,14 @@ public class HomePresenter implements Presenter {
     @Override
     public void unsubscribe() {
         clearSubscriptions(subscriptions);
+        model.shutdown();
     }
 
     @Override
     public void subscribeForData() {
         subscribeForAuth();
         subscribeForUserData();
+        subscribeForScores();
     }
 
     private void subscribeForAuth() {
@@ -59,27 +61,43 @@ public class HomePresenter implements Presenter {
         subscriptions.add(authSubscription);
     }
 
+    private void subscribeForScores() {
+        Disposable scoreSubscription = model.getScores()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(view::updateScores);
+
+        subscriptions.add(scoreSubscription);
+    }
+
     private void subscribeForUserData() {
         view.showProgress();
 
         Disposable userSubscription = model.getUser()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnTerminate(() -> view.hideProgress())
+                .doOnTerminate(view::hideProgress)
                 .subscribe(user -> {
                     Log.d(getTag(), "user data: " + user);
                     if( user != null && user.getLabel() != null ){
 
                         subscribeForPrivileges(user);
+                        if( userIsAuthorized(user.getLabel())){
+                            view.setTeamImagesClickListeners();
+                        }
 
                         if( user.getLabel().equals(LABEL_JUDGE)){
-
-                            subscribeForPendingReports(user);
+                            subscribeForJudgePendingReports(user);
                             model.makeDeviceSubscribeForJudgeNotifications();
                         }else {
                             model.makeDeviceUnsubscribeFromJudgeNotifications();
+                            if( user.getLabel().equals(LABEL_PROFESSOR)){
+                                subscribeForProfessorPendingReports(user);
+                            }
                         }
                     }
+                }, error -> {
+                    view.showMessage(error.getMessage());
                 });
         subscriptions.add(userSubscription);
     }
@@ -90,14 +108,16 @@ public class HomePresenter implements Presenter {
         Disposable privilegesSubscription = model.getUserPrivileges(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnTerminate(()-> view.hideProgress())
-                .subscribe(privileges -> {
-                    view.updatePrivileges(privileges);
-                });
+                .doOnTerminate(view::hideProgress)
+                .subscribe(view::updatePrivileges);
+
         subscriptions.add(privilegesSubscription);
     }
 
-    private void subscribeForPendingReports(User user) {
+    private void subscribeForJudgePendingReports(User user) {
+    }
+
+    private void subscribeForProfessorPendingReports(User user) {
     }
 
     @Override
@@ -106,5 +126,11 @@ public class HomePresenter implements Presenter {
         view.signOutFromGoogle();
         view.goLoginActivity();
         return true;
+    }
+
+    private boolean userIsAuthorized(String userLabel) {
+        return userLabel.equals(LABEL_WIZARD)
+                || userLabel.equals(LABEL_PROFESSOR)
+                || userLabel.equals(LABEL_JUDGE);
     }
 }

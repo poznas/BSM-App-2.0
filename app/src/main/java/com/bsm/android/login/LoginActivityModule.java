@@ -3,7 +3,7 @@ package com.bsm.android.login;
 import dagger.Module;
 import dagger.Provides;
 
-import com.bsm.android.firebase.user.IUserAuthService;
+import com.bsm.android.backend.user.IUserAuthService;
 import com.bsm.android.login.LoginActivityMVP.*;
 
 @Module

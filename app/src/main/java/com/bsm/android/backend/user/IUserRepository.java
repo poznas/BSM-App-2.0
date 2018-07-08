@@ -1,4 +1,4 @@
-package com.bsm.android.firebase.user;
+package com.bsm.android.backend.user;
 
 import com.bsm.android.model.User;
 

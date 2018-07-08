@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.bsm.android.R;
-import com.bsm.android.firebase.google.GoogleAuthService;
+import com.bsm.android.backend.google.GoogleAuthService;
 import com.bsm.android.home.HomeActivity;
 import com.bsm.android.login.LoginActivityMVP.*;
 import com.bsm.android.root.App;
@@ -70,8 +70,8 @@ public class LoginActivity extends AppCompatActivity implements View{
     }
 
     @Override
-    public void showSnackBarMessage(String message) {
-        Snackbar.make(rootView, message, LENGTH_SHORT).show();
+    public void showMessage(String message) {
+        popMessage(rootView, message);
     }
 
     @Override

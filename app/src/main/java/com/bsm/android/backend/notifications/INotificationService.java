@@ -1,4 +1,4 @@
-package com.bsm.android.firebase.notifications;
+package com.bsm.android.backend.notifications;
 
 public interface INotificationService {
 
