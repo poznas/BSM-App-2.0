@@ -19,15 +19,15 @@ import static com.bsm.android.Constants.TEAM_SENSUM;
 
 public class FirebaseScoreRepository extends AbstractFirebaseRepository implements IScoreRepository {
 
-    private ValueEventListener listener;
+
     private DatabaseReference scoreReference;
 
     @Override
     public Observable<HashMap<String, Long>> getScoresStream() {
 
         return Observable.create(emitter -> {
-           shutdown();
-           listener = new ValueEventListener() {
+
+           new AbstractValueEventListener<HashMap<String, Long>>(emitter, getScoreReference()) {
                @Override
                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                    HashMap<String, Long> map = new HashMap<>();
@@ -37,20 +37,8 @@ public class FirebaseScoreRepository extends AbstractFirebaseRepository implemen
 
                    emitter.onNext(map);
                }
-
-               @Override
-               public void onCancelled(@NonNull DatabaseError databaseError) {
-                    emitter.onError(databaseError.toException());
-               }
            };
         });
-    }
-
-    @Override
-    public void shutdown() {
-        if(listener != null){
-            getScoreReference().removeEventListener(listener);
-        }
     }
 
     private DatabaseReference getScoreReference() {

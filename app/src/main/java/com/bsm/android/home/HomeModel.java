@@ -61,9 +61,4 @@ public class HomeModel implements Model {
     public Observable<HashMap<String, Long>> getScores() {
         return scoreRepository.getScoresStream();
     }
-
-    @Override
-    public void shutdown() {
-        scoreRepository.shutdown();
-    }
 }

@@ -35,10 +35,11 @@ public class FirebaseUserAuthService implements IUserAuthService, Tagable {
         return Observable.create(emitter -> {
             listener = firebaseAuth -> {
                 emitter.onNext(firebaseAuth);
-                getServiceFirebaseAuth().removeAuthStateListener(listener);
                 setInitialUserData(firebaseAuth.getCurrentUser());
             };
             getServiceFirebaseAuth().addAuthStateListener(listener);
+            emitter.setCancellable(
+                    () -> getServiceFirebaseAuth().removeAuthStateListener(listener));
         });
     }
 

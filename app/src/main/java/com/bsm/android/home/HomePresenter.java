@@ -34,7 +34,6 @@ public class HomePresenter implements Presenter {
     @Override
     public void unsubscribe() {
         clearSubscriptions(subscriptions);
-        model.shutdown();
     }
 
     @Override

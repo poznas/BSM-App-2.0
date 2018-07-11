@@ -59,7 +59,5 @@ public interface HomeActivityMVP {
         Observable<List<Privilege>> getUserPrivileges(User user);
         
         Observable<HashMap<String, Long>> getScores();
-        
-        void shutdown();
     }
 }

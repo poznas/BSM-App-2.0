@@ -8,5 +8,4 @@ public interface IScoreRepository {
 
     Observable<HashMap<String,Long>> getScoresStream();
 
-    void shutdown();
 }

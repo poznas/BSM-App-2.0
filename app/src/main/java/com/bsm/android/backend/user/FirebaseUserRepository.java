@@ -16,8 +16,6 @@ import static com.bsm.android.Constants.*;
 
 public class FirebaseUserRepository extends AbstractFirebaseRepository implements IUserRepository{
 
-    private ValueEventListener userListener;
-
     private DatabaseReference getUserDataReference(String userId) {
         return getRoot().child(BRANCH_USERS).child(userId);
     }
@@ -33,20 +31,12 @@ public class FirebaseUserRepository extends AbstractFirebaseRepository implement
         DatabaseReference userDataReference = getUserDataReference(userId);
 
         return Observable.create(emitter -> {
-            userListener = new ValueEventListener() {
-
+            new AbstractValueEventListener<User>(emitter, userDataReference) {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     emitter.onNext(dataSnapshot.getValue(User.class));
-                    userDataReference.removeEventListener(userListener);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    emitter.onError(databaseError.toException());
                 }
             };
-            userDataReference.addValueEventListener(userListener);
         });
     }
 }
