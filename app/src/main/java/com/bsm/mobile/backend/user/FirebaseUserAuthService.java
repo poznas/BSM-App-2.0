@@ -2,6 +2,7 @@ package com.bsm.mobile.backend.user;
 
 import android.util.Log;
 
+import com.bsm.mobile.core.NullFighter;
 import com.bsm.mobile.core.Tagable;
 import com.bsm.mobile.model.User;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -20,7 +21,7 @@ import io.reactivex.Observable;
 
 import static com.bsm.mobile.Constants.DEFAULT_USER_PHOTO_URL;
 
-public class FirebaseUserAuthService implements IUserAuthService, Tagable {
+public class FirebaseUserAuthService implements IUserAuthService, Tagable, NullFighter {
 
     private IUserRepository userRepository;
     private FirebaseAuth serviceFirebaseAuth;
@@ -30,7 +31,7 @@ public class FirebaseUserAuthService implements IUserAuthService, Tagable {
         this.userRepository = userRepository;
     }
 
-    public Observable<FirebaseAuth> getUserAuthState() {
+    private Observable<FirebaseAuth> getUserAuthState() {
 
         return Observable.create(emitter -> {
             listener = firebaseAuth -> {
@@ -64,8 +65,13 @@ public class FirebaseUserAuthService implements IUserAuthService, Tagable {
     }
 
     @Override
-    public Observable<AuthResult> authWithGoogle(GoogleSignInAccount account) {
+    public Observable<Boolean> authWithGoogle(GoogleSignInAccount account) {
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+
+        return firebaseAuthWithGoogle(credential).map(this::isNull);
+    }
+
+    private Observable<AuthResult> firebaseAuthWithGoogle(AuthCredential credential){
         return Observable.create(
                 emitter -> getServiceFirebaseAuth()
                         .signInWithCredential(credential)

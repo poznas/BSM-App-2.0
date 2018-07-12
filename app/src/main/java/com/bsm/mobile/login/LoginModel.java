@@ -19,7 +19,7 @@ public class LoginModel implements Model {
     }
 
     @Override
-    public Observable<AuthResult> authWithGoogle(GoogleSignInAccount account) {
+    public Observable<Boolean> authWithGoogle(GoogleSignInAccount account) {
         return userAuthService.authWithGoogle(account);
     }
 }

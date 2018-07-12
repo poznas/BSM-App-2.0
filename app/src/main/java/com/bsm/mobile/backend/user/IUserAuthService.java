@@ -9,8 +9,7 @@ public interface IUserAuthService {
 
     Observable<Boolean> isUserSignedIn();
 
-    //TODO: remove firebase dependency
-    Observable<AuthResult> authWithGoogle(GoogleSignInAccount account);
+    Observable<Boolean> authWithGoogle(GoogleSignInAccount account);
 
     String getCurrentUserId();
 

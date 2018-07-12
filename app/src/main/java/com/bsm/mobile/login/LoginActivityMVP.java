@@ -37,6 +37,6 @@ public interface LoginActivityMVP {
 
         Observable<Boolean> getSignInStatus();
 
-        Observable<AuthResult> authWithGoogle(GoogleSignInAccount account);
+        Observable<Boolean> authWithGoogle(GoogleSignInAccount account);
     }
 }
