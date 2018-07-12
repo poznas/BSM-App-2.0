@@ -7,5 +7,5 @@ import io.reactivex.Observable;
 
 public interface IReportRateRepository {
 
-    Observable<Set<String>> getReportRatersIds(String reportId);
+    Observable<Set<String>> getReportJudgeRatersIds(String reportId);
 }

@@ -24,7 +24,7 @@ public class FirebasePendingReportsService implements IPendingReportsService {
                 .flatMapIterable(reportIds -> reportIds)
                 .filter(reportId ->
                         reportRateRepository
-                                .getReportRatersIds(reportId)
+                                .getReportJudgeRatersIds(reportId)
                                 .flatMapIterable(judgeIds -> judgeIds)
                                 .filter(judgeId -> judgeId.equals(userId))
                                 .count().blockingGet() == 0
