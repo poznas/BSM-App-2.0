@@ -13,14 +13,14 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.bsm.mobile.Message.*;
 import static com.bsm.mobile.login.LoginActivityMVP.*;
 
 @Slf4j
 public class LoginPresenter implements Presenter {
 
-    private static final String AUTH_STATE_SIGNED_IN = "auth state - signed in";
-    private static final String AUTH_STATE_SIGNED_OUT = "auth state - signed out";
-    private static final String SIGN_IN_WITH_FAILURE = "sign in with Google to BSM failed";
+
+
     private View view;
     private Model model;
 
@@ -79,8 +79,7 @@ public class LoginPresenter implements Presenter {
                                     view.showMessage(SIGN_IN_WITH_FAILURE);
                                 }
                             },
-                            error ->
-                                    view.showMessage(error.getLocalizedMessage())
+                            error -> view.showMessage(error.getLocalizedMessage())
                     );
             subscriptions.add(subscription);
         }else {

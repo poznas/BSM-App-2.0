@@ -1,6 +1,8 @@
 package com.bsm.mobile.root;
 
 import com.bsm.mobile.backend.BackendModule;
+import com.bsm.mobile.backend.report.ReportBackendModule;
+import com.bsm.mobile.backend.user.UserBackendModule;
 import com.bsm.mobile.home.HomeActivity;
 import com.bsm.mobile.home.HomeActivityModule;
 import com.bsm.mobile.login.LoginActivity;
@@ -14,6 +16,8 @@ import dagger.Component;
 @Component(modules = {
         ApplicationModule.class,
         BackendModule.class,
+        UserBackendModule.class,
+        ReportBackendModule.class,
         LoginActivityModule.class,
         HomeActivityModule.class
 })

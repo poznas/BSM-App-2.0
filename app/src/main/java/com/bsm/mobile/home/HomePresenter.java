@@ -12,6 +12,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.bsm.mobile.Constants.*;
+import static com.bsm.mobile.Message.*;
 import static com.bsm.mobile.home.HomeActivityMVP.*;
 
 public class HomePresenter implements Presenter {
@@ -49,9 +50,9 @@ public class HomePresenter implements Presenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(isSignedIn -> {
                     if(isSignedIn){
-                        Log.i(getTag(), "auth state - signed in");
+                        Log.i(getTag(), AUTH_STATE_SIGNED_IN);
                     }else {
-                        Log.i(getTag(), "auth state - signed out");
+                        Log.i(getTag(), AUTH_STATE_SIGNED_OUT);
                         if(view != null){
                             view.goLoginActivity();
                         }
@@ -114,9 +115,18 @@ public class HomePresenter implements Presenter {
     }
 
     private void subscribeForJudgePendingReports(User user) {
+        subscriptions.add(
+                model.getJudgePendingReportsNumber()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            //TODO:
+                    )
+        );
     }
 
     private void subscribeForProfessorPendingReports(User user) {
+        //TODO:
     }
 
     @Override

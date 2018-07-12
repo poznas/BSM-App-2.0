@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 
 public interface HomeActivityMVP {
@@ -59,5 +60,9 @@ public interface HomeActivityMVP {
         Observable<List<Privilege>> getUserPrivileges(User user);
         
         Observable<HashMap<String, Long>> getScores();
+
+        Single<Long> getJudgePendingReportsNumber();
+
+        Single<Long> getProfessorPendingReportsNumber();
     }
 }

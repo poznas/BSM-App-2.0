@@ -14,14 +14,18 @@ public abstract class AbstractFirebaseRepository {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference root;
 
-    protected FirebaseDatabase getFirebaseDatabase() {
+    protected DatabaseReference repositoryReference;
+
+    protected abstract DatabaseReference getRepositoryReference();
+
+    private FirebaseDatabase getFirebaseDatabase() {
         if( firebaseDatabase == null ){
             firebaseDatabase = FirebaseDatabase.getInstance();
         }
         return firebaseDatabase;
     }
 
-    public DatabaseReference getRoot() {
+    protected DatabaseReference getRoot() {
         if( root == null ){
             root = getFirebaseDatabase().getReference().getRoot();
         }

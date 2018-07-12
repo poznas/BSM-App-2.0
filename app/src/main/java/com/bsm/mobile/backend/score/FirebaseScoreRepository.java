@@ -13,21 +13,19 @@ import java.util.HashMap;
 
 import io.reactivex.Observable;
 
+import static com.bsm.mobile.Constants.*;
 import static com.bsm.mobile.Constants.TEAM_CORMEUM;
 import static com.bsm.mobile.Constants.TEAM_MUTINIUM;
 import static com.bsm.mobile.Constants.TEAM_SENSUM;
 
 public class FirebaseScoreRepository extends AbstractFirebaseRepository implements IScoreRepository {
 
-
-    private DatabaseReference scoreReference;
-
     @Override
     public Observable<HashMap<String, Long>> getScoresStream() {
 
         return Observable.create(emitter -> {
 
-           new AbstractValueEventListener<HashMap<String, Long>>(emitter, getScoreReference()) {
+           new AbstractValueEventListener<HashMap<String, Long>>(emitter, getRepositoryReference()) {
                @Override
                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                    HashMap<String, Long> map = new HashMap<>();
@@ -41,10 +39,11 @@ public class FirebaseScoreRepository extends AbstractFirebaseRepository implemen
         });
     }
 
-    private DatabaseReference getScoreReference() {
-        if(scoreReference == null){
-            scoreReference = getRoot().child(Constants.BRANCH_SCORES);
+    @Override
+    protected DatabaseReference getRepositoryReference() {
+        if(repositoryReference == null){
+            repositoryReference = getRoot().child(BRANCH_SCORES);
         }
-        return scoreReference;
+        return repositoryReference;
     }
 }
