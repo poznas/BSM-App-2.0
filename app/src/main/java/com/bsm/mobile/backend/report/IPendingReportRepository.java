@@ -10,5 +10,7 @@ import io.reactivex.Observable;
 
 public interface IPendingReportRepository {
 
-    Observable<Map<String, PendingReport>> getPendingReports();
+    Observable<Map<String, PendingReport>> getJudgePendingReports();
+
+    Observable<Map<String, PendingReport>> getProfessorPendingReports();
 }

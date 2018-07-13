@@ -7,7 +7,8 @@ import io.reactivex.disposables.Disposable;
 public interface MultiSubscriber {
 
     default void clearSubscriptions(LinkedList<Disposable> subscriptions){
-        if(subscriptions == null){ return; }
+        if(subscriptions == null) return;
+
         for(Disposable subscription : subscriptions){
             if(!subscription.isDisposed()){
                 subscription.dispose();

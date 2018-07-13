@@ -3,6 +3,7 @@ package com.bsm.mobile.home;
 
 import android.util.Log;
 
+import com.bsm.mobile.model.Privilege;
 import com.bsm.mobile.model.User;
 
 import java.util.LinkedList;
@@ -21,6 +22,7 @@ public class HomePresenter implements Presenter {
     private Model model;
 
     private LinkedList<Disposable> subscriptions;
+    private LinkedList<Privilege> privileges;
 
     public HomePresenter(Model model) {
         this.model = model;
@@ -30,6 +32,7 @@ public class HomePresenter implements Presenter {
     public void attachView(View view) {
         this.view = view;
         subscriptions = new LinkedList<>();
+        privileges = new LinkedList<>();
     }
 
     @Override
@@ -87,12 +90,12 @@ public class HomePresenter implements Presenter {
                         }
 
                         if( user.getLabel().equals(LABEL_JUDGE)){
-                            subscribeForJudgePendingReports(user);
+                            subscribeForJudgePendingReports();
                             model.makeDeviceSubscribeForJudgeNotifications();
                         }else {
                             model.makeDeviceUnsubscribeFromJudgeNotifications();
                             if( user.getLabel().equals(LABEL_PROFESSOR)){
-                                subscribeForProfessorPendingReports(user);
+                                subscribeForProfessorPendingReports();
                             }
                         }
                     }
@@ -109,24 +112,45 @@ public class HomePresenter implements Presenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnTerminate(view::hideProgress)
-                .subscribe(view::updatePrivileges);
+                .subscribe(privileges -> {
+                    this.privileges.addAll(privileges);
+                    view.updatePrivileges(privileges);
+                });
 
         subscriptions.add(privilegesSubscription);
     }
 
-    private void subscribeForJudgePendingReports(User user) {
+    private void subscribeForJudgePendingReports() {
         subscriptions.add(
                 model.getJudgePendingReportsNumber()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            //TODO:
+                    .subscribe(pendingReportsNumber ->
+                            updatePrivileges(BRAND_JUDGE, pendingReportsNumber)
                     )
         );
     }
 
-    private void subscribeForProfessorPendingReports(User user) {
-        //TODO:
+    private void subscribeForProfessorPendingReports() {
+        subscriptions.add(
+                model.getProfessorPendingReportsNumber()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(pendingReportsNumber ->
+                                updatePrivileges(BRAND_PROF_RATE, pendingReportsNumber)
+                        )
+        );
+    }
+
+    private void updatePrivileges(String brand, Long pendingReportsNumber) {
+        if(privileges == null) return;
+
+        for(Privilege privilege : privileges){
+            if(privilege.getBrand().equals(brand)){
+                privilege.setPendingReports(pendingReportsNumber.intValue());
+            }
+        }
+        view.updatePrivileges(privileges);
     }
 
     @Override

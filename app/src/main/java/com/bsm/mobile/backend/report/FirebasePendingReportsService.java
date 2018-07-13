@@ -19,7 +19,7 @@ public class FirebasePendingReportsService implements IPendingReportsService {
 
         String userId = userAuthService.getCurrentUserId();
 
-        return pendingReportRepository.getPendingReports()
+        return pendingReportRepository.getJudgePendingReports()
                 .map(Map::keySet)
                 .flatMapIterable(reportIds -> reportIds)
                 .filter(reportId ->
@@ -34,7 +34,7 @@ public class FirebasePendingReportsService implements IPendingReportsService {
 
     @Override
     public Single<Long> getProfessorPendingReportsNumber() {
-        //TODO:
-        return null;
+
+        return pendingReportRepository.getProfessorPendingReports().count();
     }
 }

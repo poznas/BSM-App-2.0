@@ -9,13 +9,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
 
 import static com.bsm.mobile.Constants.BRANCH_PENDING_REPORTS;
+import static com.bsm.mobile.Constants.BRANCH_REQUIRE_PROFESSOR_RATE_REPORTS;
 
 public class FirebasePendingReportRepository extends AbstractFirebaseRepository implements IPendingReportRepository {
 
@@ -28,11 +27,21 @@ public class FirebasePendingReportRepository extends AbstractFirebaseRepository 
     }
 
     @Override
-    public Observable<Map<String, PendingReport>> getPendingReports() {
+    public Observable<Map<String, PendingReport>> getJudgePendingReports() {
 
+        return getPendingReports(getRepositoryReference());
+    }
+
+    @Override
+    public Observable<Map<String, PendingReport>> getProfessorPendingReports() {
+
+        return getPendingReports(getRoot().child(BRANCH_REQUIRE_PROFESSOR_RATE_REPORTS));
+    }
+
+    private Observable<Map<String, PendingReport>> getPendingReports(DatabaseReference reference) {
         return Observable.create(emitter -> {
 
-            new AbstractValueEventListener<Map<String, PendingReport>>(emitter, getRepositoryReference()){
+            new AbstractValueEventListener<Map<String, PendingReport>>(emitter, reference){
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Map<String, PendingReport> pendingReports = new HashMap<>();

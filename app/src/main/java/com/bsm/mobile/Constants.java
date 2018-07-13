@@ -11,6 +11,7 @@ public class Constants {
     public static final String BRANCH_SCORES = "SCORES";
     public static final String BRANCH_PENDING_REPORTS = "pendingReports";
     public static final String BRANCH_REPORT_RATES = "ReportRates";
+    public static final String BRANCH_REQUIRE_PROFESSOR_RATE_REPORTS = "requireProfRate";
 
     public static final String DEFAULT_USER_PHOTO_URL = "http://i.kafeteria.pl/0991f9c6631ca79a8bb5b5199b2c39df1fc77dc4";
 
