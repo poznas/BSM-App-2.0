@@ -146,6 +146,7 @@ public class HomePresenter implements Presenter {
     }
 
     private void updatePrivileges(String brand, Long pendingReportsNumber) {
+        Log.d(getTag(), "update privilege : " + brand + " : " + pendingReportsNumber);
         if(privileges == null) return;
 
         for(Privilege privilege : privileges){

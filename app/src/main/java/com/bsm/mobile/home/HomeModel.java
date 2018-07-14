@@ -75,7 +75,7 @@ public class HomeModel implements Model {
     }
 
     @Override
-    public Single<Long> getProfessorPendingReportsNumber() {
+    public Observable<Long> getProfessorPendingReportsNumber() {
         return pendingReportsService.getProfessorPendingReportsNumber();
     }
 

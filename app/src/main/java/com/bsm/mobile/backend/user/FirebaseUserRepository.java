@@ -1,6 +1,7 @@
 package com.bsm.mobile.backend.user;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.bsm.mobile.backend.AbstractFirebaseRepository;
 import com.bsm.mobile.core.NonNullObjectMapper;
@@ -30,7 +31,9 @@ public class FirebaseUserRepository extends AbstractFirebaseRepository implement
             new AbstractValueEventListener<User>(emitter, userDataReference) {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    emitter.onNext(dataSnapshot.getValue(User.class));
+                    User user = dataSnapshot.getValue(User.class);
+                    Log.d(getTag(), "retrieved user : " + (user != null ? user.toString() : null));
+                    emitter.onNext(user);
                 }
             };
         });

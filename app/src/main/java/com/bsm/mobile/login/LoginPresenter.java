@@ -44,11 +44,9 @@ public class LoginPresenter implements Presenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(isSignedIn -> {
                     if(isSignedIn && view != null){
-                        log.info(AUTH_STATE_SIGNED_IN);
                         Log.i(getTag(), AUTH_STATE_SIGNED_IN);
                         view.goHomeActivity();
                     }else {
-                        log.info(AUTH_STATE_SIGNED_OUT);
                         Log.i(getTag(), AUTH_STATE_SIGNED_OUT);
                     }
                 });

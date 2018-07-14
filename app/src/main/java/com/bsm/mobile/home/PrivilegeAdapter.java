@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.util.DiffUtil.DiffResult;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bsm.mobile.R;
+import com.bsm.mobile.core.Tagable;
 import com.bsm.mobile.model.Privilege;
 
 import java.util.HashMap;
@@ -21,13 +23,15 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import lombok.extern.slf4j.Slf4j;
 
 import static android.view.View.*;
 import static android.view.View.VISIBLE;
 import static com.bsm.mobile.Constants.REPORTS_LOADING;
 import static com.bsm.mobile.Constants.REPORTS_NO_PENDING;
 
-public class PrivilegeAdapter extends RecyclerView.Adapter<PrivilegeAdapter.PrivilegeViewHolder>{
+@Slf4j
+public class PrivilegeAdapter extends RecyclerView.Adapter<PrivilegeAdapter.PrivilegeViewHolder> implements Tagable{
 
     private List<Privilege> privileges;
     private HashMap<String, Intent> privilegeIntentMap;
@@ -62,6 +66,8 @@ public class PrivilegeAdapter extends RecyclerView.Adapter<PrivilegeAdapter.Priv
         privileges.clear();
         privileges.addAll(newPrivileges);
         diffResult.dispatchUpdatesTo(this);
+        notifyDataSetChanged();
+        Log.d(getTag(), "privileges updated : " + privileges);
     }
 
     public class PrivilegeViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
@@ -116,6 +122,9 @@ public class PrivilegeAdapter extends RecyclerView.Adapter<PrivilegeAdapter.Priv
                         pendingReportsView.setText(String.valueOf(current.getPendingReports()));
                         break;
                 }
+            }else {
+                progressBar.setVisibility(GONE);
+                pendingReportsView.setVisibility(GONE);
             }
         }
     }

@@ -4,6 +4,7 @@ import com.bsm.mobile.backend.user.IUserAuthService;
 
 import java.util.Map;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import lombok.AllArgsConstructor;
 
@@ -33,8 +34,9 @@ public class FirebasePendingReportsService implements IPendingReportsService {
     }
 
     @Override
-    public Single<Long> getProfessorPendingReportsNumber() {
+    public Observable<Long> getProfessorPendingReportsNumber() {
 
-        return pendingReportRepository.getProfessorPendingReports().count();
+        return pendingReportRepository.getProfessorPendingReports()
+                .map( pendingReports -> (long) pendingReports.size()).take(1);
     }
 }

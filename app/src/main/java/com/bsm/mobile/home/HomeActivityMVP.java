@@ -65,7 +65,7 @@ public interface HomeActivityMVP {
 
         Single<Long> getJudgePendingReportsNumber();
 
-        Single<Long> getProfessorPendingReportsNumber();
+        Observable<Long> getProfessorPendingReportsNumber();
 
         void createGoogleApiClient(View view);
     }

@@ -1,6 +1,7 @@
 package com.bsm.mobile.backend.report;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.bsm.mobile.Constants;
 import com.bsm.mobile.backend.AbstractFirebaseRepository;
@@ -39,6 +40,7 @@ public class FirebasePendingReportRepository extends AbstractFirebaseRepository 
     }
 
     private Observable<Map<String, PendingReport>> getPendingReports(DatabaseReference reference) {
+
         return Observable.create(emitter -> {
 
             new AbstractValueEventListener<Map<String, PendingReport>>(emitter, reference){
@@ -49,6 +51,7 @@ public class FirebasePendingReportRepository extends AbstractFirebaseRepository 
                     for (DataSnapshot child : dataSnapshot.getChildren()){
                         pendingReports.put(child.getKey(), child.getValue(PendingReport.class));
                     }
+                    Log.d(getTag(), "get pending reports : " + pendingReports);
                     emitter.onNext(pendingReports);
                 }
             };

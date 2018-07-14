@@ -43,13 +43,13 @@ public abstract class AbstractFirebaseRepository implements Tagable{
             this.emitter = emitter;
             reference.addValueEventListener(this);
             emitter.setCancellable(() -> reference.removeEventListener(this));
+            Log.d(getTag(), "accessing firebase reference : " + reference.toString());
         }
 
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
-            if( !emitter.isDisposed() ) {
-                Log.w(getTag(), " on Cancelled : " + databaseError.getMessage());
-            }
+            Log.w(getTag(), " on Cancelled : " + databaseError.getMessage());
+
             //if( !emitter.isDisposed() ) emitter.onError(databaseError.toException());
         }
     }
