@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity implements View{
         super.onActivityResult(requestCode, resultCode, data);
 
         if( resultCode == RESULT_OK && requestCode == REQUEST_SIGN_GOOGLE){
-            presenter.handleGoogleSignInResult(GoogleAuthService.getGoogleSignInAccount(data));
+            presenter.handleGoogleSignInResult(GoogleAuthService.getIntentResult(data));
         }
     }
 }

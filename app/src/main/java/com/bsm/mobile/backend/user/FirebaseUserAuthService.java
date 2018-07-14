@@ -12,11 +12,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.iid.FirebaseInstanceId;
 
-import java.io.IOException;
 import java.util.Objects;
 
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 
 import static com.bsm.mobile.Constants.DEFAULT_USER_PHOTO_URL;
@@ -65,33 +64,48 @@ public class FirebaseUserAuthService implements IUserAuthService, Tagable, NullF
     }
 
     @Override
-    public Observable<Boolean> authWithGoogle(GoogleSignInAccount account) {
+    public Maybe<Boolean> authWithGoogle(GoogleSignInAccount account) {
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
 
-        return firebaseAuthWithGoogle(credential).map(this::isNull);
+        return firebaseAuthWithGoogle(credential).map(authResult -> authResult.getUser() != null);
     }
 
-    private Observable<AuthResult> firebaseAuthWithGoogle(AuthCredential credential){
+    private Maybe<AuthResult> firebaseAuthWithGoogle(AuthCredential credential){
+        Log.d(getTag(), "attempt to auth with provider: " + credential.getProvider());
+
+        return Maybe.create(emitter -> {
+            getServiceFirebaseAuth().signInWithCredential(credential)
+                    .addOnSuccessListener(emitter::onSuccess)
+                    .addOnFailureListener(e -> {
+                        if(!emitter.isDisposed()) emitter.onError(e);
+                    })
+                    .addOnCompleteListener(task -> {emitter.onComplete();});
+        });
+
+        /*
         return Observable.create(
                 emitter ->
-                    new Thread(() ->
-                        getServiceFirebaseAuth()
-                        .signInWithCredential(credential)
-                        .addOnCompleteListener(task -> {
-                            try {
-                                FirebaseInstanceId.getInstance().deleteInstanceId();
-                            } catch (IOException e) {
-                                Log.d(getTag(), ".deleteInstanceId() exc: " + e.getMessage());
-                                emitter.onError(e);
-                            }
-                            if(!task.isSuccessful()){
-                                emitter.onError(task.getException());
-                            }else {
-                                emitter.onNext(task.getResult());
-                            }
-                        })
-                    )
+                    getServiceFirebaseAuth()
+                    .signInWithCredential(credential)
+                    .addOnCompleteListener(task -> {
+                        try {
+                            Log.d(getTag(), "sign in with credential ["
+                                    + credential.getProvider() + "] task status : "
+                                    + task.isSuccessful());
+
+                            FirebaseInstanceId.getInstance().deleteInstanceId();
+                        } catch (IOException e) {
+                            Log.d(getTag(), ".deleteInstanceId() exc: " + e.getMessage());
+                            emitter.onError(e);
+                        }
+                        if(!task.isSuccessful()){
+                            emitter.onError(task.getException());
+                        }else {
+                            emitter.onNext(task.getResult());
+                        }
+                    })
         );
+        */
     }
 
     @Override

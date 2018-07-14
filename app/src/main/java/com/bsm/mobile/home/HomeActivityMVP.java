@@ -25,8 +25,6 @@ public interface HomeActivityMVP {
 
         void goLoginActivity();
 
-        void signOutFromGoogle();
-
         void updatePrivileges(List<Privilege> privileges);
 
         void setTeamImagesClickListeners();
@@ -49,6 +47,10 @@ public interface HomeActivityMVP {
 
         void signOut();
 
+        void connectGoogleApi();
+
+        void disconnectGoogleApi();
+
         Observable<Boolean> getSignInStatus();
 
         Observable<User> getUser();
@@ -64,5 +66,7 @@ public interface HomeActivityMVP {
         Single<Long> getJudgePendingReportsNumber();
 
         Single<Long> getProfessorPendingReportsNumber();
+
+        void createGoogleApiClient(View view);
     }
 }

@@ -3,8 +3,8 @@ package com.bsm.mobile.login;
 import com.bsm.mobile.backend.user.IUserAuthService;
 import com.bsm.mobile.login.LoginActivityMVP.*;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.firebase.auth.AuthResult;
 
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import lombok.AllArgsConstructor;
 
@@ -19,7 +19,7 @@ public class LoginModel implements Model {
     }
 
     @Override
-    public Observable<Boolean> authWithGoogle(GoogleSignInAccount account) {
+    public Maybe<Boolean> authWithGoogle(GoogleSignInAccount account) {
         return userAuthService.authWithGoogle(account);
     }
 }

@@ -142,11 +142,6 @@ public class HomeActivity extends AppCompatActivity implements View {
     }
 
     @Override
-    public void signOutFromGoogle() {
-        GoogleAuthService.signOut(this);
-    }
-
-    @Override
     public void updatePrivileges(List<Privilege> privileges) {
         privilegeAdapter.updatePrivileges(privileges);
     }

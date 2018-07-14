@@ -1,5 +1,8 @@
 package com.bsm.mobile.home;
 
+import android.content.Context;
+
+import com.bsm.mobile.backend.google.GoogleAuthService;
 import com.bsm.mobile.backend.notifications.INotificationService;
 import com.bsm.mobile.backend.report.IPendingReportsService;
 import com.bsm.mobile.backend.score.IScoreRepository;
@@ -16,19 +19,25 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
 import static com.bsm.mobile.Constants.*;
 import static com.bsm.mobile.home.HomeActivityMVP.*;
 
+@Data
+@Builder
 @AllArgsConstructor
 public class HomeModel implements Model {
 
-    private final IUserAuthService userAuthService;
-    private final IUserRepository userRepository;
-    private final INotificationService notificationService;
-    private final IUserPrivilegeRepository privilegeRepository;
-    private final IScoreRepository scoreRepository;
-    private final IPendingReportsService pendingReportsService;
+    private IUserAuthService userAuthService;
+    private IUserRepository userRepository;
+    private INotificationService notificationService;
+    private IUserPrivilegeRepository privilegeRepository;
+    private IScoreRepository scoreRepository;
+    private IPendingReportsService pendingReportsService;
+
+    private GoogleAuthService googleAuthService;
 
     @Override
     public Observable<Boolean> getSignInStatus() {
@@ -51,11 +60,6 @@ public class HomeModel implements Model {
     }
 
     @Override
-    public void signOut() {
-        userAuthService.signOut();
-    }
-
-    @Override
     public Observable<List<Privilege>> getUserPrivileges(User user) {
         return privilegeRepository.getUserPrivileges(user);
     }
@@ -74,4 +78,26 @@ public class HomeModel implements Model {
     public Single<Long> getProfessorPendingReportsNumber() {
         return pendingReportsService.getProfessorPendingReportsNumber();
     }
+
+    @Override
+    public void createGoogleApiClient(View view) {
+        googleAuthService = new GoogleAuthService((Context) view);
+    }
+
+    @Override
+    public void connectGoogleApi() {
+        googleAuthService.connect();
+    }
+
+    @Override
+    public void disconnectGoogleApi() {
+        googleAuthService.disconnect();
+    }
+
+    @Override
+    public void signOut() {
+        userAuthService.signOut();
+        googleAuthService.signOut();
+    }
+
 }

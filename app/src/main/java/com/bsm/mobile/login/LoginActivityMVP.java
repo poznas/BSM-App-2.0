@@ -4,8 +4,9 @@ import com.bsm.mobile.core.MultiSubscriber;
 import com.bsm.mobile.core.SnackMessage;
 import com.bsm.mobile.core.Tagable;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 
 public interface LoginActivityMVP {
@@ -29,13 +30,13 @@ public interface LoginActivityMVP {
 
         void unsubscribe();
         
-        void handleGoogleSignInResult(Task<GoogleSignInAccount> googleSignInTask);
+        void handleGoogleSignInResult(GoogleSignInResult result);
     }
 
     interface Model{
 
         Observable<Boolean> getSignInStatus();
 
-        Observable<Boolean> authWithGoogle(GoogleSignInAccount account);
+        Maybe<Boolean> authWithGoogle(GoogleSignInAccount account);
     }
 }

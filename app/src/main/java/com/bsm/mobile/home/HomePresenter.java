@@ -33,11 +33,13 @@ public class HomePresenter implements Presenter {
         this.view = view;
         subscriptions = new LinkedList<>();
         privileges = new LinkedList<>();
+        model.createGoogleApiClient(view);
     }
 
     @Override
     public void unsubscribe() {
         clearSubscriptions(subscriptions);
+        model.disconnectGoogleApi();
     }
 
     @Override
@@ -45,6 +47,7 @@ public class HomePresenter implements Presenter {
         subscribeForAuth();
         subscribeForUserData();
         subscribeForScores();
+        model.connectGoogleApi();
     }
 
     private void subscribeForAuth() {
@@ -156,7 +159,6 @@ public class HomePresenter implements Presenter {
     @Override
     public boolean signOut() {
         model.signOut();
-        view.signOutFromGoogle();
         view.goLoginActivity();
         return true;
     }

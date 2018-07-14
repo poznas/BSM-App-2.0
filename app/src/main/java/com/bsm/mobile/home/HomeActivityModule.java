@@ -28,7 +28,13 @@ public class HomeActivityModule {
                                   IScoreRepository scoreRepository,
                                   IPendingReportsService pendingReportsService){
 
-        return new HomeModel(authService, repository,
-                notificationService, privilegeRepository, scoreRepository, pendingReportsService);
+        return HomeModel.builder()
+                .userAuthService(authService)
+                .userRepository(repository)
+                .notificationService(notificationService)
+                .privilegeRepository(privilegeRepository)
+                .scoreRepository(scoreRepository)
+                .pendingReportsService(pendingReportsService).build();
+
     }
 }

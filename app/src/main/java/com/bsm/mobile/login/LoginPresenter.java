@@ -4,8 +4,8 @@ package com.bsm.mobile.login;
 import android.util.Log;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
 
 import java.util.LinkedList;
 
@@ -61,32 +61,48 @@ public class LoginPresenter implements Presenter {
     }
 
     @Override
-    public void handleGoogleSignInResult(Task<GoogleSignInAccount> googleSignInTask) {
+    public void handleGoogleSignInResult(GoogleSignInResult result) {
         view.hideProgress();
-
-        try {
-            GoogleSignInAccount account = googleSignInTask.getResult(ApiException.class);
+        if(result.isSuccess()){
             // Google sign in was successful, now auth with firebase
             view.showProgress();
+            GoogleSignInAccount account = result.getSignInAccount();
 
             subscriptions.add(
-                    model.authWithGoogle(account)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .doOnTerminate(view::hideProgress)
-                            .subscribe(
-                                    signInSuccess -> {
-                                        if (signInSuccess){
-                                            subscribeForAuth();
-                                        }else {
-                                            view.showMessage(SIGN_IN_WITH_FAILURE);
-                                        }
-                                    },
-                                    error -> view.showMessage(error.getLocalizedMessage())
-                            )
+              model.authWithGoogle(account)
+                      .subscribeOn(Schedulers.io())
+                      .observeOn(AndroidSchedulers.mainThread())
+                      .doAfterTerminate(view::hideProgress)
+                      .subscribe(
+                              signInSuccess -> {
+                                  if (signInSuccess){
+                                      subscribeForAuth();
+                                  }else {
+                                      view.showMessage(SIGN_IN_WITH_FAILURE);
+                                  }
+                              },
+                              error -> view.showMessage(error.getMessage())
+                      )
             );
-        } catch (ApiException e) {
-            view.showMessage("sign in failed due to: " + e.getMessage());
+            /*
+            Disposable subscription = model.authWithGoogle(account)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnTerminate(view::hideProgress)
+                    .subscribe(
+                            signInSuccess -> {
+                                if (signInSuccess){
+                                    subscribeForAuth();
+                                }else {
+                                    view.showMessage(SIGN_IN_WITH_FAILURE);
+                                }
+                            },
+                            error -> view.showMessage(error.getMessage())
+                    );
+            subscriptions.add(subscription);
+            */
+        }else {
+            view.showMessage(result.getStatus().getStatusMessage());
         }
     }
 }

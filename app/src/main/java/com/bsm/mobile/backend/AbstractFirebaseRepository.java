@@ -1,7 +1,9 @@
 package com.bsm.mobile.backend;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.bsm.mobile.core.Tagable;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -9,7 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import io.reactivex.ObservableEmitter;
 
-public abstract class AbstractFirebaseRepository {
+public abstract class AbstractFirebaseRepository implements Tagable{
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference root;
@@ -45,7 +47,10 @@ public abstract class AbstractFirebaseRepository {
 
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
-            if( !emitter.isDisposed() ) emitter.onError(databaseError.toException());
+            if( !emitter.isDisposed() ) {
+                Log.w(getTag(), " on Cancelled : " + databaseError.getMessage());
+            }
+            //if( !emitter.isDisposed() ) emitter.onError(databaseError.toException());
         }
     }
 }
