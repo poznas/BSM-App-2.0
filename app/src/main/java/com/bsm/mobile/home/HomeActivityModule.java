@@ -1,6 +1,7 @@
 package com.bsm.mobile.home;
 
 import com.bsm.mobile.backend.notifications.INotificationService;
+import com.bsm.mobile.backend.report.IPendingReportsService;
 import com.bsm.mobile.backend.score.IScoreRepository;
 import com.bsm.mobile.backend.user.IUserAuthService;
 import com.bsm.mobile.backend.user.IUserPrivilegeRepository;
@@ -24,9 +25,10 @@ public class HomeActivityModule {
                                   IUserRepository repository,
                                   INotificationService notificationService,
                                   IUserPrivilegeRepository privilegeRepository,
-                                  IScoreRepository scoreRepository){
+                                  IScoreRepository scoreRepository,
+                                  IPendingReportsService pendingReportsService){
 
         return new HomeModel(authService, repository,
-                notificationService, privilegeRepository, scoreRepository);
+                notificationService, privilegeRepository, scoreRepository, pendingReportsService);
     }
 }

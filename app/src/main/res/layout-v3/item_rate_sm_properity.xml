@@ -34,6 +34,7 @@
         android:layout_marginRight="16dp"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:inputType="numberDecimal"
         android:digits="0123456789.,"
         android:id="@+id/item_properity_edit_text"
         android:visibility="gone"/>
