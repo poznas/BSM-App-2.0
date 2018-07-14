@@ -21,6 +21,7 @@ import com.bsm.mobile.login.LoginActivity;
 import com.bsm.mobile.model.Privilege;
 import com.bsm.mobile.root.App;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -81,7 +82,7 @@ public class HomeActivity extends AppCompatActivity implements View {
 
     private void initializePrivilegesRecycler() {
 
-        privilegeAdapter = new PrivilegeAdapter(Collections.emptyList(), this);
+        privilegeAdapter = new PrivilegeAdapter(new ArrayList<>(), this);
         privilegeRecyclerView.setAdapter(privilegeAdapter);
         privilegeRecyclerView.setItemAnimator(new DefaultItemAnimator());
         privilegeRecyclerView.setLayoutManager(new LinearLayoutManager(this));

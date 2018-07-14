@@ -3,7 +3,6 @@ package com.bsm.mobile.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -21,7 +20,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static android.support.design.widget.BaseTransientBottomBar.LENGTH_SHORT;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
@@ -88,7 +86,7 @@ public class LoginActivity extends AppCompatActivity implements View{
 
     private void displayLoadingState() {
         progressBar.setVisibility(isLoading ? VISIBLE : GONE);
-        googleSignInButton.setVisibility(isLoading ? VISIBLE : GONE);
+        googleSignInButton.setVisibility(isLoading ? GONE : VISIBLE);
     }
 
     @OnClick(R.id.activity_login_google_button)
@@ -102,7 +100,7 @@ public class LoginActivity extends AppCompatActivity implements View{
         super.onActivityResult(requestCode, resultCode, data);
 
         if( resultCode == RESULT_OK && requestCode == REQUEST_SIGN_GOOGLE){
-            presenter.handleGoogleSignInResult(GoogleAuthService.getIntentResult(data));
+            presenter.handleGoogleSignInResult(GoogleAuthService.getGoogleSignInAccount(data));
         }
     }
 }

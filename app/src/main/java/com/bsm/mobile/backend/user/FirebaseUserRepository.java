@@ -3,6 +3,7 @@ package com.bsm.mobile.backend.user;
 import android.support.annotation.NonNull;
 
 import com.bsm.mobile.backend.AbstractFirebaseRepository;
+import com.bsm.mobile.core.NonNullObjectMapper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 
@@ -16,7 +17,8 @@ public class FirebaseUserRepository extends AbstractFirebaseRepository implement
 
     @Override
     public void updateUserDetails(String userId, User userDetails) {
-        getRepositoryReference().child(userId).setValue(userDetails);
+        getRepositoryReference().child(userId)
+                .updateChildren(NonNullObjectMapper.map(userDetails));
     }
 
     @Override

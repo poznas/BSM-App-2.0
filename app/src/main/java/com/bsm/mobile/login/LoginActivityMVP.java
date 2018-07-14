@@ -4,8 +4,7 @@ import com.bsm.mobile.core.MultiSubscriber;
 import com.bsm.mobile.core.SnackMessage;
 import com.bsm.mobile.core.Tagable;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.firebase.auth.AuthResult;
+import com.google.android.gms.tasks.Task;
 
 import io.reactivex.Observable;
 
@@ -30,7 +29,7 @@ public interface LoginActivityMVP {
 
         void unsubscribe();
         
-        void handleGoogleSignInResult(GoogleSignInResult result);
+        void handleGoogleSignInResult(Task<GoogleSignInAccount> googleSignInTask);
     }
 
     interface Model{

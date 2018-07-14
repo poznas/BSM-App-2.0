@@ -73,7 +73,9 @@ public class FirebaseUserAuthService implements IUserAuthService, Tagable, NullF
 
     private Observable<AuthResult> firebaseAuthWithGoogle(AuthCredential credential){
         return Observable.create(
-                emitter -> getServiceFirebaseAuth()
+                emitter ->
+                    new Thread(() ->
+                        getServiceFirebaseAuth()
                         .signInWithCredential(credential)
                         .addOnCompleteListener(task -> {
                             try {
@@ -87,7 +89,9 @@ public class FirebaseUserAuthService implements IUserAuthService, Tagable, NullF
                             }else {
                                 emitter.onNext(task.getResult());
                             }
-                        }));
+                        })
+                    )
+        );
     }
 
     @Override
