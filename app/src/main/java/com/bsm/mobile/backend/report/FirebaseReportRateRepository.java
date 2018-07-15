@@ -1,6 +1,7 @@
 package com.bsm.mobile.backend.report;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.bsm.mobile.backend.AbstractFirebaseRepository;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +36,7 @@ public class FirebaseReportRateRepository extends AbstractFirebaseRepository imp
                     for( DataSnapshot judgeRate : dataSnapshot.getChildren()){
                         judgeIds.add(judgeRate.getKey());
                     }
+                    Log.d(getTag(), "retrieved raters ids : " + judgeIds);
                     emitter.onNext(judgeIds);
                 }
             };

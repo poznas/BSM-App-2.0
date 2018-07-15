@@ -112,7 +112,7 @@ public class HomePresenter implements Presenter {
         view.showProgress();
 
         Disposable privilegesSubscription = model.getUserPrivileges(user)
-                .subscribeOn(Schedulers.newThread())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnTerminate(view::hideProgress)
                 .subscribe(privileges -> {

@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.Single;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -70,7 +69,7 @@ public class HomeModel implements Model {
     }
 
     @Override
-    public Single<Long> getJudgePendingReportsNumber() {
+    public Observable<Long> getJudgePendingReportsNumber() {
         return pendingReportsService.getJudgePendingReportsNumber();
     }
 

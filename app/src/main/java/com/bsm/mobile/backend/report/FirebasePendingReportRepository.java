@@ -28,15 +28,18 @@ public class FirebasePendingReportRepository extends AbstractFirebaseRepository 
     }
 
     @Override
-    public Observable<Map<String, PendingReport>> getJudgePendingReports() {
-
-        return getPendingReports(getRepositoryReference());
-    }
-
-    @Override
     public Observable<Map<String, PendingReport>> getProfessorPendingReports() {
 
         return getPendingReports(getRoot().child(BRANCH_REQUIRE_PROFESSOR_RATE_REPORTS));
+    }
+
+    /**
+     * @return all pending reports still requiring more judge's rates
+     */
+    @Override
+    public Observable<Map<String, PendingReport>> getJudgePendingReports() {
+
+        return getPendingReports(getRepositoryReference());
     }
 
     private Observable<Map<String, PendingReport>> getPendingReports(DatabaseReference reference) {
@@ -51,7 +54,7 @@ public class FirebasePendingReportRepository extends AbstractFirebaseRepository 
                     for (DataSnapshot child : dataSnapshot.getChildren()){
                         pendingReports.put(child.getKey(), child.getValue(PendingReport.class));
                     }
-                    Log.d(getTag(), "get pending reports : " + pendingReports);
+                    Log.d(getTag(), "GET pending reports : " + pendingReports);
                     emitter.onNext(pendingReports);
                 }
             };
