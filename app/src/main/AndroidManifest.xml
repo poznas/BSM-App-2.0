@@ -32,5 +32,6 @@
         <activity android:name=".legacy.module.sminfo.SideMissionsInfoActivity" />
         <activity android:name=".legacy.module.calendar.CalendarTimesActivity" />
         <activity android:name=".legacy.module.calendar.CalendarDaysActivity" />
+        <activity android:name=".legacy.module.mcinfo.MainCompetitionInfoActivity" />
     </application>
 </manifest>

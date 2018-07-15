@@ -27,7 +27,7 @@ public class SideMissionsInfoActivity extends AppCompatActivity {
     @BindView(R.id.simple_recycler)
     RecyclerView sideMissionsInfoRecycler;
 
-    private static DatabaseReference mRootRef;
+    protected DatabaseReference mRootRef;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,11 +37,16 @@ public class SideMissionsInfoActivity extends AppCompatActivity {
 
         mRootRef = FirebaseDatabase.getInstance().getReference();
 
-        initializeSMInfoRecycler();
+        initializeInfoRecycler();
     }
 
-    private void initializeSMInfoRecycler() {
+
+    protected void initializeInfoRecycler() {
         Query query = mRootRef.child("SideMissionsDocs").orderByChild("name");
+        proceedInitializingInfoRecycler(query);
+    }
+
+    protected final void proceedInitializingInfoRecycler(Query query) {
         FirebaseRecyclerOptions<SideMissionInfo> options =
                 new FirebaseRecyclerOptions.Builder<SideMissionInfo>()
                         .setQuery(query, SideMissionInfo.class)
