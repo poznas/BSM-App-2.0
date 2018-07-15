@@ -29,5 +29,6 @@
         <activity android:name=".legacy.module.zongler.ZonglerActivity" />
         <activity android:name=".legacy.module.PhotoVideoFullscreenDisplay" />
         <activity android:name=".legacy.module.wizards.WizardsActivity" />
+        <activity android:name=".legacy.module.sminfo.SideMissionsInfoActivity" />
     </application>
 </manifest>
