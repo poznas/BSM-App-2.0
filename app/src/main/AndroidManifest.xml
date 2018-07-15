@@ -28,5 +28,6 @@
         <activity android:name=".home.HomeActivity" android:launchMode="singleTop"/>
         <activity android:name=".legacy.module.zongler.ZonglerActivity" />
         <activity android:name=".legacy.module.PhotoVideoFullscreenDisplay" />
+        <activity android:name=".legacy.module.wizards.WizardsActivity" />
     </application>
 </manifest>

@@ -3,6 +3,7 @@ package com.bsm.mobile.home;
 import android.content.Context;
 import android.content.Intent;
 
+import com.bsm.mobile.legacy.module.wizards.WizardsActivity;
 import com.bsm.mobile.legacy.module.zongler.ZonglerActivity;
 import com.bsm.mobile.login.LoginActivity;
 
@@ -14,7 +15,7 @@ public class HomeIntentFactory {
 
     public static HashMap<String, Intent> getPrivilegeIntentMap(Context context){
         return new HashMap<String, Intent>(){{
-            put(BRAND_WIZARDS, new Intent(context, LoginActivity.class));
+            put(BRAND_WIZARDS, new Intent(context, WizardsActivity.class));
             put(BRAND_SM_INFO, new Intent(context, LoginActivity.class));
             put(BRAND_MC_INFO, new Intent(context, LoginActivity.class));
             put(BRAND_CALENDAR, new Intent(context, LoginActivity.class));
