@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.bsm.mobile.R;
 import com.bsm.mobile.backend.google.GoogleAuthService;
 import com.bsm.mobile.login.LoginActivity;
-import com.bsm.mobile.model.Privilege;
+import com.bsm.mobile.legacy.model.Privilege;
 import com.bsm.mobile.root.App;
 
 import java.util.ArrayList;

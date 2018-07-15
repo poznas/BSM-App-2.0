@@ -3,8 +3,8 @@ package com.bsm.mobile.home;
 
 import android.util.Log;
 
-import com.bsm.mobile.model.Privilege;
-import com.bsm.mobile.model.User;
+import com.bsm.mobile.legacy.model.Privilege;
+import com.bsm.mobile.legacy.model.User;
 
 import java.util.LinkedList;
 

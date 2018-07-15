@@ -1,6 +1,6 @@
 package com.bsm.mobile.backend.report;
 
-import com.bsm.mobile.model.PendingReport;
+import com.bsm.mobile.legacy.model.PendingReport;
 
 import java.util.HashMap;
 import java.util.List;

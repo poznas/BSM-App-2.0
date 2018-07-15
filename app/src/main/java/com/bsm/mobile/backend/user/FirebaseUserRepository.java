@@ -8,7 +8,7 @@ import com.bsm.mobile.common.NonNullObjectMapper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 
-import com.bsm.mobile.model.User;
+import com.bsm.mobile.legacy.model.User;
 
 import io.reactivex.Observable;
 

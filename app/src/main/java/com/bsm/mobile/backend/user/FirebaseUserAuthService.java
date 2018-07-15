@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.bsm.mobile.common.NullFighter;
 import com.bsm.mobile.common.Tagable;
-import com.bsm.mobile.model.User;
+import com.bsm.mobile.legacy.model.User;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;

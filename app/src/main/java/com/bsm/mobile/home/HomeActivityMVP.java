@@ -3,8 +3,8 @@ package com.bsm.mobile.home;
 import com.bsm.mobile.common.MultiSubscriber;
 import com.bsm.mobile.common.SnackMessage;
 import com.bsm.mobile.common.Tagable;
-import com.bsm.mobile.model.Privilege;
-import com.bsm.mobile.model.User;
+import com.bsm.mobile.legacy.model.Privilege;
+import com.bsm.mobile.legacy.model.User;
 
 import java.util.HashMap;
 import java.util.List;

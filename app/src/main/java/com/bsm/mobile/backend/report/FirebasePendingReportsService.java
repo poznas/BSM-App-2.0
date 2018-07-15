@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.bsm.mobile.backend.user.IUserAuthService;
 import com.bsm.mobile.common.Tagable;
-import com.bsm.mobile.model.PendingReport;
+import com.bsm.mobile.legacy.model.PendingReport;
 
 import java.util.LinkedList;
 import java.util.List;

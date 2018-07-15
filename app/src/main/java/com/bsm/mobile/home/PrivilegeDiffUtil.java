@@ -2,7 +2,7 @@ package com.bsm.mobile.home;
 
 import android.support.v7.util.DiffUtil;
 
-import com.bsm.mobile.model.Privilege;
+import com.bsm.mobile.legacy.model.Privilege;
 
 import java.util.List;
 

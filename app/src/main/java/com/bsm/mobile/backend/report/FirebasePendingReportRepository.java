@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.bsm.mobile.Constants;
 import com.bsm.mobile.backend.AbstractFirebaseRepository;
-import com.bsm.mobile.model.PendingReport;
+import com.bsm.mobile.legacy.model.PendingReport;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 

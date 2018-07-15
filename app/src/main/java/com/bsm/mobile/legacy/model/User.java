@@ -1,4 +1,4 @@
-package com.bsm.mobile.model;
+package com.bsm.mobile.legacy.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

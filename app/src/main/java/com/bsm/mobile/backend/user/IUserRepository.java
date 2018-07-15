@@ -1,6 +1,6 @@
 package com.bsm.mobile.backend.user;
 
-import com.bsm.mobile.model.User;
+import com.bsm.mobile.legacy.model.User;
 
 import io.reactivex.Observable;
 

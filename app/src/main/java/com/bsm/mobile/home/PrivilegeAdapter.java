@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.bsm.mobile.R;
 import com.bsm.mobile.common.Tagable;
-import com.bsm.mobile.model.Privilege;
+import com.bsm.mobile.legacy.model.Privilege;
 
 import java.util.HashMap;
 import java.util.List;

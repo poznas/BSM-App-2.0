@@ -9,8 +9,8 @@ import com.bsm.mobile.backend.score.IScoreRepository;
 import com.bsm.mobile.backend.user.IUserAuthService;
 import com.bsm.mobile.backend.user.IUserPrivilegeRepository;
 import com.bsm.mobile.backend.user.IUserRepository;
-import com.bsm.mobile.model.Privilege;
-import com.bsm.mobile.model.User;
+import com.bsm.mobile.legacy.model.Privilege;
+import com.bsm.mobile.legacy.model.User;
 
 
 import java.util.HashMap;
