@@ -45,13 +45,13 @@ public class LoginActivity extends AppCompatActivity implements View{
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         ((App) getApplication()).getComponent().inject(this);
+        presenter.attachView(this);
         displayLoadingState();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.attachView(this);
         presenter.subscribeForAuth();
     }
 

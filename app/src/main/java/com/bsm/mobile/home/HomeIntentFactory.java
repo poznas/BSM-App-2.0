@@ -3,6 +3,7 @@ package com.bsm.mobile.home;
 import android.content.Context;
 import android.content.Intent;
 
+import com.bsm.mobile.judge.list.JudgeSMListActivity;
 import com.bsm.mobile.legacy.module.calendar.CalendarDaysActivity;
 import com.bsm.mobile.legacy.module.mcinfo.MainCompetitionInfoActivity;
 import com.bsm.mobile.legacy.module.sminfo.SideMissionsInfoActivity;
@@ -27,7 +28,7 @@ public class HomeIntentFactory {
             put(BRAND_MEDAL, new Intent(context, LoginActivity.class));
             put(BRAND_ZONGLER, new Intent(context, ZonglerActivity.class));
             put(BRAND_REPORT, new Intent(context, LoginActivity.class));
-            put(BRAND_JUDGE, new Intent(context, LoginActivity.class));
+            put(BRAND_JUDGE, new Intent(context, JudgeSMListActivity.class));
             put(BRAND_PROF_RATE, new Intent(context, LoginActivity.class));
         }};
     }

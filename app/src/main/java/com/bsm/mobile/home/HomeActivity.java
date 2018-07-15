@@ -75,14 +75,17 @@ public class HomeActivity extends AppCompatActivity implements View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         ((App) getApplication()).getComponent().inject(this);
-        initializePrivilegesRecycler();
+        presenter.attachView(this);
+
         teamIntentMap = HomeIntentFactory.getTeamIntentMap(this);
+        initializePrivilegesRecycler();
     }
 
     private void initializePrivilegesRecycler() {
 
-        privilegeAdapter = new PrivilegeAdapter(new ArrayList<>(), this);
+        privilegeAdapter = new PrivilegeAdapter(this);
         privilegeRecyclerView.setAdapter(privilegeAdapter);
         privilegeRecyclerView.setItemAnimator(new DefaultItemAnimator());
         privilegeRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -91,7 +94,6 @@ public class HomeActivity extends AppCompatActivity implements View {
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.attachView(this);
         presenter.subscribeForData();
     }
 

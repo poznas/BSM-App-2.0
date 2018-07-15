@@ -18,6 +18,7 @@ import com.bsm.mobile.R;
 import com.bsm.mobile.common.Tagable;
 import com.bsm.mobile.legacy.model.Privilege;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,8 +37,8 @@ public class PrivilegeAdapter extends RecyclerView.Adapter<PrivilegeAdapter.Priv
     private List<Privilege> privileges;
     private HashMap<String, Intent> privilegeIntentMap;
 
-    public PrivilegeAdapter(List<Privilege> privileges, Context context) {
-        this.privileges = privileges;
+    public PrivilegeAdapter(Context context) {
+        this.privileges = new ArrayList<>();
         privilegeIntentMap = HomeIntentFactory.getPrivilegeIntentMap(context);
     }
 

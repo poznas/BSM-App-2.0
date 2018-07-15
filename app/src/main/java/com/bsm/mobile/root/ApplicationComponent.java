@@ -5,6 +5,8 @@ import com.bsm.mobile.backend.report.ReportBackendModule;
 import com.bsm.mobile.backend.user.UserBackendModule;
 import com.bsm.mobile.home.HomeActivity;
 import com.bsm.mobile.home.HomeActivityModule;
+import com.bsm.mobile.judge.list.JudgeSMListActivity;
+import com.bsm.mobile.judge.list.JudgeSMListActivityModule;
 import com.bsm.mobile.login.LoginActivity;
 import com.bsm.mobile.login.LoginActivityModule;
 
@@ -19,11 +21,12 @@ import dagger.Component;
         UserBackendModule.class,
         ReportBackendModule.class,
         LoginActivityModule.class,
-        HomeActivityModule.class
+        HomeActivityModule.class,
+        JudgeSMListActivityModule.class
 })
 public interface ApplicationComponent {
 
-
     void inject(LoginActivity loginActivity);
     void inject(HomeActivity homeActivity);
+    void inject(JudgeSMListActivity activity);
 }

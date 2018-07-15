@@ -7,6 +7,7 @@ import com.bsm.mobile.legacy.model.Privilege;
 import com.bsm.mobile.legacy.model.User;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -22,7 +23,7 @@ public class HomePresenter implements Presenter {
     private Model model;
 
     private LinkedList<Disposable> subscriptions;
-    private LinkedList<Privilege> privileges;
+    private List<Privilege> privileges;
 
     public HomePresenter(Model model) {
         this.model = model;
@@ -115,6 +116,7 @@ public class HomePresenter implements Presenter {
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnTerminate(view::hideProgress)
                     .subscribe(privileges -> {
+                        this.privileges.clear();
                         this.privileges.addAll(privileges);
                         view.updatePrivileges(privileges);
                     })

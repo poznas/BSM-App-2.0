@@ -33,5 +33,6 @@
         <activity android:name=".legacy.module.calendar.CalendarTimesActivity" />
         <activity android:name=".legacy.module.calendar.CalendarDaysActivity" />
         <activity android:name=".legacy.module.mcinfo.MainCompetitionInfoActivity" />
+        <activity android:name=".judge.list.JudgeSMListActivity" />
     </application>
 </manifest>

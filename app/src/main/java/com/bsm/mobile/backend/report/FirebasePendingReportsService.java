@@ -80,11 +80,7 @@ public class FirebasePendingReportsService implements IPendingReportsService, Ta
     private List<PendingReport> convertPendingReportsMapToList(Map<String, PendingReport> map) {
         List<PendingReport> list = new LinkedList<>();
         for( String reportId : map.keySet() ){
-
-            PendingReport pendingReport = map.get(reportId);
-            pendingReport.setRpid(reportId);
-
-            list.add(pendingReport);
+            list.add(map.get(reportId));
         }
         return list;
     }

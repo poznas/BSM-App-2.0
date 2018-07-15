@@ -52,7 +52,10 @@ public class FirebasePendingReportRepository extends AbstractFirebaseRepository 
                     Map<String, PendingReport> pendingReports = new HashMap<>();
 
                     for (DataSnapshot child : dataSnapshot.getChildren()){
-                        pendingReports.put(child.getKey(), child.getValue(PendingReport.class));
+                        PendingReport pendingReport = child.getValue(PendingReport.class);
+                        pendingReport.setRpid(child.getKey());
+
+                        pendingReports.put(child.getKey(), pendingReport);
                     }
                     Log.d(getTag(), "GET pending reports : " + pendingReports);
                     emitter.onNext(pendingReports);
