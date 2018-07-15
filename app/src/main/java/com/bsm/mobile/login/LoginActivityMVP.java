@@ -1,8 +1,8 @@
 package com.bsm.mobile.login;
 
-import com.bsm.mobile.core.MultiSubscriber;
-import com.bsm.mobile.core.SnackMessage;
-import com.bsm.mobile.core.Tagable;
+import com.bsm.mobile.common.MultiSubscriber;
+import com.bsm.mobile.common.SnackMessage;
+import com.bsm.mobile.common.Tagable;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 

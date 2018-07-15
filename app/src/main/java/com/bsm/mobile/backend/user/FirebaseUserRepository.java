@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.bsm.mobile.backend.AbstractFirebaseRepository;
-import com.bsm.mobile.core.NonNullObjectMapper;
+import com.bsm.mobile.common.NonNullObjectMapper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 

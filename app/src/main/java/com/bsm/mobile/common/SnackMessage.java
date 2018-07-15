@@ -1,4 +1,4 @@
-package com.bsm.mobile.core;
+package com.bsm.mobile.common;
 
 
 import android.support.design.widget.Snackbar;

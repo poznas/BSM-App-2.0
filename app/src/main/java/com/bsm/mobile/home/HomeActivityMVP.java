@@ -1,8 +1,8 @@
 package com.bsm.mobile.home;
 
-import com.bsm.mobile.core.MultiSubscriber;
-import com.bsm.mobile.core.SnackMessage;
-import com.bsm.mobile.core.Tagable;
+import com.bsm.mobile.common.MultiSubscriber;
+import com.bsm.mobile.common.SnackMessage;
+import com.bsm.mobile.common.Tagable;
 import com.bsm.mobile.model.Privilege;
 import com.bsm.mobile.model.User;
 

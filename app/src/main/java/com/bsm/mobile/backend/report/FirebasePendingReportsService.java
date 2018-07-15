@@ -1,10 +1,9 @@
 package com.bsm.mobile.backend.report;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.bsm.mobile.backend.user.IUserAuthService;
-import com.bsm.mobile.core.Tagable;
+import com.bsm.mobile.common.Tagable;
 import com.bsm.mobile.model.PendingReport;
 
 import java.util.LinkedList;
@@ -14,8 +13,6 @@ import java.util.Map;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 import lombok.AllArgsConstructor;
-
-import static java.lang.Thread.currentThread;
 
 @AllArgsConstructor
 public class FirebasePendingReportsService implements IPendingReportsService, Tagable {

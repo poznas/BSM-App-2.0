@@ -2,8 +2,8 @@ package com.bsm.mobile.backend.user;
 
 import android.util.Log;
 
-import com.bsm.mobile.core.NullFighter;
-import com.bsm.mobile.core.Tagable;
+import com.bsm.mobile.common.NullFighter;
+import com.bsm.mobile.common.Tagable;
 import com.bsm.mobile.model.User;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.AuthCredential;
