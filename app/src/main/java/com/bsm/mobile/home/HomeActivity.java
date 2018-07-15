@@ -52,8 +52,6 @@ public class HomeActivity extends AppCompatActivity implements View {
     @BindView(R.id.privileges_progress_bar)
     ProgressBar privilegesProgressBar;
 
-    private boolean isLoading;
-
     @BindView(R.id.cormeum_points)
     TextView cormeumPointsTextView;
     @BindView(R.id.sensum_points)
@@ -122,14 +120,12 @@ public class HomeActivity extends AppCompatActivity implements View {
 
     @Override
     public void showProgress() {
-        isLoading = true;
-        displayLoadingState();
+        displayLoadingState(true);
     }
 
     @Override
     public void hideProgress() {
-        isLoading = false;
-        displayLoadingState();
+        displayLoadingState(false);
     }
 
     @Override
@@ -162,7 +158,7 @@ public class HomeActivity extends AppCompatActivity implements View {
         mutiniumPointsTextView.setText(String.valueOf(scores.get(TEAM_MUTINIUM)));
     }
 
-    private void displayLoadingState() {
+    private void displayLoadingState(boolean isLoading) {
         privilegesProgressBar.setVisibility(isLoading ? VISIBLE : GONE);
     }
 }

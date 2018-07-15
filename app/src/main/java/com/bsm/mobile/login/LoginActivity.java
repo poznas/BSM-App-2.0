@@ -37,8 +37,6 @@ public class LoginActivity extends AppCompatActivity implements View{
     @BindView(R.id.activity_login_progress)
     ProgressBar progressBar;
 
-    private boolean isLoading;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +44,6 @@ public class LoginActivity extends AppCompatActivity implements View{
         ButterKnife.bind(this);
         ((App) getApplication()).getComponent().inject(this);
         presenter.attachView(this);
-        displayLoadingState();
     }
 
     @Override
@@ -74,17 +71,15 @@ public class LoginActivity extends AppCompatActivity implements View{
 
     @Override
     public void showProgress() {
-        isLoading = true;
-        displayLoadingState();
+        displayLoadingState(true);
     }
 
     @Override
     public void hideProgress() {
-        isLoading = false;
-        displayLoadingState();
+        displayLoadingState(false);
     }
 
-    private void displayLoadingState() {
+    private void displayLoadingState(boolean isLoading) {
         progressBar.setVisibility(isLoading ? VISIBLE : GONE);
         googleSignInButton.setVisibility(isLoading ? GONE : VISIBLE);
     }

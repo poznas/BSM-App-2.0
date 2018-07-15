@@ -27,7 +27,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.bsm.mobile.judge.list.JudgeSMListActivityMVP.*;
 
-public class JudgeSMListActivity extends AppCompatActivity implements View, Tagable {
+public class JudgeSMListActivity extends AppCompatActivity implements View {
 
     @Inject
     Presenter presenter;
@@ -38,7 +38,6 @@ public class JudgeSMListActivity extends AppCompatActivity implements View, Taga
     RecyclerView pendingReportsRecycler;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
-    private boolean isLoading;
 
     PendingReportAdapter pendingReportAdapter;
 
@@ -78,17 +77,15 @@ public class JudgeSMListActivity extends AppCompatActivity implements View, Taga
 
     @Override
     public void showProgress() {
-        isLoading = true;
-        displayLoadingState();
+        displayLoadingState(true);
     }
 
     @Override
     public void hideProgress() {
-        isLoading = false;
-        displayLoadingState();
+        displayLoadingState(false);
     }
 
-    private void displayLoadingState() {
+    private void displayLoadingState(boolean isLoading) {
         progressBar.setVisibility(isLoading ? VISIBLE : GONE);
     }
 }
