@@ -3,6 +3,7 @@ package com.bsm.mobile.home;
 import android.content.Context;
 import android.content.Intent;
 
+import com.bsm.mobile.legacy.module.calendar.CalendarDaysActivity;
 import com.bsm.mobile.legacy.module.sminfo.SideMissionsInfoActivity;
 import com.bsm.mobile.legacy.module.wizards.WizardsActivity;
 import com.bsm.mobile.legacy.module.zongler.ZonglerActivity;
@@ -19,7 +20,7 @@ public class HomeIntentFactory {
             put(BRAND_WIZARDS, new Intent(context, WizardsActivity.class));
             put(BRAND_SM_INFO, new Intent(context, SideMissionsInfoActivity.class));
             put(BRAND_MC_INFO, new Intent(context, LoginActivity.class));
-            put(BRAND_CALENDAR, new Intent(context, LoginActivity.class));
+            put(BRAND_CALENDAR, new Intent(context, CalendarDaysActivity.class));
             put(BRAND_MAIN_COMPETITION, new Intent(context, LoginActivity.class));
             put(BRAND_BET, new Intent(context, LoginActivity.class));
             put(BRAND_MEDAL, new Intent(context, LoginActivity.class));

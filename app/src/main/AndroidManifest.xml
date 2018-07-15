@@ -30,5 +30,7 @@
         <activity android:name=".legacy.module.PhotoVideoFullscreenDisplay" />
         <activity android:name=".legacy.module.wizards.WizardsActivity" />
         <activity android:name=".legacy.module.sminfo.SideMissionsInfoActivity" />
+        <activity android:name=".legacy.module.calendar.CalendarTimesActivity" />
+        <activity android:name=".legacy.module.calendar.CalendarDaysActivity" />
     </application>
 </manifest>
