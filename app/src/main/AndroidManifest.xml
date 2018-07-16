@@ -34,5 +34,7 @@
         <activity android:name=".legacy.module.calendar.CalendarDaysActivity" />
         <activity android:name=".legacy.module.mcinfo.MainCompetitionInfoActivity" />
         <activity android:name=".judge.list.JudgeSMListActivity" />
+        <activity android:name=".legacy.module.judge.rate.JudgeRateSMActivity" />
+        <activity android:name=".legacy.module.judge.rate.JudgeRateSMPostActivity" />
     </application>
 </manifest>

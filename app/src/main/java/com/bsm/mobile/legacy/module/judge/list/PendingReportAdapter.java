@@ -15,7 +15,8 @@ import android.widget.TextView;
 import com.bsm.mobile.R;
 import com.bsm.mobile.common.Tagable;
 import com.bsm.mobile.legacy.model.PendingReport;
-import com.bsm.mobile.legacy.module.calendar.CalendarDaysActivity;
+import com.bsm.mobile.legacy.module.judge.rate.JudgeRateSMPostActivity;
+import com.bsm.mobile.legacy.module.judge.rate.JudgeRateSMActivity;
 import com.bumptech.glide.Glide;
 
 import java.text.SimpleDateFormat;
@@ -118,10 +119,10 @@ public class PendingReportAdapter extends RecyclerView.Adapter<PendingReportAdap
             JudgeBundle.putString("date",date);
             JudgeBundle.putString("rpid",report.getRpid());
             if(!report.isPost()){
-                JudgeIntent = new Intent(context, CalendarDaysActivity.class); //TODO:
+                JudgeIntent = new Intent(context, JudgeRateSMActivity.class);
                 JudgeIntent.putExtras(JudgeBundle);
             }else{
-                JudgeIntent = new Intent(context, CalendarDaysActivity.class);
+                JudgeIntent = new Intent(context, JudgeRateSMPostActivity.class);
                 JudgeIntent.putExtras(JudgeBundle);
             }
 
