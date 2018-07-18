@@ -1,4 +1,4 @@
-package com.bsm.mobile.legacy.module.sminfo;
+package com.bsm.mobile.legacy.module.info.sm;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

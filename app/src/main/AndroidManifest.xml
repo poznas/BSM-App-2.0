@@ -29,13 +29,16 @@
         <activity android:name=".legacy.module.zongler.ZonglerActivity" />
         <activity android:name=".legacy.module.PhotoVideoFullscreenDisplay" />
         <activity android:name=".legacy.module.wizard.list.WizardsActivity" />
-        <activity android:name=".legacy.module.sminfo.SideMissionsInfoActivity" />
+        <activity android:name=".legacy.module.info.sm.SideMissionsInfoActivity" />
         <activity android:name=".legacy.module.calendar.CalendarTimesActivity" />
         <activity android:name=".legacy.module.calendar.CalendarDaysActivity" />
-        <activity android:name=".legacy.module.mcinfo.MainCompetitionInfoActivity" />
+        <activity android:name=".legacy.module.info.mc.MainCompetitionInfoActivity" />
         <activity android:name=".judge.list.JudgeSMListActivity" />
         <activity android:name=".legacy.module.judge.rate.JudgeRateSMActivity" />
         <activity android:name=".legacy.module.judge.rate.JudgeRateSMPostActivity" />
-        <activity android:name=".legacy.module.wizard.sm.AddSMListActivity" />
+        <activity android:name=".legacy.module.wizard.sm.list.AddSMListActivity" />
+        <activity android:name=".legacy.module.wizard.sm.AddSMActivity" />
+
+        <service android:name=".legacy.module.wizard.sm.ReportUploader" />
     </application>
 </manifest>

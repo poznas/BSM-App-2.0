@@ -5,10 +5,10 @@ import android.content.Intent;
 
 import com.bsm.mobile.judge.list.JudgeSMListActivity;
 import com.bsm.mobile.legacy.module.calendar.CalendarDaysActivity;
-import com.bsm.mobile.legacy.module.mcinfo.MainCompetitionInfoActivity;
-import com.bsm.mobile.legacy.module.sminfo.SideMissionsInfoActivity;
+import com.bsm.mobile.legacy.module.info.mc.MainCompetitionInfoActivity;
+import com.bsm.mobile.legacy.module.info.sm.SideMissionsInfoActivity;
 import com.bsm.mobile.legacy.module.wizard.list.WizardsActivity;
-import com.bsm.mobile.legacy.module.wizard.sm.AddSMListActivity;
+import com.bsm.mobile.legacy.module.wizard.sm.list.AddSMListActivity;
 import com.bsm.mobile.legacy.module.zongler.ZonglerActivity;
 import com.bsm.mobile.login.LoginActivity;
 

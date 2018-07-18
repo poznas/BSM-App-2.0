@@ -70,6 +70,11 @@ public class FirebaseUserAuthService implements IUserAuthService, Tagable, NullF
         return firebaseAuthWithGoogle(credential).map(authResult -> authResult.getUser() != null);
     }
 
+    @Override
+    public Observable<User> getCurrentUser() {
+        return userRepository.getUser(getCurrentUserId());
+    }
+
     private Maybe<AuthResult> firebaseAuthWithGoogle(AuthCredential credential){
         Log.d(getTag(), "attempt to auth with provider: " + credential.getProvider());
 
@@ -81,31 +86,6 @@ public class FirebaseUserAuthService implements IUserAuthService, Tagable, NullF
                     })
                     .addOnCompleteListener(task -> {emitter.onComplete();});
         });
-
-        /*
-        return Observable.create(
-                emitter ->
-                    getServiceFirebaseAuth()
-                    .signInWithCredential(credential)
-                    .addOnCompleteListener(task -> {
-                        try {
-                            Log.d(getTag(), "sign in with credential ["
-                                    + credential.getProvider() + "] task status : "
-                                    + task.isSuccessful());
-
-                            FirebaseInstanceId.getInstance().deleteInstanceId();
-                        } catch (IOException e) {
-                            Log.d(getTag(), ".deleteInstanceId() exc: " + e.getMessage());
-                            emitter.onError(e);
-                        }
-                        if(!task.isSuccessful()){
-                            emitter.onError(task.getException());
-                        }else {
-                            emitter.onNext(task.getResult());
-                        }
-                    })
-        );
-        */
     }
 
     @Override

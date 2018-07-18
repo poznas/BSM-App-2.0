@@ -1,7 +1,7 @@
-package com.bsm.mobile.legacy.module.mcinfo;
+package com.bsm.mobile.legacy.module.info.mc;
 
 
-import com.bsm.mobile.legacy.module.sminfo.SideMissionsInfoActivity;
+import com.bsm.mobile.legacy.module.info.sm.SideMissionsInfoActivity;
 import com.google.firebase.database.Query;
 
 /**

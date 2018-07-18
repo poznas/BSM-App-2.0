@@ -1,4 +1,4 @@
-package com.bsm.mobile.legacy.module.sminfo;
+package com.bsm.mobile.legacy.module.info.sm;
 
 import android.content.Context;
 import android.content.Intent;
