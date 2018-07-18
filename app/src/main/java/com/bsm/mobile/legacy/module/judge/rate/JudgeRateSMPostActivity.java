@@ -24,7 +24,7 @@ import com.bsm.mobile.legacy.model.ZonglerPost;
 import com.bsm.mobile.legacy.model.sidemission.PropertyDetails;
 import com.bsm.mobile.legacy.model.sidemission.ReportBasicFirebase;
 import com.bsm.mobile.legacy.module.PhotoVideoFullscreenDisplay;
-import com.bsm.mobile.legacy.module.wizards.WizardsActivity;
+import com.bsm.mobile.legacy.module.wizard.list.WizardsActivity;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

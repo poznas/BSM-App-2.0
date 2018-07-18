@@ -28,7 +28,7 @@
         <activity android:name=".home.HomeActivity" android:launchMode="singleTop"/>
         <activity android:name=".legacy.module.zongler.ZonglerActivity" />
         <activity android:name=".legacy.module.PhotoVideoFullscreenDisplay" />
-        <activity android:name=".legacy.module.wizards.WizardsActivity" />
+        <activity android:name=".legacy.module.wizard.list.WizardsActivity" />
         <activity android:name=".legacy.module.sminfo.SideMissionsInfoActivity" />
         <activity android:name=".legacy.module.calendar.CalendarTimesActivity" />
         <activity android:name=".legacy.module.calendar.CalendarDaysActivity" />
@@ -36,5 +36,6 @@
         <activity android:name=".judge.list.JudgeSMListActivity" />
         <activity android:name=".legacy.module.judge.rate.JudgeRateSMActivity" />
         <activity android:name=".legacy.module.judge.rate.JudgeRateSMPostActivity" />
+        <activity android:name=".legacy.module.wizard.sm.AddSMListActivity" />
     </application>
 </manifest>

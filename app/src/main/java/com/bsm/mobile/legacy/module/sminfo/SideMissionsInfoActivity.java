@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.bsm.mobile.R;
 import com.bsm.mobile.legacy.model.SideMissionInfo;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -22,10 +23,10 @@ import butterknife.ButterKnife;
 
 public class SideMissionsInfoActivity extends AppCompatActivity {
 
-    private GoogleDriveLinkAdapter adapter;
+    protected FirebaseRecyclerAdapter adapter;
 
     @BindView(R.id.simple_recycler)
-    RecyclerView sideMissionsInfoRecycler;
+    protected RecyclerView recyclerView;
 
     protected DatabaseReference mRootRef;
 
@@ -43,18 +44,18 @@ public class SideMissionsInfoActivity extends AppCompatActivity {
 
     protected void initializeInfoRecycler() {
         Query query = mRootRef.child("SideMissionsDocs").orderByChild("name");
-        proceedInitializingInfoRecycler(query);
+        proceedInitializingRecycler(query);
     }
 
-    protected final void proceedInitializingInfoRecycler(Query query) {
+    protected void proceedInitializingRecycler(Query query) {
         FirebaseRecyclerOptions<SideMissionInfo> options =
                 new FirebaseRecyclerOptions.Builder<SideMissionInfo>()
                         .setQuery(query, SideMissionInfo.class)
                         .build();
 
         adapter = new GoogleDriveLinkAdapter(options);
-        sideMissionsInfoRecycler.setAdapter(adapter);
-        sideMissionsInfoRecycler.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override

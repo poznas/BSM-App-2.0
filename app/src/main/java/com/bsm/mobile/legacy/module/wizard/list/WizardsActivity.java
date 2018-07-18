@@ -1,4 +1,4 @@
-package com.bsm.mobile.legacy.module.wizards;
+package com.bsm.mobile.legacy.module.wizard.list;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

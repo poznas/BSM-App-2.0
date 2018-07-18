@@ -19,6 +19,6 @@ public class MainCompetitionInfoActivity extends SideMissionsInfoActivity {
     @Override
     protected void initializeInfoRecycler() {
         Query query = mRootRef.child("MainCompetitionsDocs").orderByChild("name");
-        proceedInitializingInfoRecycler(query);
+        proceedInitializingRecycler(query);
     }
 }
