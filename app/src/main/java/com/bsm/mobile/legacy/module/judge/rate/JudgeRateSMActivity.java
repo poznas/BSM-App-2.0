@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bsm.mobile.R;
+import com.bsm.mobile.common.Tagable;
 import com.bsm.mobile.home.HomeActivity;
 import com.bsm.mobile.legacy.model.SideMissionInfo;
 import com.bsm.mobile.legacy.model.User;
@@ -46,7 +48,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class JudgeRateSMActivity extends AppCompatActivity {
+public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
 
 
     @BindView(R.id.media_recycler)
@@ -112,9 +114,6 @@ public class JudgeRateSMActivity extends AppCompatActivity {
     private List<ValueEventListener> typeListeners;
     private List<DatabaseReference> typeReferences;
     private boolean[] propertiesReady;
-
-    private Map<String, Long> ReportRate;
-
 
 
     @Override
@@ -259,6 +258,7 @@ public class JudgeRateSMActivity extends AppCompatActivity {
     }
 
     private void InitializePropertiesListView() {
+        Log.d(getTag(), "initialize properties list view : " + propertiesDetails);
         RatePropertiesAdapter adapter = new RatePropertiesAdapter(this, propertiesDetails);
         propertiesListView.setAdapter(adapter);
         InitializeSendButton();
@@ -273,7 +273,7 @@ public class JudgeRateSMActivity extends AppCompatActivity {
     }
 
     private void sendReportRate() {
-        ReportRate = new HashMap<>();
+        Map<String, Long> reportRate = new HashMap<>();
         for(int i = 0; i< propertiesListView.getChildCount(); i++ ){
 
             PropertyDetails current = (PropertyDetails) propertiesListView.getAdapter().getItem(i);
@@ -286,13 +286,13 @@ public class JudgeRateSMActivity extends AppCompatActivity {
                 case "normal_value":
                     editText = propertiesListView
                             .getChildAt(i).findViewById(R.id.item_properity_edit_text);
-                    ReportRate.put(current.getSymbol(),
+                    reportRate.put(current.getSymbol(),
                             Long.valueOf(editText.getText().toString()));
                     break;
                 case "limited_value":
                     spinner = propertiesListView
                             .getChildAt(i).findViewById(R.id.item_properity_spinner);
-                    ReportRate.put(current.getSymbol(),
+                    reportRate.put(current.getSymbol(),
                             Long.valueOf(spinner.getSelectedItem().toString()));
                     break;
                 case "spinner":
@@ -301,7 +301,7 @@ public class JudgeRateSMActivity extends AppCompatActivity {
                     selectedKey = spinner.getSelectedItem().toString();
                     for( int j=0; j<current.getSpinnerKeys().size(); j++ ){
                         if( selectedKey.equals(current.getSpinnerKeys().get(j))){
-                            ReportRate.put(current.getSymbol(),
+                            reportRate.put(current.getSymbol(),
                                     current.getSpinnerValues().get(j));
                         }
                     }
@@ -311,16 +311,16 @@ public class JudgeRateSMActivity extends AppCompatActivity {
                             .getChildAt(i).findViewById(R.id.item_properity_spinner);
                     selectedKey = spinner.getSelectedItem().toString();
                     if( selectedKey.equals("TAK") ){
-                        ReportRate.put(current.getSymbol(), (long) 1);
+                        reportRate.put(current.getSymbol(), (long) 1);
                     }else {
-                        ReportRate.put(current.getSymbol(), (long) 0);
+                        reportRate.put(current.getSymbol(), (long) 0);
                     }
                     break;
                 default:
                     break;
             }
 
-            mRootRef.child("ReportRates").child(bRpid).child(mFirebaseUser.getUid()).setValue(ReportRate);
+            mRootRef.child("ReportRates").child(bRpid).child(mFirebaseUser.getUid()).setValue(reportRate);
 
             exitJudgeActivity();
         }
@@ -486,7 +486,7 @@ public class JudgeRateSMActivity extends AppCompatActivity {
         mDatabaseInReportsMediaRef = mDatabaseInReportsRef.child("mediaUrls");
         mDatabaseSMDocsRef = mRootRef.child("SideMissionsDocs").child(bSMName);
         mDatabaseSMPProperitiesRef = mRootRef.child("SideMissionsProperities").child(bSMName).child("properities");
-        mDatabaseSMPProperitiesHintsRef = mRootRef.child("SideMissionsProperities").child(bSMName).child("propertiesHints");
+        mDatabaseSMPProperitiesHintsRef = mRootRef.child("SideMissionsProperities").child(bSMName).child("properitiesHints");
     }
 
     private void InitializeInReportMediaListener(){

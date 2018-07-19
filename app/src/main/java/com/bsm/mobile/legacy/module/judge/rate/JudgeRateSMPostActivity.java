@@ -557,7 +557,7 @@ public class JudgeRateSMPostActivity extends AppCompatActivity {
         mDatabaseInReportsRef = mRootRef.child("Reports").child(bRpid);
         mDatabaseSMDocsRef = mRootRef.child("SideMissionsDocs").child(bSMName);
         mDatabaseSMPPropertiesRef = mRootRef.child("SideMissionsProperities").child(bSMName).child("properities");
-        mDatabaseSMPPropertiesHintsRef = mRootRef.child("SideMissionsProperities").child(bSMName).child("propertiesHints");
+        mDatabaseSMPPropertiesHintsRef = mRootRef.child("SideMissionsProperities").child(bSMName).child("properitiesHints");
     }
 
     private void detachFirebaseListeners() {

@@ -49,7 +49,6 @@ public class FirebaseUserAuthService implements IUserAuthService, Tagable, NullF
         userRepository.updateUserDetails(
                 firebaseUser.getUid(),
                 User.builder()
-                    .displayName(firebaseUser.getDisplayName())
                     .email(firebaseUser.getEmail())
                     .photoUrl( firebaseUser.getPhotoUrl() != null
                             ? firebaseUser.getPhotoUrl().toString()
