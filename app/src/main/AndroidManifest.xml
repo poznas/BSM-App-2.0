@@ -38,6 +38,7 @@
         <activity android:name=".legacy.module.judge.rate.JudgeRateSMPostActivity" />
         <activity android:name=".legacy.module.wizard.sm.list.AddSMListActivity" />
         <activity android:name=".legacy.module.wizard.sm.AddSMActivity" />
+        <activity android:name=".legacy.module.wizard.sm.post.AddSMPostActivity" />
 
         <service android:name=".legacy.module.wizard.sm.ReportUploader" />
     </application>

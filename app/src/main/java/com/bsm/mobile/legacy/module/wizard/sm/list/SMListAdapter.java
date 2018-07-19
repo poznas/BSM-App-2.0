@@ -15,6 +15,7 @@ import com.bsm.mobile.R;
 import com.bsm.mobile.legacy.model.SideMissionInfo;
 import com.bsm.mobile.legacy.module.calendar.CalendarDaysActivity;
 import com.bsm.mobile.legacy.module.wizard.sm.AddSMActivity;
+import com.bsm.mobile.legacy.module.wizard.sm.post.AddSMPostActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
@@ -93,9 +94,9 @@ public class SMListAdapter extends FirebaseRecyclerAdapter<SideMissionInfo, SMLi
             addSMDetailsBundle = new Bundle();
             addSMDetailsBundle.putString("sm_name",info.getName());
             if( info.isPost() ){
-                addSMDetailsIntent = new Intent(context,CalendarDaysActivity.class); //TODO:
+                addSMDetailsIntent = new Intent(context,AddSMPostActivity.class);
             }else{
-                addSMDetailsIntent = new Intent(context,AddSMActivity.class); //TODO:
+                addSMDetailsIntent = new Intent(context,AddSMActivity.class);
             }
             addSMDetailsIntent.putExtras(addSMDetailsBundle);
         }
