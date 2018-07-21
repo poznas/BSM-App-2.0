@@ -40,6 +40,7 @@
         <activity android:name=".legacy.module.wizard.sm.AddSMActivity" />
         <activity android:name=".legacy.module.wizard.sm.post.AddSMPostActivity" />
         <activity android:name=".legacy.module.professor.mc.AddMCActivity" />
+        <activity android:name=".legacy.module.professor.bet.AddBetActivity" />
 
         <service android:name=".legacy.module.wizard.sm.ReportUploader" />
     </application>

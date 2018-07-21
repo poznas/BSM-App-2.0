@@ -35,6 +35,8 @@ public class ZonglerActivity extends AppCompatActivity {
         mRootRef = FirebaseDatabase.getInstance().getReference();
 
         initializePostRecycler();
+
+        adapter.startListening();
     }
 
     private void initializePostRecycler() {
@@ -53,15 +55,10 @@ public class ZonglerActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         adapter.stopListening();
     }
+    
 }
 
