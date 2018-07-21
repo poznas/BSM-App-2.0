@@ -21,11 +21,11 @@ public class LocalUserPrivilegeRepository implements IUserPrivilegeRepository {
 
         if( userLabel.equals(LABEL_PROFESSOR)){
             privileges.add(Privilege.builder()
+                    .iconId(R.mipmap.icon_small_prof).brand(BRAND_PROF_RATE).checkIfContain(true).pendingReports(REPORTS_LOADING).build());
+            privileges.add(Privilege.builder()
                     .iconId(R.mipmap.icon_small_mc).brand(BRAND_MAIN_COMPETITION).build());
             privileges.add(Privilege.builder()
                     .iconId(R.mipmap.icon_small_medal).brand(BRAND_MEDAL).build());
-            privileges.add(Privilege.builder()
-                    .iconId(R.mipmap.icon_small_prof).brand(BRAND_PROF_RATE).checkIfContain(true).pendingReports(REPORTS_LOADING).build());
             privileges.add(Privilege.builder()
                     .iconId(R.mipmap.icon_small_bet).brand(BRAND_BET).build());
         }

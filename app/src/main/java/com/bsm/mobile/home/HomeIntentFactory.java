@@ -9,6 +9,7 @@ import com.bsm.mobile.legacy.module.info.mc.MainCompetitionInfoActivity;
 import com.bsm.mobile.legacy.module.info.sm.SideMissionsInfoActivity;
 import com.bsm.mobile.legacy.module.professor.bet.AddBetActivity;
 import com.bsm.mobile.legacy.module.professor.mc.AddMCActivity;
+import com.bsm.mobile.legacy.module.professor.medal.AddMedalActivity;
 import com.bsm.mobile.legacy.module.wizard.list.WizardsActivity;
 import com.bsm.mobile.legacy.module.wizard.sm.list.AddSMListActivity;
 import com.bsm.mobile.legacy.module.zongler.ZonglerActivity;
@@ -28,7 +29,7 @@ public class HomeIntentFactory {
             put(BRAND_CALENDAR, new Intent(context, CalendarDaysActivity.class));
             put(BRAND_MAIN_COMPETITION, new Intent(context, AddMCActivity.class));
             put(BRAND_BET, new Intent(context, AddBetActivity.class));
-            put(BRAND_MEDAL, new Intent(context, LoginActivity.class));
+            put(BRAND_MEDAL, new Intent(context, AddMedalActivity.class));
             put(BRAND_ZONGLER, new Intent(context, ZonglerActivity.class));
             put(BRAND_REPORT, new Intent(context, AddSMListActivity.class));
             put(BRAND_JUDGE, new Intent(context, JudgeSMListActivity.class));
