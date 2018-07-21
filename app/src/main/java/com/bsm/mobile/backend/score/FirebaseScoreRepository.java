@@ -3,6 +3,7 @@ package com.bsm.mobile.backend.score;
 import android.support.annotation.NonNull;
 
 import com.bsm.mobile.Constants;
+import com.bsm.mobile.TeamResources;
 import com.bsm.mobile.backend.AbstractFirebaseRepository;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,7 +22,7 @@ import static com.bsm.mobile.Constants.TEAM_SENSUM;
 public class FirebaseScoreRepository extends AbstractFirebaseRepository implements IScoreRepository {
 
     @Override
-    public Observable<HashMap<String, Long>> getScoresStream() {
+    public Observable<HashMap<String, Long>> getScores() {
 
         return Observable.create(emitter -> {
 
@@ -37,6 +38,15 @@ public class FirebaseScoreRepository extends AbstractFirebaseRepository implemen
                }
            };
         });
+    }
+
+    @Override
+    public Observable<Long> getScore(String teamId) {
+
+        if(!TeamResources.IDENTIFIERS.contains(teamId))
+            return Observable.empty();
+
+        return getScores().map(scores -> scores.get(teamId));
     }
 
     @Override

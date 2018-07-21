@@ -9,6 +9,8 @@ import com.bsm.mobile.judge.list.JudgeSMListActivity;
 import com.bsm.mobile.judge.list.JudgeSMListActivityModule;
 import com.bsm.mobile.login.LoginActivity;
 import com.bsm.mobile.login.LoginActivityModule;
+import com.bsm.mobile.points.list.PointsListActivity;
+import com.bsm.mobile.points.list.PointsListActivityModule;
 
 import javax.inject.Singleton;
 
@@ -22,11 +24,13 @@ import dagger.Component;
         ReportBackendModule.class,
         LoginActivityModule.class,
         HomeActivityModule.class,
-        JudgeSMListActivityModule.class
+        JudgeSMListActivityModule.class,
+        PointsListActivityModule.class
 })
 public interface ApplicationComponent {
 
     void inject(LoginActivity loginActivity);
     void inject(HomeActivity homeActivity);
     void inject(JudgeSMListActivity activity);
+    void inject(PointsListActivity activity);
 }

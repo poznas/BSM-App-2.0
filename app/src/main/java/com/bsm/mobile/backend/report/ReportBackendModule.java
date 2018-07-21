@@ -35,7 +35,7 @@ public class ReportBackendModule {
             IReportRateRepository reportRateRepository,
             IPendingReportRepository pendingReportRepository){
 
-        return new FirebasePendingReportsService(
+        return new PendingReportsService(
                 authService,
                 pendingReportRepository,
                 reportRateRepository

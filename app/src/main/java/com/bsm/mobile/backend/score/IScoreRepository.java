@@ -6,6 +6,8 @@ import io.reactivex.Observable;
 
 public interface IScoreRepository {
 
-    Observable<HashMap<String,Long>> getScoresStream();
+    Observable<HashMap<String,Long>> getScores();
+
+    Observable<Long> getScore(String teamId);
 
 }

@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class FirebasePendingReportsService implements IPendingReportsService, Tagable {
+public class PendingReportsService implements IPendingReportsService, Tagable {
 
     private final IUserAuthService userAuthService;
     private final IPendingReportRepository pendingReportRepository;

@@ -15,6 +15,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PointsInfo {
 
+    private String id;
+
     private Long points;
     private String team;
     private String label;

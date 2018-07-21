@@ -43,6 +43,7 @@
         <activity android:name=".legacy.module.professor.bet.AddBetActivity" />
         <activity android:name=".legacy.module.professor.medal.AddMedalActivity" />
         <activity android:name=".legacy.module.professor.medal.MedalEditDetailsActivity" />
+        <activity android:name=".points.list.PointsListActivity" />
 
         <service android:name=".legacy.module.wizard.sm.ReportUploader" />
     </application>

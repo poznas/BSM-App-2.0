@@ -22,7 +22,6 @@ public class HomeActivityModule {
 
     @Provides
     public Model provideHomeModel(IUserAuthService authService,
-                                  IUserRepository repository,
                                   INotificationService notificationService,
                                   IUserPrivilegeRepository privilegeRepository,
                                   IScoreRepository scoreRepository,
@@ -30,7 +29,6 @@ public class HomeActivityModule {
 
         return HomeModel.builder()
                 .userAuthService(authService)
-                .userRepository(repository)
                 .notificationService(notificationService)
                 .privilegeRepository(privilegeRepository)
                 .scoreRepository(scoreRepository)

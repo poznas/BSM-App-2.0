@@ -16,6 +16,8 @@ import static com.bsm.mobile.Constants.*;
 
 public class FirebaseUserRepository extends AbstractFirebaseRepository implements IUserRepository{
 
+    static final String DEFAULT_USER_PHOTO_URL = "http://i.kafeteria.pl/0991f9c6631ca79a8bb5b5199b2c39df1fc77dc4";
+
     @Override
     public void updateUserDetails(String userId, User userDetails) {
         getRepositoryReference().child(userId)

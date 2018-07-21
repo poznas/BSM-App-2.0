@@ -8,7 +8,6 @@ import com.bsm.mobile.backend.report.IPendingReportsService;
 import com.bsm.mobile.backend.score.IScoreRepository;
 import com.bsm.mobile.backend.user.IUserAuthService;
 import com.bsm.mobile.backend.user.IUserPrivilegeRepository;
-import com.bsm.mobile.backend.user.IUserRepository;
 import com.bsm.mobile.legacy.model.Privilege;
 import com.bsm.mobile.legacy.model.User;
 
@@ -30,7 +29,6 @@ import static com.bsm.mobile.home.HomeActivityMVP.*;
 public class HomeModel implements Model {
 
     private IUserAuthService userAuthService;
-    private IUserRepository userRepository;
     private INotificationService notificationService;
     private IUserPrivilegeRepository privilegeRepository;
     private IScoreRepository scoreRepository;
@@ -45,7 +43,7 @@ public class HomeModel implements Model {
 
     @Override
     public Observable<User> getUser() {
-        return userRepository.getUser(userAuthService.getCurrentUserId());
+        return userAuthService.getCurrentUser();
     }
 
     @Override
@@ -65,7 +63,7 @@ public class HomeModel implements Model {
 
     @Override
     public Observable<HashMap<String, Long>> getScores() {
-        return scoreRepository.getScoresStream();
+        return scoreRepository.getScores();
     }
 
     @Override

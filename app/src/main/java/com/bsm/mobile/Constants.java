@@ -13,13 +13,20 @@ public class Constants {
     public static final String BRANCH_REPORT_RATES = "ReportRates";
     public static final String BRANCH_REQUIRE_PROFESSOR_RATE_REPORTS = "requireProfRate";
 
-    public static final String DEFAULT_USER_PHOTO_URL = "http://i.kafeteria.pl/0991f9c6631ca79a8bb5b5199b2c39df1fc77dc4";
+
 
     public static final String LABEL_JUDGE = "judge";
     public static final String LABEL_PROFESSOR = "professor";
     public static final String LABEL_WIZARD = "wizzard";
 
+    public static final String LABEL_POINTS_BET = "B";
+    public static final String LABEL_POINTS_MEDAL = "M";
+    public static final String LABEL_POINTS_SIDE_MISSION = "SM";
+    public static final String LABEL_POINTS_MAIN_COMPETITION = "MC";
+
     public static final String TOPIC_JUDGE = "reportsToJudge";
+
+
 
 
     public static final String BRAND_REPORT = "Melduj";
