@@ -44,6 +44,8 @@
         <activity android:name=".legacy.module.professor.medal.AddMedalActivity" />
         <activity android:name=".legacy.module.professor.medal.MedalEditDetailsActivity" />
         <activity android:name=".points.list.PointsListActivity" />
+        <activity android:name=".legacy.module.points.details.sm.SMResultDisplayActivity" />
+        <activity android:name=".legacy.module.points.details.sm.post.SMPostResultDisplayActivity" />
 
         <service android:name=".legacy.module.wizard.sm.ReportUploader" />
     </application>

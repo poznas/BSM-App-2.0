@@ -3,19 +3,20 @@ package com.bsm.mobile.points.list;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bsm.mobile.Message;
 import com.bsm.mobile.R;
 import com.bsm.mobile.TeamResources;
+import com.bsm.mobile.common.SimpleAlertDialog;
 import com.bsm.mobile.common.SimpleDialogClickListener;
+import com.bsm.mobile.common.Tagable;
 import com.bsm.mobile.legacy.model.PointsInfo;
 import com.bsm.mobile.points.PointsIntentFactory;
 import com.bumptech.glide.Glide;
@@ -24,7 +25,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,7 +39,7 @@ import static com.bsm.mobile.Message.MESSAGE_DIALOG_INVALIDATE;
 import static com.bsm.mobile.points.list.PointsListActivityMVP.*;
 
 @Setter
-public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.PointsViewHolder> {
+public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.PointsViewHolder> implements Tagable{
 
     private List<PointsInfo> pointsRecords;
 
@@ -116,25 +116,19 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.PointsView
             itemParent.setOnClickListener(event -> {
                 Intent intent = PointsIntentFactory.getDisplayDetailsIntent(context, pointsInfo);
                 if(intent != null){
+                    Log.d(getTag(), "on Click : " + pointsInfo);
                     context.startActivity(intent);
                 }
             });
         }
 
         private void setInvalidateClickListener() {
-            SimpleDialogClickListener invalidateDialogListener = new SimpleDialogClickListener() {
-                @Override
-                protected void onPositiveClick() {
-                    presenter.invalidatePoints(pointsInfo);
-                }
-            };
 
             itemParent.setOnLongClickListener(event -> {
                 if(invalidationPermission){
-                    new AlertDialog.Builder(context)
+                    new SimpleAlertDialog(context)
                             .setMessage(MESSAGE_DIALOG_INVALIDATE)
-                            .setPositiveButton(MESSAGE_DIALOG_YES, invalidateDialogListener)
-                            .setNegativeButton(MESSAGE_DIALOG_NO, invalidateDialogListener)
+                            .setOnPositiveClick(() -> presenter.invalidatePoints(pointsInfo))
                             .show();
                     return true;
                 }
@@ -142,7 +136,7 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.PointsView
             });
         }
 
-        public void setPointsInfo(PointsInfo pointsInfo) {
+        void setPointsInfo(PointsInfo pointsInfo) {
             this.pointsInfo = pointsInfo;
 
             itemDate.setText(dateFormat.format(new Date(pointsInfo.getTimestamp())));

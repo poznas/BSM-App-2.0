@@ -4,9 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.bsm.mobile.legacy.model.PointsInfo;
 import com.bsm.mobile.legacy.module.calendar.CalendarDaysActivity;
+import com.bsm.mobile.legacy.module.points.details.sm.SMResultDisplayActivity;
+import com.bsm.mobile.legacy.module.points.details.sm.post.SMPostResultDisplayActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,8 +27,10 @@ public class PointsIntentFactory {
 
     public static Intent getDisplayDetailsIntent(Context context, PointsInfo pointsInfo) {
 
+
+
         Bundle basicExtras = new Bundle();
-        basicExtras.putString(KEY_POINTS, String.valueOf(pointsInfo.getPoints()));
+        basicExtras.putLong(KEY_POINTS, pointsInfo.getPoints());
         basicExtras.putString(KEY_TEAM, pointsInfo.getTeam());
         basicExtras.putString(KEY_TIME, timeFormat.format(new Date(pointsInfo.getTimestamp())));
         basicExtras.putString(KEY_DATE, dateFormat.format(new Date(pointsInfo.getTimestamp())));
@@ -51,9 +56,13 @@ public class PointsIntentFactory {
                         .putExtra(KEY_INFO, pointsInfo.getInfo());
 
             case LABEL_POINTS_SIDE_MISSION:
-                return new Intent(context, CalendarDaysActivity.class)
-                        .putExtras(basicExtras)
-                        .putExtra(KEY_REPORT_ID, pointsInfo.getId());
+                return pointsInfo.getIsPost() ?
+                        new Intent(context, SMPostResultDisplayActivity.class)
+                                .putExtras(basicExtras)
+                                .putExtra(KEY_REPORT_ID, pointsInfo.getId()) :
+                        new Intent(context, SMResultDisplayActivity.class)
+                                .putExtras(basicExtras)
+                                .putExtra(KEY_REPORT_ID, pointsInfo.getId());
 
             default:
                 return null;

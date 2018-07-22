@@ -29,4 +29,12 @@ public class PointsInfo {
     private String losser;
     private String winner;
 
+
+    public boolean getIsPost() {
+        return isPost;
+    }
+
+    public void setIsPost(boolean post) {
+        isPost = post;
+    }
 }
