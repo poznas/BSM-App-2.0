@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.bsm.mobile.legacy.model.PointsInfo;
 import com.bsm.mobile.legacy.module.calendar.CalendarDaysActivity;
+import com.bsm.mobile.legacy.module.points.details.bet.BetResultDisplayActivity;
 import com.bsm.mobile.legacy.module.points.details.sm.SMResultDisplayActivity;
 import com.bsm.mobile.legacy.module.points.details.sm.post.SMPostResultDisplayActivity;
 
@@ -44,7 +45,7 @@ public class PointsIntentFactory {
                         .putExtra(KEY_INFO, pointsInfo.getInfo());
 
             case LABEL_POINTS_BET:
-                return new Intent(context, CalendarDaysActivity.class)
+                return new Intent(context, BetResultDisplayActivity.class)
                         .putExtras(basicExtras)
                         .putExtra(KEY_INFO, pointsInfo.getInfo())
                         .putExtra(KEY_LOSER, pointsInfo.getLosser())

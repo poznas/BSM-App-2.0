@@ -104,7 +104,7 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.PointsView
         private PointsInfo pointsInfo;
 
 
-        public PointsViewHolder(@NonNull View itemView) {
+        PointsViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             context = itemView.getContext();
@@ -123,7 +123,6 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.PointsView
         }
 
         private void setInvalidateClickListener() {
-
             itemParent.setOnLongClickListener(event -> {
                 if(invalidationPermission){
                     new SimpleAlertDialog(context)

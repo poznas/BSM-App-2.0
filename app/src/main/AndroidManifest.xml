@@ -46,6 +46,7 @@
         <activity android:name=".points.list.PointsListActivity" />
         <activity android:name=".legacy.module.points.details.sm.SMResultDisplayActivity" />
         <activity android:name=".legacy.module.points.details.sm.post.SMPostResultDisplayActivity" />
+        <activity android:name=".legacy.module.points.details.bet.BetResultDisplayActivity" />
 
         <service android:name=".legacy.module.wizard.sm.ReportUploader" />
     </application>
