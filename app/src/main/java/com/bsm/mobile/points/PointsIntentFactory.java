@@ -4,11 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.bsm.mobile.legacy.model.PointsInfo;
-import com.bsm.mobile.legacy.module.calendar.CalendarDaysActivity;
 import com.bsm.mobile.legacy.module.points.details.bet.BetResultDisplayActivity;
+import com.bsm.mobile.legacy.module.points.details.mc.MCResultDisplayActivity;
+import com.bsm.mobile.legacy.module.points.details.medal.MedalResultDisplayActivity;
 import com.bsm.mobile.legacy.module.points.details.sm.SMResultDisplayActivity;
 import com.bsm.mobile.legacy.module.points.details.sm.post.SMPostResultDisplayActivity;
 
@@ -39,7 +39,7 @@ public class PointsIntentFactory {
         switch (pointsInfo.getLabel()){
 
             case LABEL_POINTS_MAIN_COMPETITION:
-                return new Intent(context, CalendarDaysActivity.class) //TODO:
+                return new Intent(context, MCResultDisplayActivity.class)
                         .putExtras(basicExtras)
                         .putExtra(KEY_MC_NAME, pointsInfo.getName())
                         .putExtra(KEY_INFO, pointsInfo.getInfo());
@@ -52,7 +52,7 @@ public class PointsIntentFactory {
                         .putExtra(KEY_WINNER, pointsInfo.getWinner());
 
             case LABEL_POINTS_MEDAL:
-                return new Intent(context, CalendarDaysActivity.class)
+                return new Intent(context, MedalResultDisplayActivity.class)
                         .putExtras(basicExtras)
                         .putExtra(KEY_INFO, pointsInfo.getInfo());
 
