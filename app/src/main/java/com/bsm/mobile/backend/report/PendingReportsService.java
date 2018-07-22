@@ -25,7 +25,7 @@ public class PendingReportsService implements IPendingReportsService, Tagable {
     public Observable<Long> getProfessorPendingReportsNumber() {
 
         return pendingReportRepository.getProfessorPendingReports()
-                .map( pendingReports -> (long) pendingReports.size()).take(1);
+                .map( pendingReports -> (long) pendingReports.size());
     }
 
     @Override
@@ -34,7 +34,7 @@ public class PendingReportsService implements IPendingReportsService, Tagable {
         String userId = userAuthService.getCurrentUserId();
 
         return getJudgePendingReports(userId)
-                .map( pendingReports -> (long) pendingReports.size()).take(1);
+                .map( pendingReports -> (long) pendingReports.size());
     }
 
     /**

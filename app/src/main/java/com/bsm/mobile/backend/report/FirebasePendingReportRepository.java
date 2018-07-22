@@ -1,9 +1,7 @@
 package com.bsm.mobile.backend.report;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.bsm.mobile.Constants;
 import com.bsm.mobile.backend.AbstractFirebaseRepository;
 import com.bsm.mobile.legacy.model.PendingReport;
 import com.google.firebase.database.DataSnapshot;
@@ -46,21 +44,20 @@ public class FirebasePendingReportRepository extends AbstractFirebaseRepository 
 
         return Observable.create(emitter -> {
 
-            new AbstractValueEventListener<Map<String, PendingReport>>(emitter, reference){
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Map<String, PendingReport> pendingReports = new HashMap<>();
+            new SimpleValueEventListener(emitter, reference)
+                    .setOnDataChange(dataSnapshot -> {
+                        Map<String, PendingReport> pendingReports = new HashMap<>();
 
-                    for (DataSnapshot child : dataSnapshot.getChildren()){
-                        PendingReport pendingReport = child.getValue(PendingReport.class);
-                        pendingReport.setRpid(child.getKey());
+                        for (DataSnapshot child : dataSnapshot.getChildren()){
+                            PendingReport pendingReport = child.getValue(PendingReport.class);
+                            if (pendingReport == null) continue;
 
-                        pendingReports.put(child.getKey(), pendingReport);
-                    }
-                    Log.d(getTag(), "GET pending reports : " + pendingReports);
-                    emitter.onNext(pendingReports);
-                }
-            };
+                            pendingReport.setRpid(child.getKey());
+                            pendingReports.put(child.getKey(), pendingReport);
+                        }
+                        Log.d(getTag(), "GET pending reports : " + pendingReports);
+                        emitter.onNext(pendingReports);
+                    });
         });
     }
 }

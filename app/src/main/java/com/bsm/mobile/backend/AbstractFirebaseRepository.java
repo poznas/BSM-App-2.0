@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.bsm.mobile.common.Tagable;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -11,6 +12,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import io.reactivex.ObservableEmitter;
+import lombok.Setter;
 
 public abstract class AbstractFirebaseRepository implements Tagable{
 
@@ -35,23 +37,31 @@ public abstract class AbstractFirebaseRepository implements Tagable{
         return root;
     }
 
-    public abstract class AbstractValueEventListener<T> implements ValueEventListener{
+    @Setter
+    public class SimpleValueEventListener implements ValueEventListener{
 
-        private final ObservableEmitter<T> emitter;
+        private DataChangeHandler onDataChange;
 
-        protected AbstractValueEventListener(@NonNull ObservableEmitter<T> emitter,
-                                             @NonNull final Query reference) {
-            this.emitter = emitter;
-            reference.addValueEventListener(this);
-            emitter.setCancellable(() -> reference.removeEventListener(this));
+        public SimpleValueEventListener(@NonNull ObservableEmitter emitter, @NonNull final Query reference) {
             Log.d(getTag(), "accessing firebase reference : " + reference.toString());
+
+            emitter.setCancellable(() -> reference.removeEventListener(this));
+            reference.addValueEventListener(this);
+        }
+
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            onDataChange.handleDataSnapshot(dataSnapshot);
         }
 
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
             Log.w(getTag(), " on Cancelled : " + databaseError.getMessage());
-
-            //if( !emitter.isDisposed() ) emitter.onError(databaseError.toException());
         }
+    }
+
+    public interface DataChangeHandler{
+
+        void handleDataSnapshot(DataSnapshot dataSnapshot);
     }
 }

@@ -1,6 +1,5 @@
 package com.bsm.mobile.backend.report;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.bsm.mobile.backend.AbstractFirebaseRepository;
@@ -29,17 +28,15 @@ public class FirebaseReportRateRepository extends AbstractFirebaseRepository imp
 
         return Observable.create(emitter -> {
 
-            new AbstractValueEventListener<Set<String>>(emitter, getRepositoryReference().child(reportId)){
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Set<String> judgeIds = new HashSet<>();
-                    for( DataSnapshot judgeRate : dataSnapshot.getChildren()){
-                        judgeIds.add(judgeRate.getKey());
-                    }
-                    Log.d(getTag(), "retrieved raters ids : " + judgeIds);
-                    emitter.onNext(judgeIds);
-                }
-            };
+            new SimpleValueEventListener(emitter, getRepositoryReference().child(reportId))
+                    .setOnDataChange(dataSnapshot -> {
+                        Set<String> judgeIds = new HashSet<>();
+                        for( DataSnapshot judgeRate : dataSnapshot.getChildren()){
+                            judgeIds.add(judgeRate.getKey());
+                        }
+                        Log.d(getTag(), "retrieved raters ids : " + judgeIds);
+                        emitter.onNext(judgeIds);
+                    });
         });
     }
 }
