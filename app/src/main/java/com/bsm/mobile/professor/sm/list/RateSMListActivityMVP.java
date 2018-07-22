@@ -1,4 +1,4 @@
-package com.bsm.mobile.judge.list;
+package com.bsm.mobile.professor.sm.list;
 
 import com.bsm.mobile.common.MultiSubscriber;
 import com.bsm.mobile.common.SnackMessage;
@@ -9,13 +9,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-/**
- * SM - Side Mission
- * Activity displays list of recently reported SM's which:
- *  -   still require more rates
- *  -   are not rated by current user (judge)
- */
-public interface JudgeSMListActivityMVP {
+public interface RateSMListActivityMVP {
 
     interface View extends SnackMessage {
 
@@ -23,7 +17,7 @@ public interface JudgeSMListActivityMVP {
 
         void hideProgress();
 
-        void updatePendingReports(List<PendingReport> reports);
+        void updateRequireProfessorRateReports(List<PendingReport> reports);
     }
 
     interface Presenter extends Tagable, MultiSubscriber {
@@ -37,6 +31,6 @@ public interface JudgeSMListActivityMVP {
 
     interface Model{
 
-        Observable<List<PendingReport>> getPendingReports();
+        Observable<List<PendingReport>> getRequireProfessorRateReports();
     }
 }

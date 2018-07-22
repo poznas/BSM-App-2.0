@@ -5,31 +5,32 @@ import android.util.Log;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.api.ApiException;
 
 import java.util.LinkedList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import static com.bsm.mobile.Message.*;
-import static com.bsm.mobile.login.LoginActivityMVP.*;
+import static com.bsm.mobile.Message.AUTH_STATE_SIGNED_IN;
+import static com.bsm.mobile.Message.AUTH_STATE_SIGNED_OUT;
+import static com.bsm.mobile.Message.SIGN_IN_WITH_FAILURE;
+import static com.bsm.mobile.login.LoginActivityMVP.Model;
+import static com.bsm.mobile.login.LoginActivityMVP.Presenter;
+import static com.bsm.mobile.login.LoginActivityMVP.View;
 
 @Slf4j
+@RequiredArgsConstructor
 public class LoginPresenter implements Presenter {
 
 
 
     private View view;
-    private Model model;
+    private final Model model;
 
     private LinkedList<Disposable> subscriptions;
-
-    public LoginPresenter(Model model) {
-        this.model = model;
-    }
 
     @Override
     public void attachView(View view) {

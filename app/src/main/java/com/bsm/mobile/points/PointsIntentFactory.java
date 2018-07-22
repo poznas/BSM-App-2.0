@@ -12,19 +12,26 @@ import com.bsm.mobile.legacy.module.points.details.medal.MedalResultDisplayActiv
 import com.bsm.mobile.legacy.module.points.details.sm.SMResultDisplayActivity;
 import com.bsm.mobile.legacy.module.points.details.sm.post.SMPostResultDisplayActivity;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.bsm.mobile.Constants.*;
+import static com.bsm.mobile.Constants.KEY_DATE;
+import static com.bsm.mobile.Constants.KEY_INFO;
+import static com.bsm.mobile.Constants.KEY_LOSER;
+import static com.bsm.mobile.Constants.KEY_MC_NAME;
+import static com.bsm.mobile.Constants.KEY_POINTS;
+import static com.bsm.mobile.Constants.KEY_REPORT_ID;
+import static com.bsm.mobile.Constants.KEY_TEAM;
+import static com.bsm.mobile.Constants.KEY_TIME;
+import static com.bsm.mobile.Constants.KEY_WINNER;
+import static com.bsm.mobile.Constants.LABEL_POINTS_BET;
+import static com.bsm.mobile.Constants.LABEL_POINTS_MAIN_COMPETITION;
+import static com.bsm.mobile.Constants.LABEL_POINTS_MEDAL;
+import static com.bsm.mobile.Constants.LABEL_POINTS_SIDE_MISSION;
+import static com.bsm.mobile.Constants.dateFormat;
+import static com.bsm.mobile.Constants.timeFormat;
 
 @SuppressLint("SimpleDateFormat")
 public class PointsIntentFactory {
-
-
-    private static final SimpleDateFormat dateFormat =
-            new SimpleDateFormat("dd MMMM");
-    private static final SimpleDateFormat timeFormat =
-            new SimpleDateFormat("HH:mm");
 
     public static Intent getDisplayDetailsIntent(Context context, PointsInfo pointsInfo) {
 

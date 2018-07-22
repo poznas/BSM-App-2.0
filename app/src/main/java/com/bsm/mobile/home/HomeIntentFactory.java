@@ -13,12 +13,26 @@ import com.bsm.mobile.legacy.module.professor.medal.AddMedalActivity;
 import com.bsm.mobile.legacy.module.wizard.list.WizardsActivity;
 import com.bsm.mobile.legacy.module.wizard.sm.list.AddSMListActivity;
 import com.bsm.mobile.legacy.module.zongler.ZonglerActivity;
-import com.bsm.mobile.login.LoginActivity;
 import com.bsm.mobile.points.list.PointsListActivity;
+import com.bsm.mobile.professor.sm.list.RateSMListActivity;
 
 import java.util.HashMap;
 
-import static com.bsm.mobile.Constants.*;
+import static com.bsm.mobile.Constants.BRAND_BET;
+import static com.bsm.mobile.Constants.BRAND_CALENDAR;
+import static com.bsm.mobile.Constants.BRAND_JUDGE;
+import static com.bsm.mobile.Constants.BRAND_MAIN_COMPETITION;
+import static com.bsm.mobile.Constants.BRAND_MC_INFO;
+import static com.bsm.mobile.Constants.BRAND_MEDAL;
+import static com.bsm.mobile.Constants.BRAND_PROF_RATE;
+import static com.bsm.mobile.Constants.BRAND_REPORT;
+import static com.bsm.mobile.Constants.BRAND_SM_INFO;
+import static com.bsm.mobile.Constants.BRAND_WIZARDS;
+import static com.bsm.mobile.Constants.BRAND_ZONGLER;
+import static com.bsm.mobile.Constants.KEY_TEAM;
+import static com.bsm.mobile.Constants.TEAM_CORMEUM;
+import static com.bsm.mobile.Constants.TEAM_MUTINIUM;
+import static com.bsm.mobile.Constants.TEAM_SENSUM;
 
 public class HomeIntentFactory {
 
@@ -34,7 +48,7 @@ public class HomeIntentFactory {
             put(BRAND_ZONGLER, new Intent(context, ZonglerActivity.class));
             put(BRAND_REPORT, new Intent(context, AddSMListActivity.class));
             put(BRAND_JUDGE, new Intent(context, JudgeSMListActivity.class));
-            put(BRAND_PROF_RATE, new Intent(context, LoginActivity.class));
+            put(BRAND_PROF_RATE, new Intent(context, RateSMListActivity.class));
         }};
     }
 

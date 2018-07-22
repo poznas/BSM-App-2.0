@@ -1,4 +1,4 @@
-package com.bsm.mobile.judge.list;
+package com.bsm.mobile.professor.sm.list;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +12,7 @@ import android.widget.ProgressBar;
 import com.bsm.mobile.R;
 import com.bsm.mobile.common.PendingReportAdapter;
 import com.bsm.mobile.legacy.model.PendingReport;
-import com.bsm.mobile.legacy.module.judge.rate.JudgeRateSMActivity;
-import com.bsm.mobile.legacy.module.judge.rate.JudgeRateSMPostActivity;
+import com.bsm.mobile.legacy.module.calendar.CalendarDaysActivity;
 import com.bsm.mobile.root.App;
 
 import java.util.List;
@@ -25,10 +24,10 @@ import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static com.bsm.mobile.judge.list.JudgeSMListActivityMVP.Presenter;
-import static com.bsm.mobile.judge.list.JudgeSMListActivityMVP.View;
+import static com.bsm.mobile.professor.sm.list.RateSMListActivityMVP.Presenter;
+import static com.bsm.mobile.professor.sm.list.RateSMListActivityMVP.View;
 
-public class JudgeSMListActivity extends AppCompatActivity implements View {
+public class RateSMListActivity extends AppCompatActivity implements View {
 
     @Inject
     Presenter presenter;
@@ -52,8 +51,8 @@ public class JudgeSMListActivity extends AppCompatActivity implements View {
     private void initializePendingReportsRecycler() {
         pendingReportAdapter = new PendingReportAdapter(
                 report -> report.isPost() ?
-                        new Intent(this, JudgeRateSMPostActivity.class) :
-                        new Intent(this, JudgeRateSMActivity.class)
+                        new Intent(this, CalendarDaysActivity.class) :
+                        new Intent(this, CalendarDaysActivity.class)
         );
         pendingReportsRecycler.setAdapter(pendingReportAdapter);
         pendingReportsRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -74,11 +73,6 @@ public class JudgeSMListActivity extends AppCompatActivity implements View {
     }
 
     @Override
-    public void updatePendingReports(List<PendingReport> reports) {
-        pendingReportAdapter.updatePendingReports(reports);
-    }
-
-    @Override
     public void showProgress() {
         displayLoadingState(true);
     }
@@ -90,5 +84,10 @@ public class JudgeSMListActivity extends AppCompatActivity implements View {
 
     private void displayLoadingState(boolean isLoading) {
         progressBar.setVisibility(isLoading ? VISIBLE : GONE);
+    }
+
+    @Override
+    public void updateRequireProfessorRateReports(List<PendingReport> reports) {
+        pendingReportAdapter.updatePendingReports(reports);
     }
 }

@@ -12,22 +12,20 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import lombok.RequiredArgsConstructor;
 
 import static com.bsm.mobile.Constants.*;
 import static com.bsm.mobile.Message.*;
 import static com.bsm.mobile.home.HomeActivityMVP.*;
 
+@RequiredArgsConstructor
 public class HomePresenter implements Presenter {
 
     private View view;
-    private Model model;
+    private final Model model;
 
     private LinkedList<Disposable> subscriptions;
     private List<Privilege> privileges;
-
-    public HomePresenter(Model model) {
-        this.model = model;
-    }
 
     @Override
     public void attachView(View view) {

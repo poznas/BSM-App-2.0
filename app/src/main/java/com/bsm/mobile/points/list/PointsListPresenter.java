@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import static com.bsm.mobile.Constants.KEY_TEAM;
@@ -16,18 +17,16 @@ import static com.bsm.mobile.Constants.LABEL_PROFESSOR;
 import static com.bsm.mobile.points.list.PointsListActivityMVP.*;
 
 @Setter
+@RequiredArgsConstructor
 public class PointsListPresenter implements Presenter {
 
     private View view;
-    private Model model;
+    private final Model model;
 
     private String teamId;
 
     private LinkedList<Disposable> subscriptions;
 
-    public PointsListPresenter(Model model) {
-        this.model = model;
-    }
 
     @Override
     public void attachView(View view) {

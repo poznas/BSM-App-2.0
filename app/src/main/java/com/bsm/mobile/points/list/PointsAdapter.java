@@ -1,6 +1,5 @@
 package com.bsm.mobile.points.list;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -19,7 +18,6 @@ import com.bsm.mobile.legacy.model.PointsInfo;
 import com.bsm.mobile.points.PointsIntentFactory;
 import com.bumptech.glide.Glide;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,11 +27,16 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import lombok.Setter;
 
-import static android.graphics.Typeface.*;
+import static android.graphics.Typeface.BOLD;
+import static android.graphics.Typeface.NORMAL;
 import static android.view.View.GONE;
-import static com.bsm.mobile.Constants.*;
+import static com.bsm.mobile.Constants.LABEL_POINTS_BET;
+import static com.bsm.mobile.Constants.LABEL_POINTS_MAIN_COMPETITION;
+import static com.bsm.mobile.Constants.LABEL_POINTS_MEDAL;
+import static com.bsm.mobile.Constants.dateFormat;
+import static com.bsm.mobile.Constants.timeFormat;
 import static com.bsm.mobile.Message.MESSAGE_DIALOG_INVALIDATE;
-import static com.bsm.mobile.points.list.PointsListActivityMVP.*;
+import static com.bsm.mobile.points.list.PointsListActivityMVP.Presenter;
 
 @Setter
 public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.PointsViewHolder> implements Tagable{
@@ -73,7 +76,6 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.PointsView
         notifyDataSetChanged();
     }
 
-    @SuppressLint("SimpleDateFormat")
     class PointsViewHolder extends RecyclerView.ViewHolder{
 
         @BindView(R.id.item_parent)
@@ -91,10 +93,7 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.PointsView
         @BindView(R.id.item_points_text_view)
         TextView itemPoints;
 
-        private final SimpleDateFormat dateFormat =
-                new SimpleDateFormat("dd MMMM");
-        private final SimpleDateFormat timeFormat =
-                new SimpleDateFormat("HH:mm");
+
 
         Context context;
 

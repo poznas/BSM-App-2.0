@@ -12,6 +12,8 @@ import com.bsm.mobile.login.LoginActivity;
 import com.bsm.mobile.login.LoginActivityModule;
 import com.bsm.mobile.points.list.PointsListActivity;
 import com.bsm.mobile.points.list.PointsListActivityModule;
+import com.bsm.mobile.professor.sm.list.RateSMListActivity;
+import com.bsm.mobile.professor.sm.list.RateSMListActivityModule;
 
 import javax.inject.Singleton;
 
@@ -27,7 +29,8 @@ import dagger.Component;
         LoginActivityModule.class,
         HomeActivityModule.class,
         JudgeSMListActivityModule.class,
-        PointsListActivityModule.class
+        PointsListActivityModule.class,
+        RateSMListActivityModule.class
 })
 public interface ApplicationComponent {
 
@@ -35,4 +38,5 @@ public interface ApplicationComponent {
     void inject(HomeActivity homeActivity);
     void inject(JudgeSMListActivity activity);
     void inject(PointsListActivity activity);
+    void inject(RateSMListActivity rateSMListActivity);
 }

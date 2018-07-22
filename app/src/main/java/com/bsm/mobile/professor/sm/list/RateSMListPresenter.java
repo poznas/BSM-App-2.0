@@ -1,4 +1,4 @@
-package com.bsm.mobile.judge.list;
+package com.bsm.mobile.professor.sm.list;
 
 import java.util.LinkedList;
 
@@ -7,15 +7,16 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import lombok.RequiredArgsConstructor;
 
-import static com.bsm.mobile.judge.list.JudgeSMListActivityMVP.*;
+import static com.bsm.mobile.professor.sm.list.RateSMListActivityMVP.*;
 
 @RequiredArgsConstructor
-public class JudgeSMListPresenter implements Presenter {
+public class RateSMListPresenter implements Presenter {
 
     private View view;
     private final Model model;
 
     private LinkedList<Disposable> subscriptions;
+
 
     @Override
     public void attachView(View view) {
@@ -32,14 +33,11 @@ public class JudgeSMListPresenter implements Presenter {
     @Override
     public void subscribeForData() {
         subscriptions.add(
-                model.getPendingReports()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(pendingReports -> {
-                                view.updatePendingReports(pendingReports);
-                                view.hideProgress();
-                            }
-                    )
+                model.getRequireProfessorRateReports()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnEach(reports -> view.hideProgress())
+                        .subscribe(view::updateRequireProfessorRateReports)
         );
     }
 }
