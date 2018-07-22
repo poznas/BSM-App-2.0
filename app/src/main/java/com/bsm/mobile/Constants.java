@@ -2,17 +2,34 @@ package com.bsm.mobile;
 
 public class Constants {
 
+    public static final String KEY_POINTS = "points";
+    public static final String KEY_MC_NAME = "name";
+    public static final String KEY_INFO = "info";
+    public static final String KEY_DATE = "date";
+    public static final String KEY_TIME = "time";
+    public static final String KEY_LOSER = "loser";
+    public static final String KEY_WINNER = "winner";
+    public static final String KEY_REPORT_ID = "rpid";
     public static final String KEY_TEAM = "team";
+
     public static final String TEAM_CORMEUM = "cormeum";
     public static final String TEAM_SENSUM = "sensum";
     public static final String TEAM_MUTINIUM = "mutinium";
 
     public static final String BRANCH_USERS = "users";
     public static final String BRANCH_SCORES = "SCORES";
+    public static final String BRANCH_REPORTS = "Reports";
     public static final String BRANCH_PENDING_REPORTS = "pendingReports";
     public static final String BRANCH_REPORT_RATES = "ReportRates";
     public static final String BRANCH_REQUIRE_PROFESSOR_RATE_REPORTS = "requireProfRate";
 
+    public static final String BRANCH_ALL_POINTS = "AllPoints";
+    public static final String BRANCH_BET_POINTS = "BetPoints";
+    public static final String BRANCH_MEDAL_POINTS = "SpecialPoints";
+    public static final String BRANCH_MAIN_COMPETITION_POINTS = "MainCompetitionPoints";
+    public static final String BRANCH_SIDE_MISSION_POINTS = "ReportPoints";
+
+    public static final String FIELD_VALID = "valid";
 
 
     public static final String LABEL_JUDGE = "judge";
@@ -20,13 +37,9 @@ public class Constants {
     public static final String LABEL_WIZARD = "wizzard";
 
     public static final String LABEL_POINTS_BET = "B";
-    public static final String LABEL_POINTS_MEDAL = "M";
+    public static final String LABEL_POINTS_MEDAL = "S";
     public static final String LABEL_POINTS_SIDE_MISSION = "SM";
     public static final String LABEL_POINTS_MAIN_COMPETITION = "MC";
-
-    public static final String TOPIC_JUDGE = "reportsToJudge";
-
-
 
 
     public static final String BRAND_REPORT = "Melduj";
@@ -44,4 +57,6 @@ public class Constants {
     public static final int REPORTS_LOADING = -1;
     public static final int REPORTS_NO_PENDING = 0;
 
+
+    public static final String TOPIC_JUDGE = "reportsToJudge";
 }

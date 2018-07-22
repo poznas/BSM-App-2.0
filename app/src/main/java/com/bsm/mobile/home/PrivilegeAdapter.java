@@ -21,6 +21,7 @@ import com.bsm.mobile.legacy.model.Privilege;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +36,7 @@ import static com.bsm.mobile.Constants.REPORTS_NO_PENDING;
 public class PrivilegeAdapter extends RecyclerView.Adapter<PrivilegeAdapter.PrivilegeViewHolder> implements Tagable{
 
     private List<Privilege> privileges;
-    private HashMap<String, Intent> privilegeIntentMap;
+    private Map<String, Intent> privilegeIntentMap;
 
     public PrivilegeAdapter(Context context) {
         this.privileges = new ArrayList<>();

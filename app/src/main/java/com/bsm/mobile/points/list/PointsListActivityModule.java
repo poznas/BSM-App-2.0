@@ -1,5 +1,9 @@
 package com.bsm.mobile.points.list;
 
+import com.bsm.mobile.backend.score.IScoreRepository;
+import com.bsm.mobile.backend.score.points.IPointsService;
+import com.bsm.mobile.backend.user.IUserAuthService;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -13,9 +17,13 @@ public class PointsListActivityModule {
         return new PointsListPresenter(model);
     }
 
-    @Provides Model providePointsListModel(){
+    @Provides Model providePointsListModel(IUserAuthService authService,
+                                           IScoreRepository scoreRepository,
+                                           IPointsService pointsService){
         return PointsListModel.builder()
-
+                .userAuthService(authService)
+                .scoreRepository(scoreRepository)
+                .pointsService(pointsService)
                 .build();
     }
 }

@@ -23,10 +23,5 @@ public class BackendModule {
         return new FirebaseNotificationService();
     }
 
-    @Singleton
-    @Provides
-    public IScoreRepository provideScoreRepository(){
-        return new FirebaseScoreRepository();
-    }
 
 }

@@ -58,7 +58,7 @@ public class PendingReportAdapter extends RecyclerView.Adapter<PendingReportAdap
         pendingReports.clear();
         pendingReports.addAll(newPendingReports);
         notifyDataSetChanged();
-        Log.d(getTag(), "privileges updated : " + pendingReports);
+        Log.d(getTag(), "pending reports updated : " + pendingReports);
     }
 
     @Override

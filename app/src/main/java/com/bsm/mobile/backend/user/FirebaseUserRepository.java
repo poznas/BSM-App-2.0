@@ -34,8 +34,7 @@ public class FirebaseUserRepository extends AbstractFirebaseRepository implement
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.getValue(User.class);
-                    Log.d(getTag(), "retrieved user id : "
-                            + userId + " : " + (user != null ? user.toString() : null));
+                    Log.d(getTag(), "retrieved user id : " + userId + " : " + user);
                     emitter.onNext(user);
                 }
             };

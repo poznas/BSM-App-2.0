@@ -1,5 +1,9 @@
 package com.bsm.mobile;
 
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -11,8 +15,7 @@ import static com.bsm.mobile.Constants.TEAM_SENSUM;
 
 public class TeamResources {
 
-    public static final List<String> IDENTIFIERS =
-            Arrays.asList(TEAM_CORMEUM, TEAM_SENSUM, TEAM_MUTINIUM);
+    public static final List<String> IDENTIFIERS = Arrays.asList(TEAM_CORMEUM, TEAM_SENSUM, TEAM_MUTINIUM);
 
     public static final Map<String, String> DISPLAY_NAMES = new HashMap<String, String>(){{
        put(TEAM_CORMEUM, "Cormeum");
@@ -20,11 +23,13 @@ public class TeamResources {
        put(TEAM_MUTINIUM, "Mutinium");
     }};
 
-    public static final Map<String, Integer> COLORS = new HashMap<String, Integer>(){{
-        put(TEAM_CORMEUM, R.color.red);
-        put(TEAM_SENSUM, R.color.blue);
-        put(TEAM_MUTINIUM, R.color.green);
-    }};
+    public static Map<String, Integer> COLORS(Context context){
+        return new HashMap<String, Integer>(){{
+            put(TEAM_CORMEUM, ContextCompat.getColor(context, R.color.red));
+            put(TEAM_SENSUM, ContextCompat.getColor(context, R.color.blue));
+            put(TEAM_MUTINIUM, ContextCompat.getColor(context, R.color.green));
+        }};
+    }
 
     public static final Map<String, Integer> IMAGES = new HashMap<String, Integer>(){{
         put(TEAM_CORMEUM, R.mipmap.cormeum);

@@ -59,7 +59,6 @@ public class PointsListPresenter implements Presenter {
             model.getScore(teamId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doOnTerminate(view::hideProgress)
                     .subscribe(view::updateScore)
         );
     }
@@ -69,7 +68,8 @@ public class PointsListPresenter implements Presenter {
             model.getPointsRecords(teamId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doOnTerminate(view::hideProgress)
+                    .doOnEach(records -> view.hideProgress())
+                    .doAfterTerminate(view::hideProgress)
                     .subscribe(view::updatePointsRecords)
         );
     }

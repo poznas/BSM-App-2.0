@@ -2,6 +2,7 @@ package com.bsm.mobile.root;
 
 import com.bsm.mobile.backend.BackendModule;
 import com.bsm.mobile.backend.report.ReportBackendModule;
+import com.bsm.mobile.backend.score.ScoreBackendModule;
 import com.bsm.mobile.backend.user.UserBackendModule;
 import com.bsm.mobile.home.HomeActivity;
 import com.bsm.mobile.home.HomeActivityModule;
@@ -22,6 +23,7 @@ import dagger.Component;
         BackendModule.class,
         UserBackendModule.class,
         ReportBackendModule.class,
+        ScoreBackendModule.class,
         LoginActivityModule.class,
         HomeActivityModule.class,
         JudgeSMListActivityModule.class,

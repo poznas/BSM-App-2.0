@@ -7,6 +7,7 @@ import com.bsm.mobile.common.Tagable;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import io.reactivex.ObservableEmitter;
@@ -39,7 +40,7 @@ public abstract class AbstractFirebaseRepository implements Tagable{
         private final ObservableEmitter<T> emitter;
 
         protected AbstractValueEventListener(@NonNull ObservableEmitter<T> emitter,
-                                             @NonNull final DatabaseReference reference) {
+                                             @NonNull final Query reference) {
             this.emitter = emitter;
             reference.addValueEventListener(this);
             emitter.setCancellable(() -> reference.removeEventListener(this));

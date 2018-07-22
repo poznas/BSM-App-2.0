@@ -14,6 +14,7 @@ import com.bsm.mobile.legacy.module.wizard.list.WizardsActivity;
 import com.bsm.mobile.legacy.module.wizard.sm.list.AddSMListActivity;
 import com.bsm.mobile.legacy.module.zongler.ZonglerActivity;
 import com.bsm.mobile.login.LoginActivity;
+import com.bsm.mobile.points.list.PointsListActivity;
 
 import java.util.HashMap;
 
@@ -39,9 +40,9 @@ public class HomeIntentFactory {
 
     public static HashMap<String, Intent> getTeamIntentMap(Context context){
         return new HashMap<String, Intent>(){{
-            put(TEAM_CORMEUM, new Intent(context, LoginActivity.class).putExtra(KEY_TEAM, TEAM_CORMEUM));
-            put(TEAM_SENSUM, new Intent(context, LoginActivity.class).putExtra(KEY_TEAM, TEAM_SENSUM));
-            put(TEAM_MUTINIUM, new Intent(context, LoginActivity.class).putExtra(KEY_TEAM, TEAM_MUTINIUM));
+            put(TEAM_CORMEUM, new Intent(context, PointsListActivity.class).putExtra(KEY_TEAM, TEAM_CORMEUM));
+            put(TEAM_SENSUM, new Intent(context, PointsListActivity.class).putExtra(KEY_TEAM, TEAM_SENSUM));
+            put(TEAM_MUTINIUM, new Intent(context, PointsListActivity.class).putExtra(KEY_TEAM, TEAM_MUTINIUM));
         }};
     }
 }
