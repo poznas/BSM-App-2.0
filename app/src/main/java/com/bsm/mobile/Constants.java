@@ -61,6 +61,10 @@ public class Constants {
     public static final String BRAND_ZONGLER = "Żongler";
     public static final String BRAND_SM_INFO = "Misje Poboczne";
     public static final String BRAND_MC_INFO = "Konkurencje Główne";
+    public static final String BRAND_TUTORIAL = "Tutoriale";
+
+    public static final String URL_TUTORIAL_FOLDER =
+            "https://drive.google.com/drive/folders/16wudyPdZ3IToMthfmT8tGqa0YU7Gf8O2";
 
     public static final int REPORTS_LOADING = -1;
     public static final int REPORTS_NO_PENDING = 0;

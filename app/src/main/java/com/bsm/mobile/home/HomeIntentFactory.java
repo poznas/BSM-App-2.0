@@ -2,9 +2,9 @@ package com.bsm.mobile.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 
 import com.bsm.mobile.judge.list.JudgeSMListActivity;
-import com.bsm.mobile.legacy.module.calendar.CalendarDaysActivity;
 import com.bsm.mobile.legacy.module.info.mc.MainCompetitionInfoActivity;
 import com.bsm.mobile.legacy.module.info.sm.SideMissionsInfoActivity;
 import com.bsm.mobile.legacy.module.professor.bet.AddBetActivity;
@@ -19,7 +19,6 @@ import com.bsm.mobile.professor.sm.list.RateSMListActivity;
 import java.util.HashMap;
 
 import static com.bsm.mobile.Constants.BRAND_BET;
-import static com.bsm.mobile.Constants.BRAND_CALENDAR;
 import static com.bsm.mobile.Constants.BRAND_JUDGE;
 import static com.bsm.mobile.Constants.BRAND_MAIN_COMPETITION;
 import static com.bsm.mobile.Constants.BRAND_MC_INFO;
@@ -27,12 +26,14 @@ import static com.bsm.mobile.Constants.BRAND_MEDAL;
 import static com.bsm.mobile.Constants.BRAND_PROF_RATE;
 import static com.bsm.mobile.Constants.BRAND_REPORT;
 import static com.bsm.mobile.Constants.BRAND_SM_INFO;
+import static com.bsm.mobile.Constants.BRAND_TUTORIAL;
 import static com.bsm.mobile.Constants.BRAND_WIZARDS;
 import static com.bsm.mobile.Constants.BRAND_ZONGLER;
 import static com.bsm.mobile.Constants.KEY_TEAM;
 import static com.bsm.mobile.Constants.TEAM_CORMEUM;
 import static com.bsm.mobile.Constants.TEAM_MUTINIUM;
 import static com.bsm.mobile.Constants.TEAM_SENSUM;
+import static com.bsm.mobile.Constants.URL_TUTORIAL_FOLDER;
 
 public class HomeIntentFactory {
 
@@ -41,7 +42,7 @@ public class HomeIntentFactory {
             put(BRAND_WIZARDS, new Intent(context, WizardsActivity.class));
             put(BRAND_SM_INFO, new Intent(context, SideMissionsInfoActivity.class));
             put(BRAND_MC_INFO, new Intent(context, MainCompetitionInfoActivity.class));
-            put(BRAND_CALENDAR, new Intent(context, CalendarDaysActivity.class));
+            put(BRAND_TUTORIAL, new Intent(Intent.ACTION_VIEW).setData(Uri.parse(URL_TUTORIAL_FOLDER)));
             put(BRAND_MAIN_COMPETITION, new Intent(context, AddMCActivity.class));
             put(BRAND_BET, new Intent(context, AddBetActivity.class));
             put(BRAND_MEDAL, new Intent(context, AddMedalActivity.class));

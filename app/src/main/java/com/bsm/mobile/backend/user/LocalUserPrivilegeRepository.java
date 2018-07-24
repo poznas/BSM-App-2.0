@@ -37,8 +37,6 @@ public class LocalUserPrivilegeRepository implements IUserPrivilegeRepository {
         }
         if( userLabel.equals(LABEL_PROFESSOR) || userLabel.equals(LABEL_WIZARD) || userLabel.equals(LABEL_JUDGE)){
             privileges.add(Privilege.builder()
-                    .iconId(R.mipmap.icon_small_calendar).brand(BRAND_CALENDAR).build());
-            privileges.add(Privilege.builder()
                     .iconId(R.mipmap.icon_small_zongler).brand(BRAND_ZONGLER).build());
             privileges.add(Privilege.builder()
                     .iconId(R.mipmap.icon_small_sm_info).brand(BRAND_SM_INFO).build());
@@ -48,6 +46,10 @@ public class LocalUserPrivilegeRepository implements IUserPrivilegeRepository {
                     .iconId(R.mipmap.icon_small_report).brand(BRAND_REPORT).build());
             privileges.add(Privilege.builder()
                     .iconId(R.mipmap.icon_small_mc_info).brand(BRAND_MC_INFO).build());
+        }
+        if( userLabel.equals(LABEL_PROFESSOR) || userLabel.equals(LABEL_WIZARD) || userLabel.equals(LABEL_JUDGE)){
+            privileges.add(Privilege.builder()
+                    .iconId(R.mipmap.icon_small_calendar).brand(BRAND_TUTORIAL).build());
         }
 
         return Observable.just(privileges);
