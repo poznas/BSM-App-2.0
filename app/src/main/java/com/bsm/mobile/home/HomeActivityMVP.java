@@ -1,5 +1,7 @@
 package com.bsm.mobile.home;
 
+import android.content.Context;
+
 import com.bsm.mobile.common.MultiSubscriber;
 import com.bsm.mobile.common.SnackMessage;
 import com.bsm.mobile.common.Tagable;
@@ -66,6 +68,8 @@ public interface HomeActivityMVP {
 
         Observable<Long> getProfessorPendingReportsNumber();
 
-        void createGoogleApiClient(View view);
+        void createGoogleApiClient(Context context);
+
+        void deleteNotifications(Context context);
     }
 }

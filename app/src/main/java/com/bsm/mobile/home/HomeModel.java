@@ -77,8 +77,13 @@ public class HomeModel implements Model {
     }
 
     @Override
-    public void createGoogleApiClient(View view) {
-        googleAuthService = new GoogleAuthService((Context) view);
+    public void createGoogleApiClient(Context context) {
+        googleAuthService = new GoogleAuthService(context);
+    }
+
+    @Override
+    public void deleteNotifications(Context context) {
+        notificationService.deleteAllNotifications(context);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.bsm.mobile.home;
 
 
+import android.content.Context;
 import android.util.Log;
 
 import com.bsm.mobile.legacy.model.Privilege;
@@ -32,7 +33,7 @@ public class HomePresenter implements Presenter {
         this.view = view;
         subscriptions = new LinkedList<>();
         privileges = new LinkedList<>();
-        model.createGoogleApiClient(view);
+        model.createGoogleApiClient((Context) view);
         this.view.showProgress();
     }
 
@@ -95,6 +96,7 @@ public class HomePresenter implements Presenter {
                             if( user.getLabel().equals(LABEL_JUDGE)){
                                 subscribeForJudgePendingReports();
                                 model.makeDeviceSubscribeForJudgeNotifications();
+                                model.deleteNotifications((Context) view);
                             }else {
                                 model.makeDeviceUnsubscribeFromJudgeNotifications();
                                 if( user.getLabel().equals(LABEL_PROFESSOR)){
