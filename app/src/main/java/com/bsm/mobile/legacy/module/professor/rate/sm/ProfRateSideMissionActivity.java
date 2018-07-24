@@ -1,4 +1,4 @@
-package com.bsm.mobile.legacy.module.judge.rate;
+package com.bsm.mobile.legacy.module.professor.rate.sm;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -8,10 +8,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,8 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bsm.mobile.R;
-import com.bsm.mobile.common.Tagable;
-import com.bsm.mobile.home.HomeActivity;
 import com.bsm.mobile.legacy.model.SideMissionInfo;
 import com.bsm.mobile.legacy.model.User;
 import com.bsm.mobile.legacy.model.sidemission.PropertyDetails;
@@ -31,8 +25,6 @@ import com.bsm.mobile.legacy.model.sidemission.ReportSingleMedia;
 import com.bsm.mobile.legacy.module.points.ReportMediaAdapter;
 import com.bsm.mobile.legacy.module.wizard.list.WizardsActivity;
 import com.bumptech.glide.Glide;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,8 +40,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
-
+public class ProfRateSideMissionActivity extends AppCompatActivity {
 
     @BindView(R.id.media_recycler)
     RecyclerView mediaRecycler;
@@ -66,7 +57,7 @@ public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
     @BindView(R.id.performing_user_name_view)
     TextView performingUserName;
     @BindView(R.id.rate_properities_list_view)
-    ListView propertiesListView;
+    ListView properitiesListView;
     @BindView(R.id.send_button_view)
     View sendButtonView;
 
@@ -77,7 +68,7 @@ public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
 
     private DatabaseReference mDatabaseSMDocsRef;
     private ValueEventListener mSMDocsValueEventListener;
-    private SideMissionInfo mSMInfo;
+    private static SideMissionInfo mSMInfo;
     private Intent googleDriveIntent;
 
     private Intent wizzardsIntent;
@@ -94,45 +85,25 @@ public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
     private DatabaseReference mDatabaseSMPProperitiesHintsRef;
     private ValueEventListener mSMPProperitiesHintsValueEventListener;
 
-    private FirebaseAuth mAuth;
-    private static FirebaseUser mFirebaseUser;
-
     private static ReportBasicFirebase mReportBasicFirebase;
     private static List<ReportSingleMedia> mMedia;
     private static User mPerformingUser;
 
-    private List<String> propertiesNames;
-    private List<String> propertiesSymbols;
-    private List<String> propertiesTypes;
-    private List<String> propertiesHintsNames;
-    private List<String> propertiesHints;
+    private List<String> properitiesNames;
+    private List<String> properitiesSymbols;
+    private List<String> properitiesTypes;
+    private List<String> properitiesHintsNames;
+    private List<String> properitiesHints;
 
-    private boolean propertiesHintsLoaded = false;
+    private boolean properitiesHintsLoaded = false;
     private boolean properitiesDetailsLoaded = false;
 
-    private List<PropertyDetails> propertiesDetails;
+    private List<PropertyDetails> properitiesDetails;
     private List<ValueEventListener> typeListeners;
     private List<DatabaseReference> typeReferences;
-    private boolean[] propertiesReady;
+    private boolean[] properitiesReady;
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.judge_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.judge_opluj:
-                makeReportInvalid();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,97 +115,66 @@ public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
         InitializeInReportMediaListener();
         InitializeInReportListener();
         InitializeSMPProperitiesListener();
-        InitializeSMPPropertiesHintsListener();
+        InitializeSMPProperitiesHintsListener();
     }
-
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        detachFirebaseListeners();
+        dettachFirebaseListeners();
     }
 
+    private void createProperitiesDetails() {
+        properitiesDetails = new ArrayList<>();
+        for( int i=0; i<properitiesNames.size(); i++ ){
 
-    private void makeReportInvalid() {
-        if( mFirebaseUser != null ){
-            mRootRef.child("InvalidReports").child(bRpid).setValue(mFirebaseUser.getUid());
-            mDatabaseInReportsRef.child("valid").setValue(false);
-            mRootRef.child("pendingReports").child(bRpid).setValue(null);
-            mRootRef.child("requireProfRate").child(bRpid).setValue(null);
+            if( properitiesTypes.get(i).equals("professor_value")
+                    && !properitiesNames.get(i).equals("płeć_wykonawcy")){
 
-            exitJudgeActivity();
-        }
-    }
+                for( int j=0; j<properitiesHintsNames.size(); j++ ){
+                    if( properitiesNames.get(i).equals(properitiesHintsNames.get(j))){
 
-    private void createPropertiesDetails() {
-        propertiesDetails = new ArrayList<>();
-        for(int i = 0; i< propertiesNames.size(); i++ ){
-
-            if( !propertiesTypes.get(i).equals("professor_value")
-                    && !propertiesNames.get(i).equals("płeć_wykonawcy")){
-
-                for(int j = 0; j< propertiesHintsNames.size(); j++ ){
-                    if( propertiesNames.get(i).equals(propertiesHintsNames.get(j))){
-
-                        propertiesDetails.add(
+                        properitiesDetails.add(
                                 PropertyDetails.builder()
-                                        .name(propertiesHintsNames.get(j))
-                                        .hint(propertiesHints.get(j))
-                                        .symbol(propertiesSymbols.get(i))
-                                        .type(propertiesTypes.get(i))
+                                        .name(properitiesHintsNames.get(j))
+                                        .hint(properitiesHints.get(j))
+                                        .symbol(properitiesSymbols.get(i))
+                                        .type(properitiesTypes.get(i))
                                         .build()
                         );
                     }
                 }
             }
         }
-        completePropertiesDetails();
+        completeProperitiesDetails();
     }
 
-    private void completePropertiesDetails() {
+    private void completeProperitiesDetails() {
 
-        propertiesReady = new boolean[propertiesDetails.size()];
+        properitiesReady = new boolean[properitiesDetails.size()];
         typeListeners = new ArrayList<>();
         typeReferences = new ArrayList<>();
 
-        for(int i = 0; i< propertiesDetails.size(); i++ ){
+        for( int i=0; i<properitiesDetails.size(); i++ ){
             typeListeners.add(null);
             typeReferences.add( mDatabaseSMPProperitiesRef
-                    .child(propertiesDetails.get(i).getName())
+                    .child(properitiesDetails.get(i).getName())
                     .child("type")
-                    .child(propertiesDetails.get(i).getType()));
+                    .child(properitiesDetails.get(i).getType()));
         }
 
-        for(int i = 0; i< propertiesDetails.size(); i++ ){
+        for( int i=0; i<properitiesDetails.size(); i++ ){
             if( typeListeners.get(i) == null ){
                 final int finalI = i;
                 typeListeners.set(i, new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        switch (propertiesDetails.get(finalI).getType()){
-                            case "spinner":
-                                List<String> keys = new ArrayList<>();
-                                List<Long> values = new ArrayList<>();
-                                for( DataSnapshot data : dataSnapshot.getChildren() ){
-                                    keys.add(data.getKey());
-                                    values.add(data.getValue(Long.class));
-                                }
-                                propertiesDetails.get(finalI).setSpinnerKeys(keys);
-                                propertiesDetails.get(finalI).setSpinnerValues(values);
-                                break;
-                            case "limited_value":
-                                propertiesDetails.get(finalI).setLimitedValue(dataSnapshot.getValue(Long.class));
-                                break;
-                            case "professor_value":
-                                propertiesDetails.get(finalI).setProfType(String.valueOf(dataSnapshot.getValue()));
-                            default:
-                                break;
-                        }
+                        properitiesDetails.get(finalI).setProfType(String.valueOf(dataSnapshot.getValue()));
 
-                        propertiesReady[finalI] = true;
+                        properitiesReady[finalI] = true;
                         if( readyToLaunch() ){
-                            InitializePropertiesListView();
+                            InitializeProperitiesListView();
                         }
                     }
                     @Override
@@ -245,19 +185,9 @@ public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
         }
     }
 
-    private boolean readyToLaunch(){
-        for (boolean aPropertiesReady : propertiesReady) {
-            if (!aPropertiesReady) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private void InitializePropertiesListView() {
-        Log.d(getTag(), "initialize properties list view : " + propertiesDetails);
-        RatePropertiesAdapter adapter = new RatePropertiesAdapter(this, propertiesDetails);
-        propertiesListView.setAdapter(adapter);
+    private void InitializeProperitiesListView(){
+        ProfRateProperitiesAdapter adapter = new ProfRateProperitiesAdapter(this, properitiesDetails);
+        properitiesListView.setAdapter(adapter);
         InitializeSendButton();
     }
 
@@ -270,105 +200,96 @@ public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
     }
 
     private void sendReportRate() {
-        Map<String, Long> reportRate = new HashMap<>();
-        for(int i = 0; i< propertiesListView.getChildCount(); i++ ){
+        Map<String, Double> profRate = new HashMap<>();
+        for( int i=0; i<properitiesListView.getChildCount(); i++ ){
 
-            PropertyDetails current = (PropertyDetails) propertiesListView.getAdapter().getItem(i);
+            PropertyDetails current = (PropertyDetails) properitiesListView.getAdapter().getItem(i);
 
             Spinner spinner;
             EditText editText;
             String selectedKey;
 
-            switch (current.getType()){
-                case "normal_value":
-                    editText = propertiesListView
+            switch (current.getProfType()){
+                case "true":
+                    editText = properitiesListView
                             .getChildAt(i).findViewById(R.id.item_properity_edit_text);
-                    reportRate.put(current.getSymbol(),
-                            Long.valueOf(editText.getText().toString()));
+                    profRate.put(current.getSymbol(),
+                            Double.valueOf(editText.getText().toString()));
                     break;
-                case "limited_value":
-                    spinner = propertiesListView
-                            .getChildAt(i).findViewById(R.id.item_properity_spinner);
-                    reportRate.put(current.getSymbol(),
-                            Long.valueOf(spinner.getSelectedItem().toString()));
-                    break;
-                case "spinner":
-                    spinner = propertiesListView
-                            .getChildAt(i).findViewById(R.id.item_properity_spinner);
-                    selectedKey = spinner.getSelectedItem().toString();
-                    for( int j=0; j<current.getSpinnerKeys().size(); j++ ){
-                        if( selectedKey.equals(current.getSpinnerKeys().get(j))){
-                            reportRate.put(current.getSymbol(),
-                                    current.getSpinnerValues().get(j));
-                        }
-                    }
-                    break;
-                case "boolean_value":
-                    spinner = propertiesListView
+                case "boolean":
+                    spinner = properitiesListView
                             .getChildAt(i).findViewById(R.id.item_properity_spinner);
                     selectedKey = spinner.getSelectedItem().toString();
                     if( selectedKey.equals("TAK") ){
-                        reportRate.put(current.getSymbol(), (long) 1);
+                        profRate.put(current.getSymbol(), (double) 1);
                     }else {
-                        reportRate.put(current.getSymbol(), (long) 0);
+                        profRate.put(current.getSymbol(), (double) 0);
                     }
                     break;
                 default:
                     break;
             }
 
-            mRootRef.child("ReportRates").child(bRpid).child(mFirebaseUser.getUid()).setValue(reportRate);
+            mRootRef.child("FinalReportRate").child(bRpid).child("properities").setValue(profRate);
+            mRootRef.child("FinalReportRate").child(bRpid).child("requireProfessor").setValue(false);
+            mRootRef.child("requireProfRate").child(bRpid).setValue(null);
 
-            exitJudgeActivity();
+            finish();
         }
-    }
-
-    private void exitJudgeActivity(){
-        Intent home = new Intent(this, HomeActivity.class);
-        startActivity(home);
-        finish();
     }
 
     private boolean correctJudgeInput() {
 
-        for(int i = 0; i< propertiesListView.getChildCount(); i++ ){
+        for( int i=0; i<properitiesListView.getChildCount(); i++ ){
 
-            PropertyDetails current = (PropertyDetails) propertiesListView.getAdapter().getItem(i);
-            switch (current.getType()){
-                case "normal_value":
-                    EditText editText = propertiesListView
+            PropertyDetails current = (PropertyDetails) properitiesListView.getAdapter().getItem(i);
+            switch (current.getProfType()){
+                case "true":
+                    EditText editText = properitiesListView
                             .getChildAt(i).findViewById(R.id.item_properity_edit_text);
                     if(editText.getText().toString().matches("")){
                         Toast.makeText(this, "Uzupełnij "+current.getName(), Toast.LENGTH_SHORT).show();
                         return false;
                     }
                     break;
-                default:
-                    Spinner spinner = propertiesListView
+                case "boolean":
+                    Spinner spinner = properitiesListView
                             .getChildAt(i).findViewById(R.id.item_properity_spinner);
                     if( spinner.getSelectedItem().toString().equals("<none>") ){
                         Toast.makeText(this, "Uzupełnij "+current.getName(), Toast.LENGTH_SHORT).show();
                         return false;
                     }
+                    break;
+                default:
+                    break;
             }
         }
         return true;
     }
 
-    private void InitializeSMPPropertiesHintsListener() {
+    private boolean readyToLaunch(){
+        for( int j=0; j<properitiesReady.length; j++ ){
+            if( !properitiesReady[j] ){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void InitializeSMPProperitiesHintsListener() {
         if( mSMPProperitiesHintsValueEventListener == null ){
             mSMPProperitiesHintsValueEventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    propertiesHints = new ArrayList<>();
-                    propertiesHintsNames = new ArrayList<>();
+                    properitiesHints = new ArrayList<>();
+                    properitiesHintsNames = new ArrayList<>();
                     for( DataSnapshot child : dataSnapshot.getChildren() ){
-                        propertiesHintsNames.add(child.getKey());
-                        propertiesHints.add(String.valueOf(child.getValue()));
+                        properitiesHintsNames.add(child.getKey());
+                        properitiesHints.add(String.valueOf(child.getValue()));
                     }
-                    propertiesHintsLoaded = true;
+                    properitiesHintsLoaded = true;
                     if( properitiesDetailsLoaded ){
-                        createPropertiesDetails();
+                        createProperitiesDetails();
                     }
                 }
                 @Override
@@ -383,19 +304,19 @@ public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
             mSMPProperitiesValueEventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    propertiesNames = new ArrayList<>();
-                    propertiesTypes = new ArrayList<>();
-                    propertiesSymbols = new ArrayList<>();
+                    properitiesNames = new ArrayList<>();
+                    properitiesTypes = new ArrayList<>();
+                    properitiesSymbols = new ArrayList<>();
                     for( DataSnapshot data : dataSnapshot.getChildren() ){
-                        propertiesNames.add(data.getKey());
-                        propertiesSymbols.add(String.valueOf(data.child("symbol").getValue()));
+                        properitiesNames.add(data.getKey());
+                        properitiesSymbols.add(String.valueOf(data.child("symbol").getValue()));
                         for( DataSnapshot type : data.child("type").getChildren() ){
-                            propertiesTypes.add(type.getKey());
+                            properitiesTypes.add(type.getKey());
                         }
                     }
                     properitiesDetailsLoaded = true;
-                    if(propertiesHintsLoaded){
-                        createPropertiesDetails();
+                    if( properitiesHintsLoaded ){
+                        createProperitiesDetails();
                     }
                 }
                 @Override
@@ -428,7 +349,9 @@ public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     mPerformingUser = dataSnapshot.getValue(User.class);
-                    InitializeWizardTeam();
+                    if( mPerformingUser != null ){
+                        InitializeWizzardTeam();
+                    }
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {}
@@ -437,7 +360,7 @@ public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
         }
     }
 
-    private void InitializeWizardTeam() {
+    private void InitializeWizzardTeam() {
         teamView.setText(mPerformingUser.getTeam());
         switch (mPerformingUser.getTeam()){
             case "cormeum":
@@ -461,31 +384,6 @@ public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
         });
     }
 
-    private void initializeFirebaseComponents() {
-        Bundle bundle = this.getIntent().getExtras();
-        if( bundle != null ){
-            bSMName = bundle.getString("sm_name");
-            bUserImageURL = bundle.getString("user_image_url");
-            bUserName = bundle.getString("user_name");
-            bRpid = bundle.getString("rpid");
-        }
-        setTitle(bSMName);
-        performingUserName.setText(bUserName);
-        Glide.with(this)
-                .load(bUserImageURL)
-                .into(performingUserImage);
-
-        mAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mAuth.getCurrentUser();
-
-        mRootRef = FirebaseDatabase.getInstance().getReference();
-        mDatabaseInReportsRef = mRootRef.child("Reports").child(bRpid);
-        mDatabaseInReportsMediaRef = mDatabaseInReportsRef.child("mediaUrls");
-        mDatabaseSMDocsRef = mRootRef.child("SideMissionsDocs").child(bSMName);
-        mDatabaseSMPProperitiesRef = mRootRef.child("SideMissionsProperities").child(bSMName).child("properities");
-        mDatabaseSMPProperitiesHintsRef = mRootRef.child("SideMissionsProperities").child(bSMName).child("properitiesHints");
-    }
-
     private void InitializeInReportMediaListener(){
         if ( mInReportMediaValueEventListener == null ){
             mInReportMediaValueEventListener = new ValueEventListener() {
@@ -496,7 +394,7 @@ public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
                         mMedia.add( snap.getValue(ReportSingleMedia.class));
                     }
                     initializeMediaRecycler();
-                    InitializeSMDocsListener();
+                    InilializeSMDocsListener();
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {}
@@ -505,15 +403,7 @@ public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
         }
     }
 
-    private void initializeMediaRecycler(){
-        ReportMediaAdapter adapter = new ReportMediaAdapter(this, mMedia );
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this,
-                LinearLayoutManager.HORIZONTAL, false );
-        mediaRecycler.setAdapter(adapter);
-        mediaRecycler.setLayoutManager(layoutManager);
-    }
-
-    private void InitializeSMDocsListener(){
+    private void InilializeSMDocsListener(){
         if( mSMDocsValueEventListener == null ){
             mSMDocsValueEventListener = new ValueEventListener() {
                 @Override
@@ -541,7 +431,38 @@ public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
         });
     }
 
-    private void detachFirebaseListeners() {
+    private void initializeMediaRecycler(){
+        ReportMediaAdapter adapter = new ReportMediaAdapter(this, mMedia );
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false );
+        mediaRecycler.setAdapter(adapter);
+        mediaRecycler.setLayoutManager(layoutManager);
+    }
+
+    private void initializeFirebaseComponents() {
+        Bundle bundle = this.getIntent().getExtras();
+        if( bundle != null ){
+            bSMName = bundle.getString("sm_name");
+            bUserImageURL = bundle.getString("user_image_url");
+            bUserName = bundle.getString("user_name");
+            bRpid = bundle.getString("rpid");
+        }
+        setTitle(bSMName);
+        performingUserName.setText(bUserName);
+        Glide.with(this)
+                .load(bUserImageURL)
+                .into(performingUserImage);
+
+        mRootRef = FirebaseDatabase.getInstance().getReference();
+        mDatabaseInReportsRef = mRootRef.child("Reports").child(bRpid);
+        mDatabaseInReportsMediaRef = mDatabaseInReportsRef.child("mediaUrls");
+        mDatabaseSMDocsRef = mRootRef.child("SideMissionsDocs").child(bSMName);
+        mDatabaseSMPProperitiesRef = mRootRef.child("SideMissionsProperities").child(bSMName).child("properities");
+        mDatabaseSMPProperitiesHintsRef = mRootRef.child("SideMissionsProperities").child(bSMName).child("properitiesHints");
+    }
+
+
+    private void dettachFirebaseListeners() {
         if( mInReportMediaValueEventListener != null ){
             mDatabaseInReportsMediaRef.removeEventListener(mInReportMediaValueEventListener);
             mInReportMediaValueEventListener = null;
@@ -567,6 +488,7 @@ public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
             mSMPProperitiesHintsValueEventListener = null;
         }
 
+        if( typeListeners == null ){ return; }
         for( int i=0; i<typeListeners.size(); i++ ){
             if( typeListeners.get(i) != null ){
                 typeReferences.get(i).removeEventListener(typeListeners.get(i));

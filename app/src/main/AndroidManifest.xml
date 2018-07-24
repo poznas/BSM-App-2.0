@@ -50,6 +50,8 @@
         <activity android:name=".legacy.module.points.details.medal.MedalResultDisplayActivity" />
         <activity android:name=".legacy.module.points.details.mc.MCResultDisplayActivity" />
         <activity android:name=".professor.sm.list.RateSMListActivity" />
+        <activity android:name=".legacy.module.professor.rate.sm.ProfRateSideMissionActivity" />
+        <activity android:name=".legacy.module.professor.rate.sm.ProfRateSMPostActivity" />
 
         <service android:name=".legacy.module.wizard.sm.ReportUploader" />
     </application>

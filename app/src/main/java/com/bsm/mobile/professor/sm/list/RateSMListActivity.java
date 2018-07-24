@@ -12,7 +12,8 @@ import android.widget.ProgressBar;
 import com.bsm.mobile.R;
 import com.bsm.mobile.common.PendingReportAdapter;
 import com.bsm.mobile.legacy.model.PendingReport;
-import com.bsm.mobile.legacy.module.calendar.CalendarDaysActivity;
+import com.bsm.mobile.legacy.module.professor.rate.sm.ProfRateSMPostActivity;
+import com.bsm.mobile.legacy.module.professor.rate.sm.ProfRateSideMissionActivity;
 import com.bsm.mobile.root.App;
 
 import java.util.List;
@@ -51,8 +52,8 @@ public class RateSMListActivity extends AppCompatActivity implements View {
     private void initializePendingReportsRecycler() {
         pendingReportAdapter = new PendingReportAdapter(
                 report -> report.isPost() ?
-                        new Intent(this, CalendarDaysActivity.class) :
-                        new Intent(this, CalendarDaysActivity.class)
+                        new Intent(this, ProfRateSMPostActivity.class) :
+                        new Intent(this, ProfRateSideMissionActivity.class)
         );
         pendingReportsRecycler.setAdapter(pendingReportAdapter);
         pendingReportsRecycler.setItemAnimator(new DefaultItemAnimator());

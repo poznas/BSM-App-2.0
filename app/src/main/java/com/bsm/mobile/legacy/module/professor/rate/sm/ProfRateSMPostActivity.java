@@ -1,6 +1,5 @@
-package com.bsm.mobile.legacy.module.judge.rate;
+package com.bsm.mobile.legacy.module.professor.rate.sm;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,9 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.bsm.mobile.R;
-import com.bsm.mobile.home.HomeActivity;
 import com.bsm.mobile.legacy.model.SideMissionInfo;
 import com.bsm.mobile.legacy.model.User;
 import com.bsm.mobile.legacy.model.ZonglerPost;
@@ -26,8 +23,6 @@ import com.bsm.mobile.legacy.model.sidemission.ReportBasicFirebase;
 import com.bsm.mobile.legacy.module.PhotoVideoFullscreenDisplay;
 import com.bsm.mobile.legacy.module.wizard.list.WizardsActivity;
 import com.bumptech.glide.Glide;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,9 +38,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class JudgeRateSMPostActivity extends AppCompatActivity {
-
-    private Context context;
+public class ProfRateSMPostActivity extends AppCompatActivity {
 
     @BindView(R.id.item_user_name_view)
     TextView userNameView;
@@ -75,7 +68,7 @@ public class JudgeRateSMPostActivity extends AppCompatActivity {
     @BindView(R.id.info_view)
     ImageView infoView;
     @BindView(R.id.rate_properities_list_view)
-    ListView propertiesListView;
+    ListView properitiesListView;
     @BindView(R.id.send_button_view)
     View sendButtonView;
 
@@ -85,13 +78,14 @@ public class JudgeRateSMPostActivity extends AppCompatActivity {
     private String bRpid;
     private String bTime;
     private String bDate;
+    private int bPreviousAmountOfReports;
 
     private DatabaseReference mDatabaseSMDocsRef;
     private ValueEventListener mSMDocsValueEventListener;
     private static SideMissionInfo mSMInfo;
     private Intent googleDriveIntent;
 
-    private Intent wizardsIntent;
+    private Intent wizzardsIntent;
 
     private Intent fullscreenIntent;
 
@@ -100,50 +94,46 @@ public class JudgeRateSMPostActivity extends AppCompatActivity {
     private ValueEventListener mInReportValueEventListener;
     private DatabaseReference mDatabasePerformingUserRef;
     private ValueEventListener mPerformingUserValueEventListener;
-    private DatabaseReference mDatabaseSMPPropertiesRef;
-    private ValueEventListener mSMPPropertiesValueEventListener;
-    private DatabaseReference mDatabaseSMPPropertiesHintsRef;
-    private ValueEventListener mSMPPropertiesHintsValueEventListener;
-
-    private static FirebaseUser mFirebaseUser;
+    private DatabaseReference mDatabaseSMPProperitiesRef;
+    private ValueEventListener mSMPProperitiesValueEventListener;
+    private DatabaseReference mDatabaseSMPProperitiesHintsRef;
+    private ValueEventListener mSMPProperitiesHintsValueEventListener;
 
     private static ReportBasicFirebase mReportBasicFirebase;
     private static User mPerformingUser;
     private static ZonglerPost mZonglerPost;
 
-    private List<String> propertiesNames;
-    private List<String> propertiesSymbols;
-    private List<String> propertiesTypes;
-    private List<String> propertiesHintsNames;
-    private List<String> propertiesHints;
+    private List<String> properitiesNames;
+    private List<String> properitiesSymbols;
+    private List<String> properitiesTypes;
+    private List<String> properitiesHintsNames;
+    private List<String> properitiesHints;
 
-    private boolean propertiesHintsLoaded = false;
-    private boolean propertiesDetailsLoaded = false;
+    private boolean properitiesHintsLoaded = false;
+    private boolean properitiesDetailsLoaded = false;
 
-    private List<PropertyDetails> propertiesDetails;
+    private List<PropertyDetails> properitiesDetails;
     private List<ValueEventListener> typeListeners;
     private List<DatabaseReference> typeReferences;
-    private boolean[] propertiesReady;
+    private boolean[] properitiesReady;
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dettachFirebaseListeners();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_judge_sm_post);
         ButterKnife.bind(this);
-        context = this;
 
         initializeFirebaseComponents();
         InilializeSMDocsListener();
         InitializeInReportsListener();
-        InitializeSMPPropertiesListener();
+        InitializeSMPProperitiesListener();
         InitializeSMPProperitiesHintsListener();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        detachFirebaseListeners();
     }
 
     private void InitializeInReportsListener() {
@@ -158,13 +148,13 @@ public class JudgeRateSMPostActivity extends AppCompatActivity {
                     mZonglerPost.setTitle(String.valueOf(dataSnapshot.child("text").child("title").getValue()));
 
                     String[] videoFormats = {
-                    ".avi", ".mp4", ".mov", ".wmv", ".3gp", ".mpg", ".flv"};
+                            ".avi", ".mp4", ".mov", ".wmv", ".3gp", ".mpg", ".flv"};
 
                     for( DataSnapshot media : dataSnapshot.child("mediaUrls").getChildren() ){
                         String orginalUrl = String.valueOf(media.child("orginalUrl").getValue());
 
-                        for (String videoFormat : videoFormats) {
-                            if (orginalUrl.contains(videoFormat)) {
+                        for( int i=0; i<videoFormats.length; i++ ){
+                            if( orginalUrl.contains(videoFormats[i])){
                                 mZonglerPost.setVideoUrl(orginalUrl);
                             }
                         }
@@ -233,7 +223,7 @@ public class JudgeRateSMPostActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     mPerformingUser = dataSnapshot.getValue(User.class);
-                    InitializeWizardTeam();
+                    InitializeWizzardTeam();
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {}
@@ -242,7 +232,7 @@ public class JudgeRateSMPostActivity extends AppCompatActivity {
         }
     }
 
-    private void InitializeWizardTeam() {
+    private void InitializeWizzardTeam() {
         teamView.setText(mPerformingUser.getTeam());
         switch (mPerformingUser.getTeam()){
             case "cormeum":
@@ -257,13 +247,215 @@ public class JudgeRateSMPostActivity extends AppCompatActivity {
             default:
                 break;
         }
-        wizardsIntent = new Intent(context, WizardsActivity.class );
+        wizzardsIntent = new Intent(this, WizardsActivity.class );
         infoView.setVisibility(View.VISIBLE);
         infoView.setOnClickListener(v -> {
-            if( wizardsIntent != null ){
-                context.startActivity(wizardsIntent);
+            if( wizzardsIntent != null ){
+                startActivity(wizzardsIntent);
             }
         });
+    }
+
+    private void completeProperitiesDetails() {
+
+        properitiesReady = new boolean[properitiesDetails.size()];
+        typeListeners = new ArrayList<>();
+        typeReferences = new ArrayList<>();
+
+        for( int i=0; i<properitiesDetails.size(); i++ ){
+            typeListeners.add(null);
+            typeReferences.add( mDatabaseSMPProperitiesRef
+                    .child(properitiesDetails.get(i).getName())
+                    .child("type")
+                    .child(properitiesDetails.get(i).getType()));
+        }
+
+        for( int i=0; i<properitiesDetails.size(); i++ ){
+            if( typeListeners.get(i) == null ){
+                final int finalI = i;
+                typeListeners.set(i, new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        properitiesDetails.get(finalI).setProfType(String.valueOf(dataSnapshot.getValue()));
+
+                        properitiesReady[finalI] = true;
+                        if( readyToLaunch() ){
+                            InitializeProperitiesListView();
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {}
+                });
+                typeReferences.get(i).addValueEventListener(typeListeners.get(i));
+            }
+        }
+    }
+
+    private boolean readyToLaunch(){
+        for( int j=0; j<properitiesReady.length; j++ ){
+            if( !properitiesReady[j] ){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void InitializeProperitiesListView(){
+        ProfRateProperitiesAdapter adapter = new ProfRateProperitiesAdapter(this, properitiesDetails);
+        properitiesListView.setAdapter(adapter);
+        InitializeSendButton();
+    }
+
+    private void InitializeSendButton() {
+        sendButtonView.setOnClickListener(v -> {
+            if( correctProfInput() ){
+                sendProfRate();
+            }
+        });
+    }
+
+    private void sendProfRate() {
+        Map<String, Double> profRate = new HashMap<>();
+        for( int i=0; i<properitiesListView.getChildCount(); i++ ){
+
+            PropertyDetails current = (PropertyDetails) properitiesListView.getAdapter().getItem(i);
+
+            Spinner spinner;
+            EditText editText;
+            String selectedKey;
+
+            switch (current.getProfType()){
+                case "true":
+                    editText = properitiesListView
+                            .getChildAt(i).findViewById(R.id.item_properity_edit_text);
+                    profRate.put(current.getSymbol(),
+                            Double.valueOf(editText.getText().toString()));
+                    break;
+                case "boolean":
+                    spinner = properitiesListView
+                            .getChildAt(i).findViewById(R.id.item_properity_spinner);
+                    selectedKey = spinner.getSelectedItem().toString();
+                    if( selectedKey.equals("TAK") ){
+                        profRate.put(current.getSymbol(), (double) 1);
+                    }else {
+                        profRate.put(current.getSymbol(), (double) 0);
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            mRootRef.child("FinalReportRate").child(bRpid).child("properities").setValue(profRate);
+            mRootRef.child("FinalReportRate").child(bRpid).child("requireProfessor").setValue(false);
+            mRootRef.child("requireProfRate").child(bRpid).setValue(null);
+
+            finish();
+        }
+    }
+
+    private boolean correctProfInput() {
+
+        for( int i=0; i<properitiesListView.getChildCount(); i++ ){
+
+            PropertyDetails current = (PropertyDetails) properitiesListView.getAdapter().getItem(i);
+            switch (current.getProfType()){
+                case "true":
+                    EditText editText = properitiesListView
+                            .getChildAt(i).findViewById(R.id.item_properity_edit_text);
+                    if(editText.getText().toString().matches("")){
+                        Toast.makeText(this, "Uzupełnij "+current.getName(), Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                    break;
+                case "boolean":
+                    Spinner spinner = properitiesListView
+                            .getChildAt(i).findViewById(R.id.item_properity_spinner);
+                    if( spinner.getSelectedItem().toString().equals("<none>") ){
+                        Toast.makeText(this, "Uzupełnij "+current.getName(), Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        return true;
+    }
+
+    private void createProperitiesDetails() {
+        properitiesDetails = new ArrayList<>();
+        for( int i=0; i<properitiesNames.size(); i++ ){
+
+            if( properitiesTypes.get(i).equals("professor_value")
+                    && !properitiesNames.get(i).equals("płeć_wykonawcy")){
+
+                for( int j=0; j<properitiesHintsNames.size(); j++ ){
+                    if( properitiesNames.get(i).equals(properitiesHintsNames.get(j))){
+
+                        properitiesDetails.add(
+                                PropertyDetails.builder()
+                                        .name(properitiesHintsNames.get(j))
+                                        .hint(properitiesHints.get(j))
+                                        .symbol(properitiesSymbols.get(i))
+                                        .type(properitiesTypes.get(i))
+                                        .build()
+                        );
+                    }
+                }
+            }
+        }
+        completeProperitiesDetails();
+    }
+
+    private void InitializeSMPProperitiesListener() {
+        if( mSMPProperitiesValueEventListener == null ){
+            mSMPProperitiesValueEventListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    properitiesNames = new ArrayList<>();
+                    properitiesTypes = new ArrayList<>();
+                    properitiesSymbols = new ArrayList<>();
+                    for( DataSnapshot data : dataSnapshot.getChildren() ){
+                        properitiesNames.add(data.getKey());
+                        properitiesSymbols.add(String.valueOf(data.child("symbol").getValue()));
+                        for( DataSnapshot type : data.child("type").getChildren() ){
+                            properitiesTypes.add(type.getKey());
+                        }
+                    }
+                    properitiesDetailsLoaded = true;
+                    if( properitiesHintsLoaded ){
+                        createProperitiesDetails();
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {}
+            };
+            mDatabaseSMPProperitiesRef.addValueEventListener(mSMPProperitiesValueEventListener);
+        }
+    }
+
+    private void InitializeSMPProperitiesHintsListener() {
+        if( mSMPProperitiesHintsValueEventListener == null ){
+            mSMPProperitiesHintsValueEventListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    properitiesHints = new ArrayList<>();
+                    properitiesHintsNames = new ArrayList<>();
+                    for( DataSnapshot child : dataSnapshot.getChildren() ){
+                        properitiesHintsNames.add(child.getKey());
+                        properitiesHints.add(String.valueOf(child.getValue()));
+                    }
+                    properitiesHintsLoaded = true;
+                    if( properitiesDetailsLoaded ){
+                        createProperitiesDetails();
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {}
+            };
+            mDatabaseSMPProperitiesHintsRef.addValueEventListener(mSMPProperitiesHintsValueEventListener);
+        }
     }
 
     private void InilializeSMDocsListener(){
@@ -294,239 +486,6 @@ public class JudgeRateSMPostActivity extends AppCompatActivity {
         });
     }
 
-    private void InitializeSMPPropertiesListener() {
-        if( mSMPPropertiesValueEventListener == null ){
-            mSMPPropertiesValueEventListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    propertiesNames = new ArrayList<>();
-                    propertiesTypes = new ArrayList<>();
-                    propertiesSymbols = new ArrayList<>();
-                    for( DataSnapshot data : dataSnapshot.getChildren() ){
-                        propertiesNames.add(data.getKey());
-                        propertiesSymbols.add(String.valueOf(data.child("symbol").getValue()));
-                        for( DataSnapshot type : data.child("type").getChildren() ){
-                            propertiesTypes.add(type.getKey());
-                        }
-                    }
-                    propertiesDetailsLoaded = true;
-                    if(propertiesHintsLoaded){
-                        createProperitiesDetails();
-                    }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {}
-            };
-            mDatabaseSMPPropertiesRef.addValueEventListener(mSMPPropertiesValueEventListener);
-        }
-    }
-
-    private void InitializeSMPProperitiesHintsListener() {
-        if( mSMPPropertiesHintsValueEventListener == null ){
-            mSMPPropertiesHintsValueEventListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    propertiesHints = new ArrayList<>();
-                    propertiesHintsNames = new ArrayList<>();
-                    for( DataSnapshot child : dataSnapshot.getChildren() ){
-                        propertiesHintsNames.add(child.getKey());
-                        propertiesHints.add(String.valueOf(child.getValue()));
-                    }
-                    propertiesHintsLoaded = true;
-                    if(propertiesDetailsLoaded){
-                        createProperitiesDetails();
-                    }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {}
-            };
-            mDatabaseSMPPropertiesHintsRef.addValueEventListener(mSMPPropertiesHintsValueEventListener);
-        }
-    }
-
-    private void createProperitiesDetails() {
-        propertiesDetails = new ArrayList<>();
-        for(int i = 0; i< propertiesNames.size(); i++ ){
-
-            if( !propertiesTypes.get(i).equals("professor_value")
-                    && !propertiesNames.get(i).equals("płeć_wykonawcy")){
-
-                for(int j = 0; j< propertiesHintsNames.size(); j++ ){
-                    if( propertiesNames.get(i).equals(propertiesHintsNames.get(j))){
-
-                        propertiesDetails.add(PropertyDetails.builder()
-                                .name(propertiesHintsNames.get(j))
-                                .hint(propertiesHints.get(j))
-                                .symbol(propertiesSymbols.get(i))
-                                .type(propertiesTypes.get(i))
-                                .build()
-                        );
-                    }
-                }
-            }
-        }
-        completePropertiesDetails();
-    }
-
-    private void completePropertiesDetails() {
-
-        propertiesReady = new boolean[propertiesDetails.size()];
-        typeListeners = new ArrayList<>();
-        typeReferences = new ArrayList<>();
-
-        for(int i = 0; i< propertiesDetails.size(); i++ ){
-            typeListeners.add(null);
-            typeReferences.add( mDatabaseSMPPropertiesRef
-                    .child(propertiesDetails.get(i).getName())
-                    .child("type")
-                    .child(propertiesDetails.get(i).getType()));
-        }
-
-        for(int i = 0; i< propertiesDetails.size(); i++ ){
-            if( typeListeners.get(i) == null ){
-                final int finalI = i;
-                typeListeners.set(i, new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                        switch (propertiesDetails.get(finalI).getType()){
-                            case "spinner":
-                                List<String> keys = new ArrayList<>();
-                                List<Long> values = new ArrayList<>();
-                                for( DataSnapshot data : dataSnapshot.getChildren() ){
-                                    keys.add(data.getKey());
-                                    values.add(data.getValue(Long.class));
-                                }
-                                propertiesDetails.get(finalI).setSpinnerKeys(keys);
-                                propertiesDetails.get(finalI).setSpinnerValues(values);
-                                break;
-                            case "limited_value":
-                                propertiesDetails.get(finalI).setLimitedValue(dataSnapshot.getValue(Long.class));
-                                break;
-                            case "professor_value":
-                                propertiesDetails.get(finalI).setProfType(String.valueOf(dataSnapshot.getValue()));
-                            default:
-                                break;
-                        }
-
-                        propertiesReady[finalI] = true;
-                        if( readyToLaunch() ){
-                            InitializePropertiesListView();
-                        }
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {}
-                });
-                typeReferences.get(i).addValueEventListener(typeListeners.get(i));
-            }
-        }
-    }
-
-    private boolean readyToLaunch(){
-        for (boolean aPropertiesReady : propertiesReady) {
-            if (!aPropertiesReady) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private void InitializePropertiesListView() {
-        RatePropertiesAdapter adapter = new RatePropertiesAdapter(this, propertiesDetails);
-        propertiesListView.setAdapter(adapter);
-        InitializeSendButton();
-    }
-
-    private void InitializeSendButton() {
-        sendButtonView.setOnClickListener(v -> {
-            if( correctJudgeInput() ){
-                sendReportRate();
-            }
-        });
-    }
-
-    private void sendReportRate() {
-        Map<String, Long> reportRate = new HashMap<>();
-        for(int i = 0; i< propertiesListView.getChildCount(); i++ ){
-
-            PropertyDetails current = (PropertyDetails) propertiesListView.getAdapter().getItem(i);
-
-            Spinner spinner;
-            EditText editText;
-            String selectedKey;
-
-            switch (current.getType()){
-                case "normal_value":
-                    editText = propertiesListView
-                            .getChildAt(i).findViewById(R.id.item_properity_edit_text);
-                    reportRate.put(current.getSymbol(),
-                            Long.valueOf(editText.getText().toString()));
-                    break;
-                case "limited_value":
-                    spinner = propertiesListView
-                            .getChildAt(i).findViewById(R.id.item_properity_spinner);
-                    reportRate.put(current.getSymbol(),
-                            Long.valueOf(spinner.getSelectedItem().toString()));
-                    break;
-                case "spinner":
-                    spinner = propertiesListView
-                            .getChildAt(i).findViewById(R.id.item_properity_spinner);
-                    selectedKey = spinner.getSelectedItem().toString();
-                    for( int j=0; j<current.getSpinnerKeys().size(); j++ ){
-                        if( selectedKey.equals(current.getSpinnerKeys().get(j))){
-                            reportRate.put(current.getSymbol(),
-                                    current.getSpinnerValues().get(j));
-                        }
-                    }
-                    break;
-                case "boolean_value":
-                    spinner = propertiesListView
-                            .getChildAt(i).findViewById(R.id.item_properity_spinner);
-                    selectedKey = spinner.getSelectedItem().toString();
-                    if( selectedKey.equals("TAK") ){
-                        reportRate.put(current.getSymbol(), (long) 1);
-                    }else {
-                        reportRate.put(current.getSymbol(), (long) 0);
-                    }
-                    break;
-                default:
-                    break;
-            }
-
-            mRootRef.child("ReportRates").child(bRpid).child(mFirebaseUser.getUid()).setValue(reportRate);
-
-            Intent home = new Intent(this, HomeActivity.class);
-            startActivity(home);
-            finish();
-        }
-    }
-
-    private boolean correctJudgeInput() {
-
-        for(int i = 0; i< propertiesListView.getChildCount(); i++ ){
-
-            PropertyDetails current = (PropertyDetails) propertiesListView.getAdapter().getItem(i);
-            switch (current.getType()){
-                case "normal_value":
-                    EditText editText = propertiesListView
-                            .getChildAt(i).findViewById(R.id.item_properity_edit_text);
-                    if(editText.getText().toString().matches("")){
-                        Toast.makeText(this, "Uzupełnij "+current.getName(), Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
-                    break;
-                default:
-                    Spinner spinner = propertiesListView
-                            .getChildAt(i).findViewById(R.id.item_properity_spinner);
-                    if( spinner.getSelectedItem().toString().equals("<none>") ){
-                        Toast.makeText(this, "Uzupełnij "+current.getName(), Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
-            }
-        }
-        return true;
-    }
-
     private void initializeFirebaseComponents() {
         Bundle bundle = this.getIntent().getExtras();
         if( bundle != null ){
@@ -536,26 +495,24 @@ public class JudgeRateSMPostActivity extends AppCompatActivity {
             bRpid = bundle.getString("rpid");
             bTime = bundle.getString("time");
             bDate = bundle.getString("date");
+            bPreviousAmountOfReports = bundle.getInt("previousAmountOfReports");
         }
         setTitle(bSMName);
         timeView.setText(bTime);
         dateView.setText(bDate);
         userNameView.setText(bUserName);
-        Glide.with(context)
+        Glide.with(this)
                 .load(bUserImageURL)
                 .into(userImageView);
-
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mAuth.getCurrentUser();
 
         mRootRef = FirebaseDatabase.getInstance().getReference();
         mDatabaseInReportsRef = mRootRef.child("Reports").child(bRpid);
         mDatabaseSMDocsRef = mRootRef.child("SideMissionsDocs").child(bSMName);
-        mDatabaseSMPPropertiesRef = mRootRef.child("SideMissionsProperities").child(bSMName).child("properities");
-        mDatabaseSMPPropertiesHintsRef = mRootRef.child("SideMissionsProperities").child(bSMName).child("properitiesHints");
+        mDatabaseSMPProperitiesRef = mRootRef.child("SideMissionsProperities").child(bSMName).child("properities");
+        mDatabaseSMPProperitiesHintsRef = mRootRef.child("SideMissionsProperities").child(bSMName).child("properitiesHints");
     }
 
-    private void detachFirebaseListeners() {
+    private void dettachFirebaseListeners() {
         if( mSMDocsValueEventListener != null ){
             mDatabaseSMDocsRef.removeEventListener(mSMDocsValueEventListener);
             mSMDocsValueEventListener = null;
@@ -568,21 +525,19 @@ public class JudgeRateSMPostActivity extends AppCompatActivity {
             mDatabasePerformingUserRef.removeEventListener(mPerformingUserValueEventListener);
             mPerformingUserValueEventListener = null;
         }
-        if( mSMPPropertiesValueEventListener != null ){
-            mDatabaseSMPPropertiesRef.removeEventListener(mSMPPropertiesValueEventListener);
-            mSMPPropertiesValueEventListener = null;
+        if( mSMPProperitiesValueEventListener != null ){
+            mDatabaseSMPProperitiesRef.removeEventListener(mSMPProperitiesValueEventListener);
+            mSMPProperitiesValueEventListener = null;
         }
-        if( mSMPPropertiesHintsValueEventListener != null ){
-            mDatabaseSMPPropertiesHintsRef.removeEventListener(mSMPPropertiesHintsValueEventListener);
-            mSMPPropertiesHintsValueEventListener = null;
+        if( mSMPProperitiesHintsValueEventListener != null ){
+            mDatabaseSMPProperitiesHintsRef.removeEventListener(mSMPProperitiesHintsValueEventListener);
+            mSMPProperitiesHintsValueEventListener = null;
         }
 
-        if( typeListeners != null ){
-            for( int i=0; i<typeListeners.size(); i++ ){
-                if( typeListeners.get(i) != null ){
-                    typeReferences.get(i).removeEventListener(typeListeners.get(i));
-                    typeListeners.set(i, null);
-                }
+        for( int i=0; i<typeListeners.size(); i++ ){
+            if( typeListeners.get(i) != null ){
+                typeReferences.get(i).removeEventListener(typeListeners.get(i));
+                typeListeners.set(i, null);
             }
         }
     }
