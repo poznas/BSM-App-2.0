@@ -61,6 +61,7 @@ public class Constants {
     public static final String BRAND_ZONGLER = "Żongler";
     public static final String BRAND_SM_INFO = "Misje Poboczne";
     public static final String BRAND_MC_INFO = "Konkurencje Główne";
+    public static final String BRAND_ADMIN = "Administracja";
     public static final String BRAND_TUTORIAL = "Tutoriale";
 
     public static final String URL_TUTORIAL_FOLDER =

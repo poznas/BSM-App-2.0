@@ -14,10 +14,12 @@ import com.bsm.mobile.legacy.module.wizard.list.WizardsActivity;
 import com.bsm.mobile.legacy.module.wizard.sm.list.AddSMListActivity;
 import com.bsm.mobile.legacy.module.zongler.ZonglerActivity;
 import com.bsm.mobile.points.list.PointsListActivity;
+import com.bsm.mobile.professor.admin.user.AdminActivity;
 import com.bsm.mobile.professor.sm.list.RateSMListActivity;
 
 import java.util.HashMap;
 
+import static com.bsm.mobile.Constants.BRAND_ADMIN;
 import static com.bsm.mobile.Constants.BRAND_BET;
 import static com.bsm.mobile.Constants.BRAND_JUDGE;
 import static com.bsm.mobile.Constants.BRAND_MAIN_COMPETITION;
@@ -50,6 +52,7 @@ public class HomeIntentFactory {
             put(BRAND_REPORT, new Intent(context, AddSMListActivity.class));
             put(BRAND_JUDGE, new Intent(context, JudgeSMListActivity.class));
             put(BRAND_PROF_RATE, new Intent(context, RateSMListActivity.class));
+            put(BRAND_ADMIN, new Intent(context, AdminActivity.class));
         }};
     }
 

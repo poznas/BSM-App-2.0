@@ -9,7 +9,22 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-import static com.bsm.mobile.Constants.*;
+import static com.bsm.mobile.Constants.BRAND_ADMIN;
+import static com.bsm.mobile.Constants.BRAND_BET;
+import static com.bsm.mobile.Constants.BRAND_JUDGE;
+import static com.bsm.mobile.Constants.BRAND_MAIN_COMPETITION;
+import static com.bsm.mobile.Constants.BRAND_MC_INFO;
+import static com.bsm.mobile.Constants.BRAND_MEDAL;
+import static com.bsm.mobile.Constants.BRAND_PROF_RATE;
+import static com.bsm.mobile.Constants.BRAND_REPORT;
+import static com.bsm.mobile.Constants.BRAND_SM_INFO;
+import static com.bsm.mobile.Constants.BRAND_TUTORIAL;
+import static com.bsm.mobile.Constants.BRAND_WIZARDS;
+import static com.bsm.mobile.Constants.BRAND_ZONGLER;
+import static com.bsm.mobile.Constants.LABEL_JUDGE;
+import static com.bsm.mobile.Constants.LABEL_PROFESSOR;
+import static com.bsm.mobile.Constants.LABEL_WIZARD;
+import static com.bsm.mobile.Constants.REPORTS_LOADING;
 
 public class LocalUserPrivilegeRepository implements IUserPrivilegeRepository {
 
@@ -50,6 +65,10 @@ public class LocalUserPrivilegeRepository implements IUserPrivilegeRepository {
         if( userLabel.equals(LABEL_PROFESSOR) || userLabel.equals(LABEL_WIZARD) || userLabel.equals(LABEL_JUDGE)){
             privileges.add(Privilege.builder()
                     .iconId(R.mipmap.icon_small_calendar).brand(BRAND_TUTORIAL).build());
+        }
+        if (userLabel.equals(LABEL_PROFESSOR)) {
+            privileges.add(Privilege.builder()
+                    .iconId(R.mipmap.icon_admin).brand(BRAND_ADMIN).build());
         }
 
         return Observable.just(privileges);
