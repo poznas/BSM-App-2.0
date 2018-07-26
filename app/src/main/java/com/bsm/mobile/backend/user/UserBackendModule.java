@@ -16,8 +16,14 @@ public class UserBackendModule {
 
     @Singleton
     @Provides
-    public IUserRepository provideUserRepository(){
-        return new FirebaseUserRepository();
+    public IUserRepository provideUserRepository(IUserDetailsRepository detailsRepository){
+        return new FirebaseUserRepository(detailsRepository);
+    }
+
+    @Singleton
+    @Provides
+    public IUserDetailsRepository provideUserDetailsRepository(){
+        return new FirebaseUserDetailsRepository();
     }
 
     @Singleton

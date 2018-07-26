@@ -14,7 +14,7 @@ import com.bsm.mobile.legacy.module.wizard.list.WizardsActivity;
 import com.bsm.mobile.legacy.module.wizard.sm.list.AddSMListActivity;
 import com.bsm.mobile.legacy.module.zongler.ZonglerActivity;
 import com.bsm.mobile.points.list.PointsListActivity;
-import com.bsm.mobile.professor.admin.user.AdminActivity;
+import com.bsm.mobile.professor.admin.AdminActivity;
 import com.bsm.mobile.professor.sm.list.RateSMListActivity;
 
 import java.util.HashMap;

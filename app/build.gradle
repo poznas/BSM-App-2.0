@@ -91,5 +91,9 @@ dependencies {
 
     //Easy runtime permissions
     implementation 'pub.devrel:easypermissions:1.2.0'
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    implementation 'org.apache.commons:commons-lang3:3.0'
+
 }
 apply plugin: 'com.google.gms.google-services'

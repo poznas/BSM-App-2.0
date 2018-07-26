@@ -77,7 +77,7 @@
             android:id="@+id/at_icon"
             android:layout_width="36dp"
             android:layout_height="match_parent"
-            android:src="@mipmap/Icon_at" />
+            android:src="@mipmap/icon_at" />
 
         <ImageView
             android:layout_marginLeft="8dp"

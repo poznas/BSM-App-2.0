@@ -52,7 +52,7 @@
         <activity android:name=".professor.sm.list.RateSMListActivity" />
         <activity android:name=".legacy.module.professor.rate.sm.ProfRateSideMissionActivity" />
         <activity android:name=".legacy.module.professor.rate.sm.ProfRateSMPostActivity" />
-        <activity android:name=".professor.admin.user.AdminActivity" />
+        <activity android:name=".professor.admin.AdminActivity" />
 
         <service android:name=".legacy.module.wizard.sm.ReportUploader"
             android:exported="true"/>

@@ -18,7 +18,7 @@ import java.util.Objects;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 
-import static com.bsm.mobile.backend.user.FirebaseUserRepository.DEFAULT_USER_PHOTO_URL;
+import static com.bsm.mobile.Constants.DEFAULT_USER_PHOTO_URL;
 
 public class FirebaseUserAuthService implements IUserAuthService, Tagable, NullFighter {
 
@@ -77,14 +77,14 @@ public class FirebaseUserAuthService implements IUserAuthService, Tagable, NullF
     private Maybe<AuthResult> firebaseAuthWithGoogle(AuthCredential credential){
         Log.d(getTag(), "attempt to auth with provider: " + credential.getProvider());
 
-        return Maybe.create(emitter -> {
+        return Maybe.create(emitter ->
             getServiceFirebaseAuth().signInWithCredential(credential)
                     .addOnSuccessListener(emitter::onSuccess)
                     .addOnFailureListener(e -> {
                         if(!emitter.isDisposed()) emitter.onError(e);
                     })
-                    .addOnCompleteListener(task -> {emitter.onComplete();});
-        });
+                    .addOnCompleteListener(task -> emitter.onComplete())
+        );
     }
 
     @Override

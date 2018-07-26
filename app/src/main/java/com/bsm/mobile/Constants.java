@@ -39,6 +39,9 @@ public class Constants {
 
     public static final String FIELD_VALID = "valid";
 
+    public static final String GENDER_MALE = "m";
+    public static final String GENDER_FEMALE = "f";
+
 
     public static final String LABEL_JUDGE = "judge";
     public static final String LABEL_PROFESSOR = "professor";
@@ -66,6 +69,8 @@ public class Constants {
 
     public static final String URL_TUTORIAL_FOLDER =
             "https://drive.google.com/drive/folders/16wudyPdZ3IToMthfmT8tGqa0YU7Gf8O2";
+    public static final String DEFAULT_USER_PHOTO_URL
+            = "http://i.kafeteria.pl/0991f9c6631ca79a8bb5b5199b2c39df1fc77dc4";
 
     public static final int REPORTS_LOADING = -1;
     public static final int REPORTS_NO_PENDING = 0;

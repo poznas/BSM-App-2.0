@@ -1,4 +1,4 @@
-package com.bsm.mobile.professor.admin.user;
+package com.bsm.mobile.professor.admin;
 
 import com.bsm.mobile.common.MultiSubscriber;
 import com.bsm.mobile.common.SnackMessage;
@@ -8,6 +8,7 @@ import com.bsm.mobile.legacy.model.User;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 public interface AdminActivityMVP {
 
@@ -39,15 +40,19 @@ public interface AdminActivityMVP {
         void updateUser(User user);
 
         void insertUser(User user);
+
+        void handleSwitchChange(boolean isChecked);
     }
 
     interface Model {
 
-        void deleteUser(User user);
+        Single<Boolean> deleteUser(User user);
 
-        void updateUser(User user);
+        Single<Boolean> updateUser(User user);
 
-        void insertUser(User user);
+        Single<Boolean> insertUser(User user);
+
+        Single<Boolean> setReportLockState(boolean unlocked);
 
         Observable<Boolean> getReportLockState();
 

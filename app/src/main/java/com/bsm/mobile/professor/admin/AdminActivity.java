@@ -1,8 +1,10 @@
-package com.bsm.mobile.professor.admin.user;
+package com.bsm.mobile.professor.admin;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -10,17 +12,26 @@ import android.widget.Switch;
 
 import com.bsm.mobile.R;
 import com.bsm.mobile.legacy.model.User;
+import com.bsm.mobile.root.App;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static com.bsm.mobile.professor.admin.user.AdminActivityMVP.View;
+import static com.bsm.mobile.professor.admin.AdminActivityMVP.Presenter;
+import static com.bsm.mobile.professor.admin.AdminActivityMVP.View;
 
 
 public class AdminActivity extends AppCompatActivity implements View {
+
+    @Inject
+    Presenter presenter;
+
+    private UserAdapter userAdapter;
 
     @BindView(R.id.layout_parent)
     ViewGroup rootView;
@@ -37,16 +48,29 @@ public class AdminActivity extends AppCompatActivity implements View {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_professor_admin);
+        ((App) getApplication()).getComponent().inject(this);
+        presenter.attachView(this);
+
+        initializeUserRecyclerView();
+    }
+
+    private void initializeUserRecyclerView() {
+        userAdapter = new UserAdapter(presenter);
+        usersRecyclerView.setAdapter(userAdapter);
+        usersRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        usersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
     public void setReportLockSwitchListener() {
-
+        reportLockSwitch.setOnCheckedChangeListener(
+                (button, isChecked) -> presenter.handleSwitchChange(isChecked));
     }
 
     @Override
     public void setReportLockProgress(boolean loading) {
         reportLockProgressBar.setVisibility(loading ? VISIBLE : GONE);
+        reportLockSwitch.setVisibility(loading ? GONE : VISIBLE);
     }
 
     @Override
@@ -62,11 +86,11 @@ public class AdminActivity extends AppCompatActivity implements View {
 
     @Override
     public void updateUsers(List<User> users) {
-
+        userAdapter.updateUsers(users);
     }
 
     @Override
     public void updateReportLock(boolean unlocked) {
-
+        reportLockSwitch.setChecked(unlocked);
     }
 }

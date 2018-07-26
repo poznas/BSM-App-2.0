@@ -83,23 +83,6 @@ public class LoginPresenter implements Presenter {
                               error -> view.showMessage(error.getMessage())
                       )
             );
-            /*
-            Disposable subscription = model.authWithGoogle(account)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnTerminate(view::hideProgress)
-                    .subscribe(
-                            signInSuccess -> {
-                                if (signInSuccess){
-                                    subscribeForAuth();
-                                }else {
-                                    view.showMessage(SIGN_IN_WITH_FAILURE);
-                                }
-                            },
-                            error -> view.showMessage(error.getMessage())
-                    );
-            subscriptions.add(subscription);
-            */
         }else {
             view.showMessage(result.getStatus().getStatusMessage());
         }
