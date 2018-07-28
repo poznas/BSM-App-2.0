@@ -15,8 +15,7 @@
         android:id="@+id/item_user_image_view"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_centerVertical="true"
-        android:src="@mipmap/sensum" />
+        android:layout_centerVertical="true"/>
 
     <LinearLayout
         android:id="@+id/name_parent_view"

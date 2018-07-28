@@ -61,7 +61,6 @@
                     android:id="@+id/performing_user_image_view"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    tools:src="@mipmap/sensum"
                     android:layout_gravity="center_vertical"/>
 
                 <TextView
