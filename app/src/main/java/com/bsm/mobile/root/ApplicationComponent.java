@@ -18,6 +18,7 @@ import com.bsm.mobile.domain.professor.admin.user.EditUserActivity;
 import com.bsm.mobile.domain.professor.admin.user.EditUserActivityModule;
 import com.bsm.mobile.domain.professor.sm.list.RateSMListActivity;
 import com.bsm.mobile.domain.professor.sm.list.RateSMListActivityModule;
+import com.bsm.mobile.legacy.domain.wizard.sm.list.AddSMListActivity;
 
 import javax.inject.Singleton;
 
@@ -47,4 +48,5 @@ public interface ApplicationComponent {
     void inject(RateSMListActivity activity);
     void inject(AdminActivity activity);
     void inject(EditUserActivity activity);
+    void inject(AddSMListActivity legacyActivity);
 }

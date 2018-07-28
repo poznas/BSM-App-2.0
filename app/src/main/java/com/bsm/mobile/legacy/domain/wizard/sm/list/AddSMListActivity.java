@@ -3,25 +3,32 @@ package com.bsm.mobile.legacy.domain.wizard.sm.list;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
-import com.bsm.mobile.backend.user.FirebaseUserAuthService;
-import com.bsm.mobile.backend.user.FirebaseUserDetailsRepository;
-import com.bsm.mobile.backend.user.FirebaseUserRepository;
+import com.bsm.mobile.backend.report.IReportRepository;
+import com.bsm.mobile.backend.user.IUserAuthService;
 import com.bsm.mobile.legacy.domain.info.sm.SideMissionsInfoActivity;
 import com.bsm.mobile.legacy.model.SideMissionInfo;
+import com.bsm.mobile.root.App;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.Query;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
+import javax.inject.Inject;
+
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class AddSMListActivity extends SideMissionsInfoActivity {
 
-    Disposable teamSubscription;
+    @Inject
+    IUserAuthService userAuthService;
+    @Inject
+    IReportRepository reportRepository;
+
+    CompositeDisposable compositeDisposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((App) getApplication()).getComponent().inject(this);
         setTitle("Melduj");
     }
 
@@ -35,23 +42,29 @@ public class AddSMListActivity extends SideMissionsInfoActivity {
         adapter = new SMListAdapter(options);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        compositeDisposable = new CompositeDisposable();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        teamSubscription = new FirebaseUserAuthService(new FirebaseUserRepository(new FirebaseUserDetailsRepository()))
+        compositeDisposable.add(
+                userAuthService
                 .getCurrentUser()
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(user -> {
-                    ((SMListAdapter) adapter).setTeam(user.getTeam());
-                });
+                .observeOn(Schedulers.single())
+                .subscribe(user -> ((SMListAdapter) adapter).setTeam(user.getTeam())));
+        compositeDisposable.add(
+          reportRepository.getReportLockState()
+                  .subscribeOn(Schedulers.io())
+                  .observeOn(Schedulers.single())
+                  .subscribe(unlocked -> ((SMListAdapter) adapter).setReportsEnabled(unlocked))
+        );
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        teamSubscription.dispose();
+        compositeDisposable.dispose();
     }
 }

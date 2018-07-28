@@ -10,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bsm.mobile.R;
+import com.bsm.mobile.common.resource.Message;
 import com.bsm.mobile.legacy.domain.wizard.sm.AddSMActivity;
 import com.bsm.mobile.legacy.domain.wizard.sm.post.AddSMPostActivity;
 import com.bsm.mobile.legacy.model.SideMissionInfo;
@@ -20,11 +22,13 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import lombok.Setter;
 
 /**
  * Created by Mlody Danon on 7/29/2017.
  */
 
+@Setter
 public class SMListAdapter extends FirebaseRecyclerAdapter<SideMissionInfo, SMListAdapter.SMListViewHolder> {
 
 
@@ -35,6 +39,7 @@ public class SMListAdapter extends FirebaseRecyclerAdapter<SideMissionInfo, SMLi
      * @param options
      */
     private String team;
+    private boolean reportsEnabled;
 
 
     public SMListAdapter(@NonNull FirebaseRecyclerOptions<SideMissionInfo> options) {
@@ -53,10 +58,6 @@ public class SMListAdapter extends FirebaseRecyclerAdapter<SideMissionInfo, SMLi
     @Override
     protected void onBindViewHolder(@NonNull SMListViewHolder holder, int position, @NonNull SideMissionInfo model) {
         holder.setInfo(model);
-    }
-
-    public void setTeam(String team) {
-        this.team = team;
     }
 
     public class SMListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -80,11 +81,16 @@ public class SMListAdapter extends FirebaseRecyclerAdapter<SideMissionInfo, SMLi
 
         @Override
         public void onClick(View v) {
-            if( addSMDetailsIntent != null && team != null ){
-                addSMDetailsIntent.putExtra("team",team);
-                context.startActivity(addSMDetailsIntent);
-                ((Activity)context).finish();
+            if(reportsEnabled){
+                if( addSMDetailsIntent != null && team != null ){
+                    addSMDetailsIntent.putExtra("team",team);
+                    context.startActivity(addSMDetailsIntent);
+                    ((Activity)context).finish();
+                }
+            }else {
+                Toast.makeText(context, Message.ADMIN_REPORT_DISABLED, Toast.LENGTH_SHORT).show();
             }
+
         }
 
         public void setInfo(SideMissionInfo info) {
