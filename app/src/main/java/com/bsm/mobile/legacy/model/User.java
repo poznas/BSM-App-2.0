@@ -38,4 +38,8 @@ public class User implements Comparable<User>, Serializable{
                 .compare(displayName, user.getDisplayName(), Ordering.natural().nullsLast())
                 .result();
     }
+
+    public static User empty(){
+        return new User();
+    }
 }

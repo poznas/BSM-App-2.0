@@ -48,10 +48,10 @@ public class FirebaseUserRepository extends AbstractFirebaseRepository implement
     @Override
     public void updateMainUserData(String userId, User userData) {
         getUser(userId).take(1)
-                .timeout(10, SECONDS, Observable.just(new User()))
+                .timeout(10, SECONDS, Observable.just(User.empty()))
                 .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.computation())
-                .onErrorReturnItem(new User())
+                .onErrorReturnItem(User.empty())
                 .subscribe(serverUserData -> {
                     if(serverUserData.getDisplayName() != null)
                         userData.setDisplayName(null);

@@ -43,7 +43,7 @@ public class HomeModel implements Model {
     @Override
     public Observable<User> getUser() {
         return userAuthService.getCurrentUser()
-                .onErrorReturnItem(new User());
+                .onErrorReturnItem(User.empty());
     }
 
     @Override
