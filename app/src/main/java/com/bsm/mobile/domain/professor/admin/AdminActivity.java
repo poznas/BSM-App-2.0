@@ -1,4 +1,4 @@
-package com.bsm.mobile.professor.admin;
+package com.bsm.mobile.domain.professor.admin;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,8 +23,8 @@ import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static com.bsm.mobile.professor.admin.AdminActivityMVP.Presenter;
-import static com.bsm.mobile.professor.admin.AdminActivityMVP.View;
+import static com.bsm.mobile.domain.professor.admin.AdminActivityMVP.Presenter;
+import static com.bsm.mobile.domain.professor.admin.AdminActivityMVP.View;
 
 
 public class AdminActivity extends AppCompatActivity implements View {

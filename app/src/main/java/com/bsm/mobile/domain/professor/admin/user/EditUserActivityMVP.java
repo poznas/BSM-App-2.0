@@ -13,6 +13,8 @@ public interface EditUserActivityMVP {
 
         void displayUserData(User user);
 
+        void armButtonListeners();
+
         void showMessage(String message);
 
         void finish();

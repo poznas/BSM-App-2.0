@@ -1,8 +1,8 @@
-package com.bsm.mobile.professor.sm.list;
+package com.bsm.mobile.domain.professor.sm.list;
 
 import com.bsm.mobile.backend.report.IPendingReportsService;
-import com.bsm.mobile.professor.sm.list.RateSMListActivityMVP.Model;
-import com.bsm.mobile.professor.sm.list.RateSMListActivityMVP.Presenter;
+import com.bsm.mobile.domain.professor.sm.list.RateSMListActivityMVP.Model;
+import com.bsm.mobile.domain.professor.sm.list.RateSMListActivityMVP.Presenter;
 
 import dagger.Module;
 import dagger.Provides;

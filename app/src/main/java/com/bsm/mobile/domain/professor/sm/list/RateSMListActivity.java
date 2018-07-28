@@ -1,4 +1,4 @@
-package com.bsm.mobile.professor.sm.list;
+package com.bsm.mobile.domain.professor.sm.list;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,8 +25,8 @@ import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static com.bsm.mobile.professor.sm.list.RateSMListActivityMVP.Presenter;
-import static com.bsm.mobile.professor.sm.list.RateSMListActivityMVP.View;
+import static com.bsm.mobile.domain.professor.sm.list.RateSMListActivityMVP.Presenter;
+import static com.bsm.mobile.domain.professor.sm.list.RateSMListActivityMVP.View;
 
 public class RateSMListActivity extends AppCompatActivity implements View {
 

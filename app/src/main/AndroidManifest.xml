@@ -49,10 +49,11 @@
         <activity android:name=".legacy.domain.points.details.bet.BetResultDisplayActivity" />
         <activity android:name=".legacy.domain.points.details.medal.MedalResultDisplayActivity" />
         <activity android:name=".legacy.domain.points.details.mc.MCResultDisplayActivity" />
-        <activity android:name=".professor.sm.list.RateSMListActivity" />
+        <activity android:name=".domain.professor.sm.list.RateSMListActivity" />
         <activity android:name=".legacy.domain.professor.rate.sm.ProfRateSideMissionActivity" />
         <activity android:name=".legacy.domain.professor.rate.sm.ProfRateSMPostActivity" />
-        <activity android:name=".professor.admin.AdminActivity" />
+        <activity android:name=".domain.professor.admin.AdminActivity" />
+        <activity android:name=".domain.professor.admin.user.EditUserActivity" />
 
         <service android:name=".legacy.domain.wizard.sm.ReportUploader"
             android:exported="true"/>

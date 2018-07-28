@@ -1,4 +1,4 @@
-package com.bsm.mobile.professor.admin;
+package com.bsm.mobile.domain.professor.admin;
 
 import com.bsm.mobile.legacy.model.User;
 
@@ -14,9 +14,9 @@ import static com.bsm.mobile.common.resource.Message.ADMIN_DELETE_USER_SUCCESS;
 import static com.bsm.mobile.common.resource.Message.ADMIN_REPORT_DISABLED;
 import static com.bsm.mobile.common.resource.Message.ADMIN_REPORT_ENABLED;
 import static com.bsm.mobile.common.resource.Message.ADMIN_REPORT_LOCK_UPDATE_ERROR;
-import static com.bsm.mobile.professor.admin.AdminActivityMVP.Model;
-import static com.bsm.mobile.professor.admin.AdminActivityMVP.Presenter;
-import static com.bsm.mobile.professor.admin.AdminActivityMVP.View;
+import static com.bsm.mobile.domain.professor.admin.AdminActivityMVP.Model;
+import static com.bsm.mobile.domain.professor.admin.AdminActivityMVP.Presenter;
+import static com.bsm.mobile.domain.professor.admin.AdminActivityMVP.View;
 
 @RequiredArgsConstructor
 public class AdminPresenter implements Presenter {

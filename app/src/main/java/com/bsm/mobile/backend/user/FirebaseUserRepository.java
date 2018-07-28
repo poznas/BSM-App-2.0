@@ -1,5 +1,6 @@
 package com.bsm.mobile.backend.user;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import com.bsm.mobile.backend.AbstractFirebaseRepository;
@@ -13,9 +14,12 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.schedulers.Schedulers;
 import lombok.RequiredArgsConstructor;
 
 import static com.bsm.mobile.common.resource.Constants.BRANCH_USERS;
+import static com.bsm.mobile.common.utils.UserDataValidator.getValidData;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * server side BSM 2017 application was implemented in such a way that:
@@ -29,6 +33,7 @@ import static com.bsm.mobile.common.resource.Constants.BRANCH_USERS;
  *                  delete user details from '/UserDetails'
  *                  delete remaining user data from '/users'
  */
+@SuppressLint("CheckResult")
 @RequiredArgsConstructor
 public class FirebaseUserRepository extends AbstractFirebaseRepository implements IUserRepository{
 
@@ -39,10 +44,20 @@ public class FirebaseUserRepository extends AbstractFirebaseRepository implement
         return getRoot().child(BRANCH_USERS);
     }
 
+
     @Override
     public void updateMainUserData(String userId, User userData) {
-        getRepositoryQuery().child(userId)
-                .updateChildren(NonNullObjectMapper.map(userData));
+        getUser(userId).take(1)
+                .timeout(10, SECONDS, Observable.just(new User()))
+                .observeOn(Schedulers.io())
+                .subscribeOn(Schedulers.computation())
+                .subscribe(serverUserData -> {
+                    if(serverUserData.getDisplayName() != null)
+                        userData.setDisplayName(null);
+
+                    getRepositoryQuery().child(userId)
+                            .updateChildren(NonNullObjectMapper.map(userData));
+                });
     }
 
     @Override
@@ -54,9 +69,13 @@ public class FirebaseUserRepository extends AbstractFirebaseRepository implement
             new SimpleValueEventListener(emitter, userDataReference)
                     .setOnDataChange(dataSnapshot -> {
                         User user = dataSnapshot.getValue(User.class);
-                        if (user != null) user.setId(userId);
                         Log.d(getTag(), "retrieved user : " + user);
-                        emitter.onNext(user);
+                        if (user != null) {
+                            user.setId(userId);
+                            emitter.onNext(user);
+                        }else {
+                            emitter.onError(new RuntimeException("No user data available"));
+                        }
                     }));
     }
 
@@ -99,8 +118,7 @@ public class FirebaseUserRepository extends AbstractFirebaseRepository implement
     private Single<Boolean> updateMainUserData(User user) {
         Log.d(getTag(), "attempt to UPDATE main user data : " + user);
         return Single.create(emitter ->
-            getRepositoryQuery().child(user.getId())
-                    .updateChildren(NonNullObjectMapper.map(user))
+            getRepositoryQuery().child(user.getId()).setValue(getValidData(user, false))
                     .addOnCompleteListener(task -> emitter.onSuccess(task.isSuccessful())));
     }
 

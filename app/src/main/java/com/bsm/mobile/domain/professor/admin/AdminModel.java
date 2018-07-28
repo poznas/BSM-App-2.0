@@ -1,4 +1,4 @@
-package com.bsm.mobile.professor.admin;
+package com.bsm.mobile.domain.professor.admin;
 
 import com.bsm.mobile.backend.report.IReportRepository;
 import com.bsm.mobile.backend.user.IUserRepository;
@@ -12,7 +12,7 @@ import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import lombok.RequiredArgsConstructor;
 
-import static com.bsm.mobile.professor.admin.AdminActivityMVP.Model;
+import static com.bsm.mobile.domain.professor.admin.AdminActivityMVP.Model;
 
 @RequiredArgsConstructor
 public class AdminModel implements Model{

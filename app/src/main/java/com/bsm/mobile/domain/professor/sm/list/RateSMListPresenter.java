@@ -1,4 +1,4 @@
-package com.bsm.mobile.professor.sm.list;
+package com.bsm.mobile.domain.professor.sm.list;
 
 import java.util.LinkedList;
 
@@ -7,9 +7,9 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import lombok.RequiredArgsConstructor;
 
-import static com.bsm.mobile.professor.sm.list.RateSMListActivityMVP.Model;
-import static com.bsm.mobile.professor.sm.list.RateSMListActivityMVP.Presenter;
-import static com.bsm.mobile.professor.sm.list.RateSMListActivityMVP.View;
+import static com.bsm.mobile.domain.professor.sm.list.RateSMListActivityMVP.Model;
+import static com.bsm.mobile.domain.professor.sm.list.RateSMListActivityMVP.Presenter;
+import static com.bsm.mobile.domain.professor.sm.list.RateSMListActivityMVP.View;
 
 @RequiredArgsConstructor
 public class RateSMListPresenter implements Presenter {

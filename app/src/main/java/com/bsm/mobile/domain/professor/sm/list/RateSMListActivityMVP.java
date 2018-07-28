@@ -1,4 +1,4 @@
-package com.bsm.mobile.professor.sm.list;
+package com.bsm.mobile.domain.professor.sm.list;
 
 import com.bsm.mobile.common.MultiSubscriber;
 import com.bsm.mobile.common.SnackMessage;

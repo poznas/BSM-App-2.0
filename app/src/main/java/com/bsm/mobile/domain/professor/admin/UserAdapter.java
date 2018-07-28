@@ -1,4 +1,4 @@
-package com.bsm.mobile.professor.admin;
+package com.bsm.mobile.domain.professor.admin;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,14 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bsm.mobile.common.resource.Message;
 import com.bsm.mobile.R;
-import com.bsm.mobile.common.resource.TeamResources;
 import com.bsm.mobile.common.NullFighter;
 import com.bsm.mobile.common.SimpleAlertDialog;
 import com.bsm.mobile.common.Tagable;
-import com.bsm.mobile.common.utils.UserDataUtils;
-import com.bsm.mobile.legacy.domain.calendar.CalendarDaysActivity;
+import com.bsm.mobile.common.resource.Message;
+import com.bsm.mobile.common.resource.TeamResources;
+import com.bsm.mobile.common.utils.UserDataValidator;
+import com.bsm.mobile.domain.professor.admin.user.EditUserActivity;
 import com.bsm.mobile.legacy.model.User;
 import com.bumptech.glide.Glide;
 
@@ -33,7 +33,8 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.bsm.mobile.common.resource.Constants.GENDER_FEMALE;
 import static com.bsm.mobile.common.resource.Constants.GENDER_MALE;
-import static com.bsm.mobile.professor.admin.AdminActivityMVP.Presenter;
+import static com.bsm.mobile.common.resource.Constants.KEY_USER;
+import static com.bsm.mobile.domain.professor.admin.AdminActivityMVP.Presenter;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> implements Tagable, NullFighter{
 
@@ -114,7 +115,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
         private void setOnEditClickListener() {
             parentView.setOnClickListener(event -> {
-                context.startActivity(new Intent(context, CalendarDaysActivity.class)); //TODO:
+                context.startActivity(new Intent(context, EditUserActivity.class).putExtra(KEY_USER, user));
             });
         }
 
@@ -124,7 +125,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             Glide.with(context).load(user.getPhotoUrl()).into(userImageView);
             displayNameView.setText(user.getDisplayName());
             teamNameView.setText(user.getTeam());
-            teamNameView.setTextColor(UserDataUtils.validTeam(user) ?
+            teamNameView.setTextColor(UserDataValidator.validTeam(user) ?
                     TeamResources.COLORS(context).get(user.getTeam()) : TRANSPARENT);
 
             labelView.setText(user.getLabel());

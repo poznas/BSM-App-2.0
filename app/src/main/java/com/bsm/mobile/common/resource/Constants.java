@@ -19,6 +19,7 @@ public class Constants {
     public static final String KEY_WINNER = "winner";
     public static final String KEY_REPORT_ID = "rpid";
     public static final String KEY_TEAM = "team";
+    public static final String KEY_USER = "user";
 
     public static final String TEAM_CORMEUM = "cormeum";
     public static final String TEAM_SENSUM = "sensum";

@@ -1,4 +1,4 @@
-package com.bsm.mobile.professor.sm.list;
+package com.bsm.mobile.domain.professor.sm.list;
 
 import com.bsm.mobile.backend.report.IPendingReportsService;
 import com.bsm.mobile.legacy.model.PendingReport;
@@ -8,7 +8,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import lombok.AllArgsConstructor;
 
-import static com.bsm.mobile.professor.sm.list.RateSMListActivityMVP.Model;
+import static com.bsm.mobile.domain.professor.sm.list.RateSMListActivityMVP.Model;
 
 @AllArgsConstructor
 public class RateSMListModel implements Model {

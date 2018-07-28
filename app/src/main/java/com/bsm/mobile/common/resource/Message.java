@@ -19,6 +19,8 @@ public class Message {
     public static final String ADMIN_DELETE_USER_SUCCESS = "User delete success";
     public static final String ADMIN_DELETE_USER_FAILURE = "User delete failure";
 
+    public static final String INVALID_DISPLAY_NAME = "too short display name";
+
     public static final String ADMIN_REPORT_ENABLED = "Meldowanie aktywne";
     public static final String ADMIN_REPORT_DISABLED = "Meldowanie zablokowane";
     public static final String ADMIN_REPORT_LOCK_UPDATE_ERROR = "Report Lock set failure";

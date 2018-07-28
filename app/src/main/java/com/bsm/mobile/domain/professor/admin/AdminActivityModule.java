@@ -1,9 +1,9 @@
-package com.bsm.mobile.professor.admin;
+package com.bsm.mobile.domain.professor.admin;
 
 import com.bsm.mobile.backend.report.IReportRepository;
 import com.bsm.mobile.backend.user.IUserRepository;
-import com.bsm.mobile.professor.admin.AdminActivityMVP.Model;
-import com.bsm.mobile.professor.admin.AdminActivityMVP.Presenter;
+import com.bsm.mobile.domain.professor.admin.AdminActivityMVP.Model;
+import com.bsm.mobile.domain.professor.admin.AdminActivityMVP.Presenter;
 
 import dagger.Module;
 import dagger.Provides;

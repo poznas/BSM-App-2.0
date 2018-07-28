@@ -1,18 +1,13 @@
 package com.bsm.mobile.backend.user;
 
 import com.bsm.mobile.backend.AbstractFirebaseRepository;
-import com.bsm.mobile.common.utils.NonNullObjectMapper;
 import com.bsm.mobile.legacy.model.User;
 import com.google.firebase.database.DatabaseReference;
 
 import io.reactivex.Single;
 
 import static com.bsm.mobile.common.resource.Constants.BRANCH_USER_DETAILS;
-import static com.bsm.mobile.common.resource.Constants.LABEL_JUDGE;
-import static com.bsm.mobile.common.utils.UserDataUtils.getUserDetailsId;
-import static com.bsm.mobile.common.utils.UserDataUtils.validGender;
-import static com.bsm.mobile.common.utils.UserDataUtils.validLabel;
-import static com.bsm.mobile.common.utils.UserDataUtils.validTeam;
+import static com.bsm.mobile.common.utils.UserDataValidator.getValidData;
 
 /**
  * server side BSM 2017 application was implemented in such a way that:
@@ -43,23 +38,13 @@ public class FirebaseUserDetailsRepository extends AbstractFirebaseRepository im
 
     @Override
     public Single<Boolean> updateUserDetails(User user) {
-
-        User newUserDetails = (
-                user.getLabel().equals(LABEL_JUDGE) ?
-                        User.builder()
-                                .label(LABEL_JUDGE) :
-                        User.builder()
-                                .displayName(user.getDisplayName())
-                                .facebook(user.getFacebook())
-                                .gender(validGender(user) ? user.getGender() : null)
-                                .label(validLabel(user) ? user.getLabel() : null)
-                                .team(validTeam(user) ? user.getTeam() : null)
-        ).build();
-
         return Single.create(emitter ->
-            getRepositoryQuery().child(getUserDetailsId(user))
-                    .updateChildren(NonNullObjectMapper.map(newUserDetails))
+            getRepositoryQuery().child(getUserDetailsId(user)).setValue(getValidData(user, true))
                     .addOnCompleteListener(task -> emitter.onSuccess(task.isSuccessful())));
+    }
+
+    private static String getUserDetailsId(User user){
+        return user.getEmail().replaceAll("\\.", "ś");
     }
 
 }

@@ -12,10 +12,12 @@ import com.bsm.mobile.domain.login.LoginActivity;
 import com.bsm.mobile.domain.login.LoginActivityModule;
 import com.bsm.mobile.domain.points.list.PointsListActivity;
 import com.bsm.mobile.domain.points.list.PointsListActivityModule;
-import com.bsm.mobile.professor.admin.AdminActivity;
-import com.bsm.mobile.professor.admin.AdminActivityModule;
-import com.bsm.mobile.professor.sm.list.RateSMListActivity;
-import com.bsm.mobile.professor.sm.list.RateSMListActivityModule;
+import com.bsm.mobile.domain.professor.admin.AdminActivity;
+import com.bsm.mobile.domain.professor.admin.AdminActivityModule;
+import com.bsm.mobile.domain.professor.admin.user.EditUserActivity;
+import com.bsm.mobile.domain.professor.admin.user.EditUserActivityModule;
+import com.bsm.mobile.domain.professor.sm.list.RateSMListActivity;
+import com.bsm.mobile.domain.professor.sm.list.RateSMListActivityModule;
 
 import javax.inject.Singleton;
 
@@ -33,7 +35,8 @@ import dagger.Component;
         JudgeSMListActivityModule.class,
         PointsListActivityModule.class,
         RateSMListActivityModule.class,
-        AdminActivityModule.class
+        AdminActivityModule.class,
+        EditUserActivityModule.class
 })
 public interface ApplicationComponent {
 
@@ -43,4 +46,5 @@ public interface ApplicationComponent {
     void inject(PointsListActivity activity);
     void inject(RateSMListActivity activity);
     void inject(AdminActivity activity);
+    void inject(EditUserActivity activity);
 }
