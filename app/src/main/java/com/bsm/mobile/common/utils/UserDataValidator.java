@@ -3,6 +3,7 @@ package com.bsm.mobile.common.utils;
 import com.bsm.mobile.common.resource.TeamResources;
 import com.bsm.mobile.legacy.model.User;
 import com.bsm.mobile.legacy.model.User.UserBuilder;
+import com.google.common.base.Strings;
 
 import java.util.Arrays;
 import java.util.List;
@@ -51,7 +52,7 @@ public class UserDataValidator {
                         User.builder()
                                 .label(LABEL_JUDGE) :
                         User.builder()
-                                .facebook(user.getFacebook())
+                                .facebook(Strings.emptyToNull(user.getFacebook()))
                                 .gender(validGender(user) ? user.getGender() : null)
                                 .label(validLabel(user) ? user.getLabel() : null)
                                 .team(validTeam(user) ? user.getTeam() : null);

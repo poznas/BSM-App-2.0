@@ -75,7 +75,7 @@ public class FirebaseUserRepository extends AbstractFirebaseRepository implement
                             user.setId(userId);
                             emitter.onNext(user);
                         }else {
-                            emitter.onError(new RuntimeException("No user data available"));
+                            emitter.onNext(User.empty());
                         }
                     }));
     }

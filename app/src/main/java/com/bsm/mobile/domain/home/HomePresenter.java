@@ -110,7 +110,7 @@ public class HomePresenter implements Presenter {
                                 }
                             }
                         }
-                    }
+                    },error -> view.showMessage(error.getMessage())
                 )
         );
     }
