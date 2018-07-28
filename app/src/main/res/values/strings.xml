@@ -6,4 +6,11 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="report_lock_text">Meldowane Misji</string>
+    <string name="display_name">display name:</string>
+    <string name="label">label</string>
+    <string name="team">team</string>
+    <string name="gender">gender</string>
+    <string name="fb_url">Facebook URL</string>
+    <string name="make_judge">Make Judge</string>
+    <string name="update_wizard">Update Wizard</string>
 </resources>

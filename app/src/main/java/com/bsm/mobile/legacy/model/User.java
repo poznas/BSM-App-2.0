@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.Ordering;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements Comparable<User>{
+public class User implements Comparable<User>, Serializable{
 
     private String id;
 

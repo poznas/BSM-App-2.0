@@ -46,8 +46,6 @@ public interface AdminActivityMVP {
 
         Single<Boolean> deleteUser(User user);
 
-        Single<Boolean> updateUser(User user);
-
         Single<Boolean> setReportLockState(boolean unlocked);
 
         Observable<Boolean> getReportLockState();

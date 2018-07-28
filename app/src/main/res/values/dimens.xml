@@ -2,4 +2,5 @@
 <resources>
     <dimen name="admin_icons_margin">4dp</dimen>
     <dimen name="admin_icons_size">24dp</dimen>
+    <dimen name="admin_edit_user_vertical_margin">8dp</dimen>
 </resources>
