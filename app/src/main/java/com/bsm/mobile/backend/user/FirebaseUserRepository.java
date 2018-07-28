@@ -51,6 +51,7 @@ public class FirebaseUserRepository extends AbstractFirebaseRepository implement
                 .timeout(10, SECONDS, Observable.just(new User()))
                 .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.computation())
+                .onErrorReturnItem(new User())
                 .subscribe(serverUserData -> {
                     if(serverUserData.getDisplayName() != null)
                         userData.setDisplayName(null);

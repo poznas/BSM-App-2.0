@@ -102,7 +102,7 @@ public class EditUserActivity extends AppCompatActivity implements View {
     @Override
     public void armButtonListeners() {
         makeJudgeButton.setOnClickListener(event ->
-                presenter.onMakeJudgeClick(updateUserWithFormContent(user)));
+                presenter.onMakeJudgeClick(user));
         updateButton.setOnClickListener(event ->
                 presenter.onUpdateWizardClick(updateUserWithFormContent(user)));
     }

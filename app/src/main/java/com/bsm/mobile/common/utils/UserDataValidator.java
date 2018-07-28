@@ -27,8 +27,12 @@ public class UserDataValidator {
         return VALID_GENDERS.contains(user.getGender());
     }
 
+    public static boolean validLabel(String userLabel) {
+        return VALID_LABELS.contains(userLabel);
+    }
+
     public static boolean validLabel(User user){
-        return VALID_LABELS.contains(user.getLabel());
+        return validLabel(user.getLabel());
     }
 
     public static boolean validTeam(User user){
