@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.bsm.mobile.backend.user.FirebaseUserAuthService;
+import com.bsm.mobile.backend.user.FirebaseUserDetailsRepository;
 import com.bsm.mobile.backend.user.FirebaseUserRepository;
 import com.bsm.mobile.legacy.model.SideMissionInfo;
 import com.bsm.mobile.legacy.module.info.sm.SideMissionsInfoActivity;
@@ -39,7 +40,7 @@ public class AddSMListActivity extends SideMissionsInfoActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        teamSubscription = new FirebaseUserAuthService(new FirebaseUserRepository())
+        teamSubscription = new FirebaseUserAuthService(new FirebaseUserRepository(new FirebaseUserDetailsRepository()))
                 .getCurrentUser()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

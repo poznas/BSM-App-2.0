@@ -77,9 +77,12 @@ dependencies {
     implementation "com.google.firebase:firebase-storage:$firebaseVersion"
     implementation "com.google.firebase:firebase-messaging:17.1.0"
 
-    //Google
+    //Google Play Services
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
     implementation 'com.google.android.gms:play-services-identity:15.0.1'
+
+    //Google Guava
+    implementation 'com.google.guava:guava:25.1-android'
 
     //Legacy features, support previous version BSM app modules
     implementation 'de.hdodenhof:circleimageview:1.3.0'
@@ -91,9 +94,6 @@ dependencies {
 
     //Easy runtime permissions
     implementation 'pub.devrel:easypermissions:1.2.0'
-
-    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
-    implementation 'org.apache.commons:commons-lang3:3.0'
 
 }
 apply plugin: 'com.google.gms.google-services'

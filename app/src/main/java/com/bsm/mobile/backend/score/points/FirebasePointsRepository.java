@@ -13,6 +13,7 @@ import io.reactivex.Observable;
 import lombok.AllArgsConstructor;
 
 import static com.bsm.mobile.Constants.BRANCH_ALL_POINTS;
+import static com.bsm.mobile.Constants.FIELD_TIMESTAMP;
 
 @AllArgsConstructor
 public class FirebasePointsRepository extends AbstractFirebaseRepository implements IPointsRepository {
@@ -27,7 +28,7 @@ public class FirebasePointsRepository extends AbstractFirebaseRepository impleme
 
         return Observable.create(emitter -> {
 
-            Query query = getRepositoryReference().orderByChild("timestamp");
+            Query query = getRepositoryReference().orderByChild(FIELD_TIMESTAMP);
 
             new SimpleValueEventListener(emitter, query)
                     .setOnDataChange(dataSnapshot -> {

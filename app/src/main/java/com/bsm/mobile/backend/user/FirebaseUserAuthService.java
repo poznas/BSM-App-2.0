@@ -46,7 +46,7 @@ public class FirebaseUserAuthService implements IUserAuthService, Tagable, NullF
     private void setInitialUserData(FirebaseUser firebaseUser) {
         if(firebaseUser == null){return;}
 
-        userRepository.updateUserDetails(
+        userRepository.updateMainUserData(
                 firebaseUser.getUid(),
                 User.builder()
                     .email(firebaseUser.getEmail())

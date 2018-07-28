@@ -39,8 +39,6 @@ public interface AdminActivityMVP {
 
         void updateUser(User user);
 
-        void insertUser(User user);
-
         void handleSwitchChange(boolean isChecked);
     }
 
@@ -49,8 +47,6 @@ public interface AdminActivityMVP {
         Single<Boolean> deleteUser(User user);
 
         Single<Boolean> updateUser(User user);
-
-        Single<Boolean> insertUser(User user);
 
         Single<Boolean> setReportLockState(boolean unlocked);
 

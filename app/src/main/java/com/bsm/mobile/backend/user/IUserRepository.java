@@ -9,15 +9,13 @@ import io.reactivex.Single;
 
 public interface IUserRepository {
 
-    void updateUserDetails(String userId, User userDetails);
+    void updateMainUserData(String userId, User userData);
 
     Observable<User> getUser(String userId);
 
     Single<Boolean> deleteUser(User user);
 
     Single<Boolean> updateUser(User user);
-
-    Single<Boolean> insertUser(User user);
 
     Observable<List<User>> getUserList();
 }

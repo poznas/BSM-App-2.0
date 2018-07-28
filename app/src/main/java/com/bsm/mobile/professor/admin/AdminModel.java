@@ -31,11 +31,6 @@ public class AdminModel implements Model{
     }
 
     @Override
-    public Single<Boolean> insertUser(User user) {
-        return userRepository.insertUser(user);
-    }
-
-    @Override
     public Single<Boolean> setReportLockState(boolean unlocked) {
         return reportRepository.setReportLockState(unlocked);
     }

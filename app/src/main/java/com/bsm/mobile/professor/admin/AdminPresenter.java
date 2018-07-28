@@ -11,10 +11,9 @@ import lombok.RequiredArgsConstructor;
 
 import static com.bsm.mobile.Message.ADMIN_DELETE_USER_FAILURE;
 import static com.bsm.mobile.Message.ADMIN_DELETE_USER_SUCCESS;
-import static com.bsm.mobile.Message.ADMIN_INSERT_USER_FAILURE;
-import static com.bsm.mobile.Message.ADMIN_INSERT_USER_SUCCESS;
 import static com.bsm.mobile.Message.ADMIN_REPORT_DISABLED;
 import static com.bsm.mobile.Message.ADMIN_REPORT_ENABLED;
+import static com.bsm.mobile.Message.ADMIN_REPORT_LOCK_UPDATE_ERROR;
 import static com.bsm.mobile.Message.ADMIN_UPDATE_USER_FAILURE;
 import static com.bsm.mobile.Message.ADMIN_UPDATE_USER_SUCCESS;
 import static com.bsm.mobile.professor.admin.AdminActivityMVP.Model;
@@ -72,9 +71,13 @@ public class AdminPresenter implements Presenter {
                 model.setReportLockState(unlocked)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(enabled -> view.showMessage(enabled ?
-                                ADMIN_REPORT_ENABLED
-                                : ADMIN_REPORT_DISABLED)));
+                        .subscribe(updateSuccess -> view.showMessage(
+                                updateSuccess ?
+                                        unlocked ?
+                                                ADMIN_REPORT_ENABLED
+                                                : ADMIN_REPORT_DISABLED
+                                        : ADMIN_REPORT_LOCK_UPDATE_ERROR
+                        )));
     }
 
     @Override
@@ -99,14 +102,4 @@ public class AdminPresenter implements Presenter {
                                 : ADMIN_UPDATE_USER_FAILURE)));
     }
 
-    @Override
-    public void insertUser(User user) {
-        subscriptions.add(
-                model.insertUser(user)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(success -> view.showMessage(success ?
-                                ADMIN_INSERT_USER_SUCCESS
-                                : ADMIN_INSERT_USER_FAILURE)));
-    }
 }

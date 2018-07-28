@@ -1,4 +1,4 @@
-package com.bsm.mobile.common;
+package com.bsm.mobile.common.utils;
 
 import android.util.Log;
 

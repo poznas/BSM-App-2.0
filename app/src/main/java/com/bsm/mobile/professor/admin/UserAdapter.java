@@ -16,6 +16,7 @@ import com.bsm.mobile.TeamResources;
 import com.bsm.mobile.common.NullFighter;
 import com.bsm.mobile.common.SimpleAlertDialog;
 import com.bsm.mobile.common.Tagable;
+import com.bsm.mobile.common.utils.UserDataUtils;
 import com.bsm.mobile.legacy.model.User;
 import com.bsm.mobile.legacy.module.calendar.CalendarDaysActivity;
 import com.bumptech.glide.Glide;
@@ -27,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.graphics.Color.TRANSPARENT;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.bsm.mobile.Constants.GENDER_FEMALE;
@@ -122,7 +124,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             Glide.with(context).load(user.getPhotoUrl()).into(userImageView);
             displayNameView.setText(user.getDisplayName());
             teamNameView.setText(user.getTeam());
-            teamNameView.setTextColor(TeamResources.COLORS(context).get(user.getTeam()));
+            teamNameView.setTextColor(UserDataUtils.validTeam(user) ?
+                    TeamResources.COLORS(context).get(user.getTeam()) : TRANSPARENT);
+
             labelView.setText(user.getLabel());
 
             atIconImageView.setVisibility(isNull(user.getEmail()) ? GONE : VISIBLE);

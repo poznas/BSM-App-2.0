@@ -23,6 +23,7 @@ public class Message {
 
     public static final String ADMIN_REPORT_ENABLED = "Meldowanie aktywne";
     public static final String ADMIN_REPORT_DISABLED = "Meldowanie zablokowane";
+    public static final String ADMIN_REPORT_LOCK_UPDATE_ERROR = "Report Lock set failure";
 
     /**
      * Points list

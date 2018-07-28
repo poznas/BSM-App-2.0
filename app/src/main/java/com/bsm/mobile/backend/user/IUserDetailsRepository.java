@@ -18,9 +18,7 @@ import io.reactivex.Single;
  */
 public interface IUserDetailsRepository {
 
-    Single<Boolean> deleteUser(User user);
+    Single<Boolean> deleteUserDetails(User user);
 
-    Single<Boolean> updateUser(User user);
-
-    Single<Boolean> insertUser(User user);
+    Single<Boolean> updateUserDetails(User user);
 }

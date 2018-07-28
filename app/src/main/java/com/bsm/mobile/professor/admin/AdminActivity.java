@@ -19,6 +19,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -49,6 +50,7 @@ public class AdminActivity extends AppCompatActivity implements View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_professor_admin);
         ((App) getApplication()).getComponent().inject(this);
+        ButterKnife.bind(this);
         presenter.attachView(this);
 
         initializeUserRecyclerView();
@@ -59,6 +61,18 @@ public class AdminActivity extends AppCompatActivity implements View {
         usersRecyclerView.setAdapter(userAdapter);
         usersRecyclerView.setItemAnimator(new DefaultItemAnimator());
         usersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        presenter.subscribeForData();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        presenter.unsubscribe();
     }
 
     @Override
@@ -92,5 +106,6 @@ public class AdminActivity extends AppCompatActivity implements View {
     @Override
     public void updateReportLock(boolean unlocked) {
         reportLockSwitch.setChecked(unlocked);
+        setReportLockSwitchListener();
     }
 }

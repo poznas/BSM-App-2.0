@@ -25,7 +25,9 @@ public class Constants {
     public static final String TEAM_MUTINIUM = "mutinium";
 
     public static final String BRANCH_USERS = "users";
+    public static final String BRANCH_USER_DETAILS = "UserDetails";
     public static final String BRANCH_SCORES = "SCORES";
+    public static final String BRANCH_REPORT_LOCK = "/reportingEnabled";
     public static final String BRANCH_REPORTS = "Reports";
     public static final String BRANCH_PENDING_REPORTS = "pendingReports";
     public static final String BRANCH_REPORT_RATES = "ReportRates";
@@ -38,6 +40,7 @@ public class Constants {
     public static final String BRANCH_SIDE_MISSION_POINTS = "ReportPoints";
 
     public static final String FIELD_VALID = "valid";
+    public static final String FIELD_TIMESTAMP = "timestamp";
 
     public static final String GENDER_MALE = "m";
     public static final String GENDER_FEMALE = "f";

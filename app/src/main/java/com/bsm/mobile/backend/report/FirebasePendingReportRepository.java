@@ -2,10 +2,11 @@ package com.bsm.mobile.backend.report;
 
 import android.util.Log;
 
+import com.bsm.mobile.Constants;
 import com.bsm.mobile.backend.AbstractFirebaseRepository;
 import com.bsm.mobile.legacy.model.PendingReport;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,13 +15,16 @@ import io.reactivex.Observable;
 
 import static com.bsm.mobile.Constants.BRANCH_PENDING_REPORTS;
 import static com.bsm.mobile.Constants.BRANCH_REQUIRE_PROFESSOR_RATE_REPORTS;
+import static com.bsm.mobile.Constants.FIELD_TIMESTAMP;
 
 public class FirebasePendingReportRepository extends AbstractFirebaseRepository implements IPendingReportRepository {
 
     @Override
-    protected DatabaseReference getRepositoryReference() {
+    protected Query getRepositoryReference() {
         if(repositoryReference == null){
-            repositoryReference = getRoot().child(BRANCH_PENDING_REPORTS);
+            repositoryReference = getRoot()
+                    .child(BRANCH_PENDING_REPORTS)
+                    .orderByChild(Constants.FIELD_TIMESTAMP);
         }
         return repositoryReference;
     }
@@ -28,7 +32,9 @@ public class FirebasePendingReportRepository extends AbstractFirebaseRepository 
     @Override
     public Observable<Map<String, PendingReport>> getProfessorPendingReports() {
 
-        return getPendingReports(getRoot().child(BRANCH_REQUIRE_PROFESSOR_RATE_REPORTS));
+        return getPendingReports(getRoot()
+                .child(BRANCH_REQUIRE_PROFESSOR_RATE_REPORTS)
+                .orderByChild(FIELD_TIMESTAMP));
     }
 
     /**
@@ -40,7 +46,7 @@ public class FirebasePendingReportRepository extends AbstractFirebaseRepository 
         return getPendingReports(getRepositoryReference());
     }
 
-    private Observable<Map<String, PendingReport>> getPendingReports(DatabaseReference reference) {
+    private Observable<Map<String, PendingReport>> getPendingReports(Query reference) {
 
         return Observable.create(emitter -> {
 

@@ -3,10 +3,12 @@ package com.bsm.mobile.backend.user;
 import android.util.Log;
 
 import com.bsm.mobile.backend.AbstractFirebaseRepository;
-import com.bsm.mobile.common.NonNullObjectMapper;
+import com.bsm.mobile.common.utils.NonNullObjectMapper;
 import com.bsm.mobile.legacy.model.User;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -38,9 +40,9 @@ public class FirebaseUserRepository extends AbstractFirebaseRepository implement
     }
 
     @Override
-    public void updateUserDetails(String userId, User userDetails) {
+    public void updateMainUserData(String userId, User userData) {
         getRepositoryReference().child(userId)
-                .updateChildren(NonNullObjectMapper.map(userDetails));
+                .updateChildren(NonNullObjectMapper.map(userData));
     }
 
     @Override
@@ -52,29 +54,54 @@ public class FirebaseUserRepository extends AbstractFirebaseRepository implement
             new SimpleValueEventListener(emitter, userDataReference)
                     .setOnDataChange(dataSnapshot -> {
                         User user = dataSnapshot.getValue(User.class);
-                        Log.d(getTag(), "retrieved user id : " + userId + " : " + user);
+                        if (user != null) user.setId(userId);
+                        Log.d(getTag(), "retrieved user : " + user);
                         emitter.onNext(user);
-                    })
-        );
-    }
-
-    @Override
-    public Single<Boolean> deleteUser(User user) {
-        return null;
-    }
-
-    @Override
-    public Single<Boolean> updateUser(User user) {
-        return null;
-    }
-
-    @Override
-    public Single<Boolean> insertUser(User user) {
-        return null;
+                    }));
     }
 
     @Override
     public Observable<List<User>> getUserList() {
-        return null;
+        return Observable.create(emitter ->
+                new SimpleValueEventListener(emitter, getRepositoryReference())
+                    .setOnDataChange(dataSnapshot -> {
+                        List<User> users = new LinkedList<>();
+                        for(DataSnapshot child : dataSnapshot.getChildren()){
+                            User user = child.getValue(User.class);
+                            if (user != null) user.setId(child.getKey());
+                            users.add(user);
+                        }
+                        emitter.onNext(users);
+                    }));
     }
+
+    @Override
+    public Single<Boolean> deleteUser(User user) {
+        return Single.zip(deleteMainUserData(user),
+                userDetailsRepository.deleteUserDetails(user),
+                (mainSuccess, detailsSuccess) -> mainSuccess && detailsSuccess);
+    }
+
+    @Override
+    public Single<Boolean> updateUser(User user) {
+        return Single.zip(updateMainUserData(user),
+                userDetailsRepository.updateUserDetails(user),
+                (mainSuccess, detailsSuccess) -> mainSuccess && detailsSuccess);
+    }
+
+    private Single<Boolean> deleteMainUserData(User user) {
+        Log.d(getTag(), "attempt to DELETE main user data : " + user);
+        return Single.create(emitter ->
+                getRepositoryReference().child(user.getId()).setValue(null)
+                        .addOnCompleteListener(task -> emitter.onSuccess(task.isSuccessful())));
+    }
+
+    private Single<Boolean> updateMainUserData(User user) {
+        Log.d(getTag(), "attempt to UPDATE main user data : " + user);
+        return Single.create(emitter ->
+            getRepositoryReference().child(user.getId())
+                    .updateChildren(NonNullObjectMapper.map(user))
+                    .addOnCompleteListener(task -> emitter.onSuccess(task.isSuccessful())));
+    }
+
 }
