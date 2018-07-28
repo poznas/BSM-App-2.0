@@ -9,14 +9,14 @@ import java.util.Date;
 
 import lombok.RequiredArgsConstructor;
 
-import static com.bsm.mobile.Constants.KEY_DATE;
-import static com.bsm.mobile.Constants.KEY_REPORT_ID;
-import static com.bsm.mobile.Constants.KEY_SM_NAME;
-import static com.bsm.mobile.Constants.KEY_TIME;
-import static com.bsm.mobile.Constants.KEY_USER_IMAGE_URL;
-import static com.bsm.mobile.Constants.KEY_USER_NAME;
-import static com.bsm.mobile.Constants.dateFormat;
-import static com.bsm.mobile.Constants.timeFormat;
+import static com.bsm.mobile.common.resource.Constants.KEY_DATE;
+import static com.bsm.mobile.common.resource.Constants.KEY_REPORT_ID;
+import static com.bsm.mobile.common.resource.Constants.KEY_SM_NAME;
+import static com.bsm.mobile.common.resource.Constants.KEY_TIME;
+import static com.bsm.mobile.common.resource.Constants.KEY_USER_IMAGE_URL;
+import static com.bsm.mobile.common.resource.Constants.KEY_USER_NAME;
+import static com.bsm.mobile.common.resource.Constants.dateFormat;
+import static com.bsm.mobile.common.resource.Constants.timeFormat;
 
 @RequiredArgsConstructor
 public class ReportIntentFactory {

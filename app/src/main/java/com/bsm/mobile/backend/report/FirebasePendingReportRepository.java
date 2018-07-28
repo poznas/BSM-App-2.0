@@ -2,7 +2,7 @@ package com.bsm.mobile.backend.report;
 
 import android.util.Log;
 
-import com.bsm.mobile.Constants;
+import com.bsm.mobile.common.resource.Constants;
 import com.bsm.mobile.backend.AbstractFirebaseRepository;
 import com.bsm.mobile.legacy.model.PendingReport;
 import com.google.firebase.database.DataSnapshot;
@@ -13,20 +13,20 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 
-import static com.bsm.mobile.Constants.BRANCH_PENDING_REPORTS;
-import static com.bsm.mobile.Constants.BRANCH_REQUIRE_PROFESSOR_RATE_REPORTS;
-import static com.bsm.mobile.Constants.FIELD_TIMESTAMP;
+import static com.bsm.mobile.common.resource.Constants.BRANCH_PENDING_REPORTS;
+import static com.bsm.mobile.common.resource.Constants.BRANCH_REQUIRE_PROFESSOR_RATE_REPORTS;
+import static com.bsm.mobile.common.resource.Constants.FIELD_TIMESTAMP;
 
 public class FirebasePendingReportRepository extends AbstractFirebaseRepository implements IPendingReportRepository {
 
     @Override
-    protected Query getRepositoryReference() {
-        if(repositoryReference == null){
-            repositoryReference = getRoot()
+    protected Query getRepositoryQuery() {
+        if(repositoryQuery == null){
+            repositoryQuery = getRoot()
                     .child(BRANCH_PENDING_REPORTS)
                     .orderByChild(Constants.FIELD_TIMESTAMP);
         }
-        return repositoryReference;
+        return repositoryQuery;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class FirebasePendingReportRepository extends AbstractFirebaseRepository 
     @Override
     public Observable<Map<String, PendingReport>> getJudgePendingReports() {
 
-        return getPendingReports(getRepositoryReference());
+        return getPendingReports(getRepositoryQuery());
     }
 
     private Observable<Map<String, PendingReport>> getPendingReports(Query reference) {

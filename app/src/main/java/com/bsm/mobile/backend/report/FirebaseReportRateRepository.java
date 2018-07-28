@@ -4,23 +4,23 @@ import android.util.Log;
 
 import com.bsm.mobile.backend.AbstractFirebaseRepository;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import io.reactivex.Observable;
 
-import static com.bsm.mobile.Constants.BRANCH_REPORT_RATES;
+import static com.bsm.mobile.common.resource.Constants.BRANCH_REPORT_RATES;
 
 public class FirebaseReportRateRepository extends AbstractFirebaseRepository implements IReportRateRepository {
 
     @Override
-    protected DatabaseReference getRepositoryReference() {
-        if(repositoryReference == null){
-            repositoryReference = getRoot().child(BRANCH_REPORT_RATES);
+    protected Query getRepositoryQuery() {
+        if(repositoryQuery == null){
+            repositoryQuery = getRoot().child(BRANCH_REPORT_RATES);
         }
-        return repositoryReference;
+        return repositoryQuery;
     }
 
     @Override

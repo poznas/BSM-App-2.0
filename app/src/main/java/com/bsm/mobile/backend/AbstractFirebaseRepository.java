@@ -19,9 +19,13 @@ public abstract class AbstractFirebaseRepository implements Tagable{
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference root;
 
-    protected Query repositoryReference;
+    protected Query repositoryQuery;
 
-    protected abstract Query getRepositoryReference();
+    protected abstract Query getRepositoryQuery();
+
+    protected DatabaseReference getRepositoryReference(){
+        return getRepositoryQuery().getRef();
+    }
 
     private FirebaseDatabase getFirebaseDatabase() {
         if( firebaseDatabase == null ){

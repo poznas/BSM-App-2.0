@@ -22,8 +22,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.bsm.mobile.Constants.dateFormat;
-import static com.bsm.mobile.Constants.timeFormat;
+import static com.bsm.mobile.common.resource.Constants.dateFormat;
+import static com.bsm.mobile.common.resource.Constants.timeFormat;
 
 public class PendingReportAdapter extends RecyclerView.Adapter<PendingReportAdapter.PendingReportViewHolder>{
 

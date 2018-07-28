@@ -7,8 +7,8 @@ import com.google.firebase.database.DatabaseReference;
 
 import io.reactivex.Single;
 
-import static com.bsm.mobile.Constants.BRANCH_USER_DETAILS;
-import static com.bsm.mobile.Constants.LABEL_JUDGE;
+import static com.bsm.mobile.common.resource.Constants.BRANCH_USER_DETAILS;
+import static com.bsm.mobile.common.resource.Constants.LABEL_JUDGE;
 import static com.bsm.mobile.common.utils.UserDataUtils.getUserDetailsId;
 import static com.bsm.mobile.common.utils.UserDataUtils.validGender;
 import static com.bsm.mobile.common.utils.UserDataUtils.validLabel;
@@ -29,7 +29,7 @@ import static com.bsm.mobile.common.utils.UserDataUtils.validTeam;
 public class FirebaseUserDetailsRepository extends AbstractFirebaseRepository implements IUserDetailsRepository {
 
     @Override
-    protected DatabaseReference getRepositoryReference() {
+    protected DatabaseReference getRepositoryQuery() {
         return getRoot().child(BRANCH_USER_DETAILS);
     }
 
@@ -37,7 +37,7 @@ public class FirebaseUserDetailsRepository extends AbstractFirebaseRepository im
     @Override
     public Single<Boolean> deleteUserDetails(User user) {
         return Single.create(emitter ->
-            getRepositoryReference().child(getUserDetailsId(user)).setValue(null)
+            getRepositoryQuery().child(getUserDetailsId(user)).setValue(null)
                 .addOnCompleteListener(task -> emitter.onSuccess(task.isSuccessful())));
     }
 
@@ -57,7 +57,7 @@ public class FirebaseUserDetailsRepository extends AbstractFirebaseRepository im
         ).build();
 
         return Single.create(emitter ->
-            getRepositoryReference().child(getUserDetailsId(user))
+            getRepositoryQuery().child(getUserDetailsId(user))
                     .updateChildren(NonNullObjectMapper.map(newUserDetails))
                     .addOnCompleteListener(task -> emitter.onSuccess(task.isSuccessful())));
     }

@@ -1,19 +1,19 @@
 package com.bsm.mobile.backend.score.points.medal;
 
 import com.bsm.mobile.backend.AbstractFirebaseRepository;
-import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 
-import static com.bsm.mobile.Constants.BRANCH_MEDAL_POINTS;
-import static com.bsm.mobile.Constants.FIELD_VALID;
+import static com.bsm.mobile.common.resource.Constants.BRANCH_MEDAL_POINTS;
+import static com.bsm.mobile.common.resource.Constants.FIELD_VALID;
 
 public class FirebaseMedalPointsRepository extends AbstractFirebaseRepository implements IMedalPointsRepository {
 
     @Override
-    protected DatabaseReference getRepositoryReference() {
-        if(repositoryReference == null){
-            repositoryReference = getRoot().child(BRANCH_MEDAL_POINTS);
+    protected Query getRepositoryQuery() {
+        if(repositoryQuery == null){
+            repositoryQuery = getRoot().child(BRANCH_MEDAL_POINTS);
         }
-        return repositoryReference;
+        return repositoryQuery;
     }
 
     @Override

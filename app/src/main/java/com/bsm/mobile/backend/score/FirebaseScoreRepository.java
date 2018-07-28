@@ -1,17 +1,17 @@
 package com.bsm.mobile.backend.score;
 
-import com.bsm.mobile.TeamResources;
+import com.bsm.mobile.common.resource.TeamResources;
 import com.bsm.mobile.backend.AbstractFirebaseRepository;
-import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 
 import java.util.HashMap;
 
 import io.reactivex.Observable;
 
-import static com.bsm.mobile.Constants.BRANCH_SCORES;
-import static com.bsm.mobile.Constants.TEAM_CORMEUM;
-import static com.bsm.mobile.Constants.TEAM_MUTINIUM;
-import static com.bsm.mobile.Constants.TEAM_SENSUM;
+import static com.bsm.mobile.common.resource.Constants.BRANCH_SCORES;
+import static com.bsm.mobile.common.resource.Constants.TEAM_CORMEUM;
+import static com.bsm.mobile.common.resource.Constants.TEAM_MUTINIUM;
+import static com.bsm.mobile.common.resource.Constants.TEAM_SENSUM;
 
 public class FirebaseScoreRepository extends AbstractFirebaseRepository implements IScoreRepository {
 
@@ -20,7 +20,7 @@ public class FirebaseScoreRepository extends AbstractFirebaseRepository implemen
 
         return Observable.create(emitter -> {
 
-            new SimpleValueEventListener(emitter, getRepositoryReference())
+            new SimpleValueEventListener(emitter, getRepositoryQuery())
                     .setOnDataChange(dataSnapshot -> {
                         HashMap<String, Long> map = new HashMap<>();
                         map.put(TEAM_CORMEUM, dataSnapshot.child(TEAM_CORMEUM).getValue(Long.class));
@@ -42,10 +42,10 @@ public class FirebaseScoreRepository extends AbstractFirebaseRepository implemen
     }
 
     @Override
-    protected DatabaseReference getRepositoryReference() {
-        if(repositoryReference == null){
-            repositoryReference = getRoot().child(BRANCH_SCORES);
+    protected Query getRepositoryQuery() {
+        if(repositoryQuery == null){
+            repositoryQuery = getRoot().child(BRANCH_SCORES);
         }
-        return repositoryReference;
+        return repositoryQuery;
     }
 }

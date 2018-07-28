@@ -1,16 +1,16 @@
 package com.bsm.mobile.common.utils;
 
-import com.bsm.mobile.TeamResources;
+import com.bsm.mobile.common.resource.TeamResources;
 import com.bsm.mobile.legacy.model.User;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static com.bsm.mobile.Constants.GENDER_FEMALE;
-import static com.bsm.mobile.Constants.GENDER_MALE;
-import static com.bsm.mobile.Constants.LABEL_JUDGE;
-import static com.bsm.mobile.Constants.LABEL_PROFESSOR;
-import static com.bsm.mobile.Constants.LABEL_WIZARD;
+import static com.bsm.mobile.common.resource.Constants.GENDER_FEMALE;
+import static com.bsm.mobile.common.resource.Constants.GENDER_MALE;
+import static com.bsm.mobile.common.resource.Constants.LABEL_JUDGE;
+import static com.bsm.mobile.common.resource.Constants.LABEL_PROFESSOR;
+import static com.bsm.mobile.common.resource.Constants.LABEL_WIZARD;
 
 public class UserDataUtils {
 

@@ -15,7 +15,7 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import lombok.RequiredArgsConstructor;
 
-import static com.bsm.mobile.Constants.BRANCH_USERS;
+import static com.bsm.mobile.common.resource.Constants.BRANCH_USERS;
 
 /**
  * server side BSM 2017 application was implemented in such a way that:
@@ -35,20 +35,20 @@ public class FirebaseUserRepository extends AbstractFirebaseRepository implement
     private final IUserDetailsRepository userDetailsRepository;
 
     @Override
-    protected DatabaseReference getRepositoryReference() {
+    protected DatabaseReference getRepositoryQuery() {
         return getRoot().child(BRANCH_USERS);
     }
 
     @Override
     public void updateMainUserData(String userId, User userData) {
-        getRepositoryReference().child(userId)
+        getRepositoryQuery().child(userId)
                 .updateChildren(NonNullObjectMapper.map(userData));
     }
 
     @Override
     public Observable<User> getUser(String userId) {
 
-        DatabaseReference userDataReference = getRepositoryReference().child(userId);
+        DatabaseReference userDataReference = getRepositoryQuery().child(userId);
 
         return Observable.create(emitter ->
             new SimpleValueEventListener(emitter, userDataReference)
@@ -63,7 +63,7 @@ public class FirebaseUserRepository extends AbstractFirebaseRepository implement
     @Override
     public Observable<List<User>> getUserList() {
         return Observable.create(emitter ->
-                new SimpleValueEventListener(emitter, getRepositoryReference())
+                new SimpleValueEventListener(emitter, getRepositoryQuery())
                     .setOnDataChange(dataSnapshot -> {
                         List<User> users = new LinkedList<>();
                         for(DataSnapshot child : dataSnapshot.getChildren()){
@@ -92,14 +92,14 @@ public class FirebaseUserRepository extends AbstractFirebaseRepository implement
     private Single<Boolean> deleteMainUserData(User user) {
         Log.d(getTag(), "attempt to DELETE main user data : " + user);
         return Single.create(emitter ->
-                getRepositoryReference().child(user.getId()).setValue(null)
+                getRepositoryQuery().child(user.getId()).setValue(null)
                         .addOnCompleteListener(task -> emitter.onSuccess(task.isSuccessful())));
     }
 
     private Single<Boolean> updateMainUserData(User user) {
         Log.d(getTag(), "attempt to UPDATE main user data : " + user);
         return Single.create(emitter ->
-            getRepositoryReference().child(user.getId())
+            getRepositoryQuery().child(user.getId())
                     .updateChildren(NonNullObjectMapper.map(user))
                     .addOnCompleteListener(task -> emitter.onSuccess(task.isSuccessful())));
     }

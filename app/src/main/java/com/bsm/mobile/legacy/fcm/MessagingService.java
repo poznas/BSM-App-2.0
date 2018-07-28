@@ -13,7 +13,7 @@ import android.util.Log;
 
 import com.bsm.mobile.R;
 import com.bsm.mobile.common.Tagable;
-import com.bsm.mobile.home.HomeActivity;
+import com.bsm.mobile.domain.home.HomeActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 

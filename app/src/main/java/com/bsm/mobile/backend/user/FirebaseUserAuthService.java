@@ -18,7 +18,7 @@ import java.util.Objects;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 
-import static com.bsm.mobile.Constants.DEFAULT_USER_PHOTO_URL;
+import static com.bsm.mobile.common.resource.Constants.DEFAULT_USER_PHOTO_URL;
 
 public class FirebaseUserAuthService implements IUserAuthService, Tagable, NullFighter {
 

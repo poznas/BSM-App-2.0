@@ -2,7 +2,7 @@ package com.bsm.mobile.backend.score.points;
 
 import android.util.Log;
 
-import com.bsm.mobile.TeamResources;
+import com.bsm.mobile.common.resource.TeamResources;
 import com.bsm.mobile.backend.score.points.bet.IBetPointsRepository;
 import com.bsm.mobile.backend.score.points.mc.IMainCompetitionPointsRepository;
 import com.bsm.mobile.backend.score.points.medal.IMedalPointsRepository;
@@ -10,7 +10,6 @@ import com.bsm.mobile.backend.score.points.sm.ISideMissionPointsRepository;
 import com.bsm.mobile.common.Tagable;
 import com.bsm.mobile.legacy.model.PointsInfo;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,7 +17,7 @@ import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 import lombok.AllArgsConstructor;
 
-import static com.bsm.mobile.Constants.*;
+import static com.bsm.mobile.common.resource.Constants.*;
 
 @AllArgsConstructor
 public class PointsService implements IPointsService, Tagable{

@@ -19,42 +19,42 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name=".login.LoginActivity">
+        <activity android:name=".domain.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".home.HomeActivity" android:launchMode="singleTop"/>
-        <activity android:name=".legacy.module.zongler.ZonglerActivity" />
-        <activity android:name=".legacy.module.PhotoVideoFullscreenDisplay" />
-        <activity android:name=".legacy.module.wizard.list.WizardsActivity" />
-        <activity android:name=".legacy.module.info.sm.SideMissionsInfoActivity" />
-        <activity android:name=".legacy.module.calendar.CalendarTimesActivity" />
-        <activity android:name=".legacy.module.calendar.CalendarDaysActivity" />
-        <activity android:name=".legacy.module.info.mc.MainCompetitionInfoActivity" />
-        <activity android:name=".judge.list.JudgeSMListActivity" />
-        <activity android:name=".legacy.module.judge.rate.JudgeRateSMActivity" />
-        <activity android:name=".legacy.module.judge.rate.JudgeRateSMPostActivity" />
-        <activity android:name=".legacy.module.wizard.sm.list.AddSMListActivity" />
-        <activity android:name=".legacy.module.wizard.sm.AddSMActivity" />
-        <activity android:name=".legacy.module.wizard.sm.post.AddSMPostActivity" />
-        <activity android:name=".legacy.module.professor.mc.AddMCActivity" />
-        <activity android:name=".legacy.module.professor.bet.AddBetActivity" />
-        <activity android:name=".legacy.module.professor.medal.AddMedalActivity" />
-        <activity android:name=".legacy.module.professor.medal.MedalEditDetailsActivity" />
-        <activity android:name=".points.list.PointsListActivity" />
-        <activity android:name=".legacy.module.points.details.sm.SMResultDisplayActivity" />
-        <activity android:name=".legacy.module.points.details.sm.post.SMPostResultDisplayActivity" />
-        <activity android:name=".legacy.module.points.details.bet.BetResultDisplayActivity" />
-        <activity android:name=".legacy.module.points.details.medal.MedalResultDisplayActivity" />
-        <activity android:name=".legacy.module.points.details.mc.MCResultDisplayActivity" />
+        <activity android:name=".domain.home.HomeActivity" android:launchMode="singleTop"/>
+        <activity android:name=".legacy.domain.zongler.ZonglerActivity" />
+        <activity android:name=".legacy.domain.PhotoVideoFullscreenDisplay" />
+        <activity android:name=".legacy.domain.wizard.list.WizardsActivity" />
+        <activity android:name=".legacy.domain.info.sm.SideMissionsInfoActivity" />
+        <activity android:name=".legacy.domain.calendar.CalendarTimesActivity" />
+        <activity android:name=".legacy.domain.calendar.CalendarDaysActivity" />
+        <activity android:name=".legacy.domain.info.mc.MainCompetitionInfoActivity" />
+        <activity android:name=".domain.judge.list.JudgeSMListActivity" />
+        <activity android:name=".legacy.domain.judge.rate.JudgeRateSMActivity" />
+        <activity android:name=".legacy.domain.judge.rate.JudgeRateSMPostActivity" />
+        <activity android:name=".legacy.domain.wizard.sm.list.AddSMListActivity" />
+        <activity android:name=".legacy.domain.wizard.sm.AddSMActivity" />
+        <activity android:name=".legacy.domain.wizard.sm.post.AddSMPostActivity" />
+        <activity android:name=".legacy.domain.professor.mc.AddMCActivity" />
+        <activity android:name=".legacy.domain.professor.bet.AddBetActivity" />
+        <activity android:name=".legacy.domain.professor.medal.AddMedalActivity" />
+        <activity android:name=".legacy.domain.professor.medal.MedalEditDetailsActivity" />
+        <activity android:name=".domain.points.list.PointsListActivity" />
+        <activity android:name=".legacy.domain.points.details.sm.SMResultDisplayActivity" />
+        <activity android:name=".legacy.domain.points.details.sm.post.SMPostResultDisplayActivity" />
+        <activity android:name=".legacy.domain.points.details.bet.BetResultDisplayActivity" />
+        <activity android:name=".legacy.domain.points.details.medal.MedalResultDisplayActivity" />
+        <activity android:name=".legacy.domain.points.details.mc.MCResultDisplayActivity" />
         <activity android:name=".professor.sm.list.RateSMListActivity" />
-        <activity android:name=".legacy.module.professor.rate.sm.ProfRateSideMissionActivity" />
-        <activity android:name=".legacy.module.professor.rate.sm.ProfRateSMPostActivity" />
+        <activity android:name=".legacy.domain.professor.rate.sm.ProfRateSideMissionActivity" />
+        <activity android:name=".legacy.domain.professor.rate.sm.ProfRateSMPostActivity" />
         <activity android:name=".professor.admin.AdminActivity" />
 
-        <service android:name=".legacy.module.wizard.sm.ReportUploader"
+        <service android:name=".legacy.domain.wizard.sm.ReportUploader"
             android:exported="true"/>
 
         <service android:name=".legacy.fcm.MessagingService">

@@ -104,7 +104,7 @@
 
             </LinearLayout>
 
-            <com.bsm.mobile.legacy.module.judge.rate.ZalaListView
+            <com.bsm.mobile.legacy.domain.judge.rate.ZalaListView
                 android:id="@+id/rate_properities_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
