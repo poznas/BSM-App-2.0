@@ -6,9 +6,8 @@ import android.util.Log;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 
-import java.util.LinkedList;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import lombok.RequiredArgsConstructor;
@@ -30,12 +29,12 @@ public class LoginPresenter implements Presenter {
     private View view;
     private final Model model;
 
-    private LinkedList<Disposable> subscriptions;
+    private CompositeDisposable subscriptions;
 
     @Override
     public void attachView(View view) {
         this.view = view;
-        subscriptions = new LinkedList<>();
+        subscriptions = new CompositeDisposable();
     }
 
     @Override

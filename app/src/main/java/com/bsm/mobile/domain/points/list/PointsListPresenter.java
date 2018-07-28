@@ -4,10 +4,8 @@ import android.os.Bundle;
 
 import com.bsm.mobile.legacy.model.PointsInfo;
 
-import java.util.LinkedList;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -27,13 +25,13 @@ public class PointsListPresenter implements Presenter {
 
     private String teamId;
 
-    private LinkedList<Disposable> subscriptions;
+    private CompositeDisposable subscriptions;
 
 
     @Override
     public void attachView(View view) {
         this.view = view;
-        subscriptions = new LinkedList<>();
+        subscriptions = new CompositeDisposable();
         this.view.showProgress();
     }
 

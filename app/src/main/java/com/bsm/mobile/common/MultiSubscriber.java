@@ -1,19 +1,12 @@
 package com.bsm.mobile.common;
 
-import java.util.LinkedList;
-
-import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.CompositeDisposable;
 
 public interface MultiSubscriber {
 
-    default void clearSubscriptions(LinkedList<Disposable> subscriptions){
+    default void clearSubscriptions(CompositeDisposable subscriptions){
         if(subscriptions == null) return;
 
-        for(Disposable subscription : subscriptions){
-            if(!subscription.isDisposed()){
-                subscription.dispose();
-            }
-        }
         subscriptions.clear();
     }
 }

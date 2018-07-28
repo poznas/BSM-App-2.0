@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import lombok.RequiredArgsConstructor;
@@ -33,14 +34,14 @@ public class HomePresenter implements Presenter {
     private View view;
     private final Model model;
 
-    private LinkedList<Disposable> subscriptions;
+    private CompositeDisposable subscriptions;
     private List<Privilege> privileges;
 
     @Override
     public void attachView(View view) {
         this.view = view;
-        subscriptions = new LinkedList<>();
         privileges = new LinkedList<>();
+        subscriptions = new CompositeDisposable();
         model.createGoogleApiClient((Context) view);
         this.view.showProgress();
     }

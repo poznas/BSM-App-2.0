@@ -1,9 +1,7 @@
 package com.bsm.mobile.domain.judge.list;
 
-import java.util.LinkedList;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import lombok.RequiredArgsConstructor;
 
@@ -17,12 +15,12 @@ public class JudgeSMListPresenter implements Presenter {
     private View view;
     private final Model model;
 
-    private LinkedList<Disposable> subscriptions;
+    private CompositeDisposable subscriptions;
 
     @Override
     public void attachView(View view) {
         this.view = view;
-        subscriptions = new LinkedList<>();
+        subscriptions = new CompositeDisposable();
         this.view.showProgress();
     }
 

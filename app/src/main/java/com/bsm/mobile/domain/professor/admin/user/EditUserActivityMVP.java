@@ -1,6 +1,5 @@
 package com.bsm.mobile.domain.professor.admin.user;
 
-import com.bsm.mobile.common.MultiSubscriber;
 import com.bsm.mobile.common.SnackMessage;
 import com.bsm.mobile.common.Tagable;
 import com.bsm.mobile.legacy.model.User;
@@ -20,7 +19,7 @@ public interface EditUserActivityMVP {
         void finish();
     }
 
-    interface Presenter extends Tagable, MultiSubscriber {
+    interface Presenter extends Tagable{
 
         void attachView(View view);
 
