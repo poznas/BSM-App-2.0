@@ -28,7 +28,7 @@ public class Constants {
     public static final String BRANCH_USERS = "users";
     public static final String BRANCH_USER_DETAILS = "UserDetails";
     public static final String BRANCH_SCORES = "SCORES";
-    public static final String BRANCH_REPORT_LOCK = "/reportingEnabled";
+    public static final String BRANCH_REPORT_LOCK = "reportingEnabled";
     public static final String BRANCH_REPORTS = "Reports";
     public static final String BRANCH_PENDING_REPORTS = "pendingReports";
     public static final String BRANCH_REPORT_RATES = "ReportRates";
@@ -39,13 +39,14 @@ public class Constants {
     public static final String BRANCH_MEDAL_POINTS = "SpecialPoints";
     public static final String BRANCH_MAIN_COMPETITION_POINTS = "MainCompetitionPoints";
     public static final String BRANCH_SIDE_MISSION_POINTS = "ReportPoints";
+    public static final String BRANCH_BADGE_POINTS = "BadgePoints";
+    public static final String BRANCH_BADGE_INFO = "BadgeInfo";
 
     public static final String FIELD_VALID = "valid";
     public static final String FIELD_TIMESTAMP = "timestamp";
 
     public static final String GENDER_MALE = "m";
     public static final String GENDER_FEMALE = "f";
-
 
     public static final String LABEL_JUDGE = "judge";
     public static final String LABEL_PROFESSOR = "professor";
@@ -55,7 +56,7 @@ public class Constants {
     public static final String LABEL_POINTS_MEDAL = "S";
     public static final String LABEL_POINTS_SIDE_MISSION = "SM";
     public static final String LABEL_POINTS_MAIN_COMPETITION = "MC";
-
+    public static final String LABEL_POINTS_BADGE = "BG";
 
     public static final String BRAND_REPORT = "Melduj";
     public static final String BRAND_MAIN_COMPETITION = "Konkurencja Główna";
@@ -64,7 +65,6 @@ public class Constants {
     public static final String BRAND_BET = "Zakład";
     public static final String BRAND_JUDGE = "Oceń";
     public static final String BRAND_WIZARDS = "Czarodzieje";
-    public static final String BRAND_CALENDAR = "Kalendarz";
     public static final String BRAND_ZONGLER = "Żongler";
     public static final String BRAND_SM_INFO = "Misje Poboczne";
     public static final String BRAND_MC_INFO = "Konkurencje Główne";

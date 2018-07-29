@@ -10,4 +10,6 @@ import io.reactivex.Observable;
 public interface IBadgePointsRepository {
 
     Observable<List<BadgePoints>> getBadgePointsList();
+
+    void invalidateBadge(String id);
 }

@@ -4,6 +4,10 @@ import com.bsm.mobile.backend.score.points.FirebasePointsRepository;
 import com.bsm.mobile.backend.score.points.IPointsRepository;
 import com.bsm.mobile.backend.score.points.IPointsService;
 import com.bsm.mobile.backend.score.points.PointsService;
+import com.bsm.mobile.backend.score.points.badge.FirebaseBadgeInfoRepository;
+import com.bsm.mobile.backend.score.points.badge.FirebaseBadgePointsRepository;
+import com.bsm.mobile.backend.score.points.badge.IBadgeInfoRepository;
+import com.bsm.mobile.backend.score.points.badge.IBadgePointsRepository;
 import com.bsm.mobile.backend.score.points.bet.FirebaseBetPointsRepository;
 import com.bsm.mobile.backend.score.points.bet.IBetPointsRepository;
 import com.bsm.mobile.backend.score.points.mc.FirebaseMainCompetitionPointsRepository;
@@ -73,6 +77,18 @@ public class ScoreBackendModule {
     @Provides
     public ISideMissionPointsRepository sideMissionPointsRepository(){
         return new FirebaseSideMissionPointsRepository();
+    }
+
+    @Singleton
+    @Provides
+    public IBadgePointsRepository badgePointsRepository(){
+        return new FirebaseBadgePointsRepository();
+    }
+
+    @Singleton
+    @Provides
+    public IBadgeInfoRepository badgeInfoRepository(){
+        return new FirebaseBadgeInfoRepository();
     }
 
 }

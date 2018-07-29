@@ -30,7 +30,7 @@ public class BadgeInfoModel implements Model {
                 .map(pointsList -> {
                     List<BadgeInfoView> views = new LinkedList<>();
                     List<BadgeInfo> infoList = badgeInfoRepository.getBadgeInfoList()
-                            .observeOn(Schedulers.io()).blockingGet();
+                            .observeOn(Schedulers.io()).take(1).blockingFirst();
 
                     for(BadgeInfo info : infoList){
                         BadgeInfoView view = BadgeInfoView.builder()

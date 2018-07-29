@@ -4,10 +4,10 @@ import com.bsm.mobile.domain.wizard.badge.model.BadgeInfo;
 
 import java.util.List;
 
-import io.reactivex.Single;
+import io.reactivex.Observable;
 
 
 public interface IBadgeInfoRepository {
 
-    Single<List<BadgeInfo>> getBadgeInfoList();
+    Observable<List<BadgeInfo>> getBadgeInfoList();
 }
