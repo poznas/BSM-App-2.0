@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.util.DiffUtil.DiffResult;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +68,6 @@ public class PrivilegeAdapter extends RecyclerView.Adapter<PrivilegeAdapter.Priv
         privileges.addAll(newPrivileges);
         diffResult.dispatchUpdatesTo(this);
         notifyDataSetChanged();
-        Log.d(getTag(), "privileges updated : " + privileges);
     }
 
     public class PrivilegeViewHolder extends RecyclerView.ViewHolder implements OnClickListener {

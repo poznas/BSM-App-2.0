@@ -46,6 +46,8 @@ public class RateSMListActivity extends AppCompatActivity implements View {
         setContentView(R.layout.activity_judge_sm_list);
         ButterKnife.bind(this);
         ((App) getApplication()).getComponent().inject(this);
+        presenter.attachView(this);
+
         initializePendingReportsRecycler();
     }
 
@@ -63,7 +65,6 @@ public class RateSMListActivity extends AppCompatActivity implements View {
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.attachView(this);
         presenter.subscribeForData();
     }
 

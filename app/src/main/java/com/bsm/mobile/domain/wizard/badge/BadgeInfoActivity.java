@@ -1,6 +1,5 @@
-package com.bsm.mobile.domain.judge.list;
+package com.bsm.mobile.domain.wizard.badge;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,10 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ProgressBar;
 
 import com.bsm.mobile.R;
-import com.bsm.mobile.common.PendingReportAdapter;
-import com.bsm.mobile.legacy.domain.judge.rate.JudgeRateSMActivity;
-import com.bsm.mobile.legacy.domain.judge.rate.JudgeRateSMPostActivity;
-import com.bsm.mobile.legacy.model.PendingReport;
+import com.bsm.mobile.domain.wizard.badge.model.BadgeInfoView;
 import com.bsm.mobile.root.App;
 
 import java.util.List;
@@ -25,20 +21,21 @@ import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static com.bsm.mobile.domain.judge.list.JudgeSMListActivityMVP.Presenter;
-import static com.bsm.mobile.domain.judge.list.JudgeSMListActivityMVP.View;
+import static com.bsm.mobile.domain.wizard.badge.BadgeInfoActivityMVP.Presenter;
+import static com.bsm.mobile.domain.wizard.badge.BadgeInfoActivityMVP.View;
 
-public class JudgeSMListActivity extends AppCompatActivity implements View {
+public class BadgeInfoActivity extends AppCompatActivity implements View {
 
     @Inject
     Presenter presenter;
 
     @BindView(R.id.simple_recycler)
-    RecyclerView pendingReportsRecycler;
+    RecyclerView badgeInfoRecycler;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
 
-    PendingReportAdapter pendingReportAdapter;
+    BadgeInfoAdapter badgeInfoAdapter;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,18 +45,14 @@ public class JudgeSMListActivity extends AppCompatActivity implements View {
         ((App) getApplication()).getComponent().inject(this);
         presenter.attachView(this);
 
-        initializePendingReportsRecycler();
+        initializeBadgeInfoRecycler();
     }
 
-    private void initializePendingReportsRecycler() {
-        pendingReportAdapter = new PendingReportAdapter(
-                report -> report.isPost() ?
-                        new Intent(this, JudgeRateSMPostActivity.class) :
-                        new Intent(this, JudgeRateSMActivity.class)
-        );
-        pendingReportsRecycler.setAdapter(pendingReportAdapter);
-        pendingReportsRecycler.setItemAnimator(new DefaultItemAnimator());
-        pendingReportsRecycler.setLayoutManager(new LinearLayoutManager(this));
+    private void initializeBadgeInfoRecycler() {
+        badgeInfoAdapter = new BadgeInfoAdapter();
+        badgeInfoRecycler.setAdapter(badgeInfoAdapter);
+        badgeInfoRecycler.setItemAnimator(new DefaultItemAnimator());
+        badgeInfoRecycler.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -75,11 +68,6 @@ public class JudgeSMListActivity extends AppCompatActivity implements View {
     }
 
     @Override
-    public void updatePendingReports(List<PendingReport> reports) {
-        pendingReportAdapter.updatePendingReports(reports);
-    }
-
-    @Override
     public void showProgress() {
         displayLoadingState(true);
     }
@@ -91,5 +79,10 @@ public class JudgeSMListActivity extends AppCompatActivity implements View {
 
     private void displayLoadingState(boolean isLoading) {
         progressBar.setVisibility(isLoading ? VISIBLE : GONE);
+    }
+
+    @Override
+    public void updateBadgeInfoList(List<BadgeInfoView> list) {
+        badgeInfoAdapter.updateBadgeInfoList(list);
     }
 }

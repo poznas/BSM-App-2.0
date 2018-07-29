@@ -18,6 +18,8 @@ import com.bsm.mobile.domain.professor.admin.user.EditUserActivity;
 import com.bsm.mobile.domain.professor.admin.user.EditUserActivityModule;
 import com.bsm.mobile.domain.professor.sm.list.RateSMListActivity;
 import com.bsm.mobile.domain.professor.sm.list.RateSMListActivityModule;
+import com.bsm.mobile.domain.wizard.badge.BadgeInfoActivity;
+import com.bsm.mobile.domain.wizard.badge.BadgeInfoActivityModule;
 import com.bsm.mobile.legacy.domain.wizard.sm.list.AddSMListActivity;
 
 import javax.inject.Singleton;
@@ -37,7 +39,8 @@ import dagger.Component;
         PointsListActivityModule.class,
         RateSMListActivityModule.class,
         AdminActivityModule.class,
-        EditUserActivityModule.class
+        EditUserActivityModule.class,
+        BadgeInfoActivityModule.class
 })
 public interface ApplicationComponent {
 
@@ -48,5 +51,6 @@ public interface ApplicationComponent {
     void inject(RateSMListActivity activity);
     void inject(AdminActivity activity);
     void inject(EditUserActivity activity);
+    void inject(BadgeInfoActivity activity);
     void inject(AddSMListActivity legacyActivity);
 }

@@ -54,6 +54,7 @@
         <activity android:name=".legacy.domain.professor.rate.sm.ProfRateSMPostActivity" />
         <activity android:name=".domain.professor.admin.AdminActivity" />
         <activity android:name=".domain.professor.admin.user.EditUserActivity" />
+        <activity android:name=".domain.wizard.badge.BadgeInfoActivity" />
 
         <service android:name=".legacy.domain.wizard.sm.ReportUploader"
             android:exported="true"/>
