@@ -428,7 +428,7 @@ public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     mPerformingUser = dataSnapshot.getValue(User.class);
-                    InitializeWizardTeam();
+                    if(mPerformingUser != null) InitializeWizardTeam();
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {}
@@ -439,18 +439,20 @@ public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
 
     private void InitializeWizardTeam() {
         teamView.setText(mPerformingUser.getTeam());
-        switch (mPerformingUser.getTeam()){
-            case "cormeum":
-                teamView.setTextColor(ContextCompat.getColor(this, R.color.red));
-                break;
-            case "sensum":
-                teamView.setTextColor(ContextCompat.getColor(this, R.color.blue));
-                break;
-            case "mutinium":
-                teamView.setTextColor(ContextCompat.getColor(this, R.color.green));
-                break;
-            default:
-                break;
+        if(mPerformingUser.getTeam() != null){
+            switch (mPerformingUser.getTeam()){
+                case "cormeum":
+                    teamView.setTextColor(ContextCompat.getColor(this, R.color.red));
+                    break;
+                case "sensum":
+                    teamView.setTextColor(ContextCompat.getColor(this, R.color.blue));
+                    break;
+                case "mutinium":
+                    teamView.setTextColor(ContextCompat.getColor(this, R.color.green));
+                    break;
+                default:
+                    break;
+            }
         }
         wizzardsIntent = new Intent(this, WizardsActivity.class );
         infoView.setVisibility(View.VISIBLE);
@@ -567,10 +569,12 @@ public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
             mSMPProperitiesHintsValueEventListener = null;
         }
 
-        for( int i=0; i<typeListeners.size(); i++ ){
-            if( typeListeners.get(i) != null ){
-                typeReferences.get(i).removeEventListener(typeListeners.get(i));
-                typeListeners.set(i, null);
+        if( typeListeners != null ){
+            for( int i=0; i<typeListeners.size(); i++ ){
+                if( typeListeners.get(i) != null ){
+                    typeReferences.get(i).removeEventListener(typeListeners.get(i));
+                    typeListeners.set(i, null);
+                }
             }
         }
     }
