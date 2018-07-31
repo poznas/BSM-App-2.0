@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.bsm.mobile.common.resource.Constants.BRAND_BADGE;
 import static com.bsm.mobile.domain.wizard.badge.BadgeInfoActivityMVP.Presenter;
 import static com.bsm.mobile.domain.wizard.badge.BadgeInfoActivityMVP.View;
 
@@ -44,6 +45,7 @@ public class BadgeInfoActivity extends AppCompatActivity implements View {
         ButterKnife.bind(this);
         ((App) getApplication()).getComponent().inject(this);
         presenter.attachView(this);
+        setTitle(BRAND_BADGE);
 
         initializeBadgeInfoRecycler();
     }

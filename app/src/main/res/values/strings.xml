@@ -14,7 +14,7 @@
     <string name="make_judge">Make Judge</string>
     <string name="update_wizard">Update Wizard</string>
     <string name="total_amount">wszystkie odznaki</string>
-    <string name="colon">:</string>
+    <string name="colon">  :  </string>
     <string name="remaining_badges">pozostałe odznaki</string>
     <string name="required_executions">wymagane misje</string>
     <string name="awarded_users">Zdobywcy:</string>

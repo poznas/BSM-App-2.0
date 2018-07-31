@@ -25,11 +25,11 @@ public class BadgeInfoModel implements Model {
     @Override
     public Observable<List<BadgeInfoView>> getBadgeInfoList() {
 
-        return badgePointsRepository.getBadgePointsList()
+        return badgeInfoRepository.getBadgeInfoList()
                 .observeOn(Schedulers.computation())
-                .map(pointsList -> {
+                .map(infoList -> {
                     List<BadgeInfoView> views = new LinkedList<>();
-                    List<BadgeInfo> infoList = badgeInfoRepository.getBadgeInfoList()
+                    List<BadgePoints> pointsList = badgePointsRepository.getBadgePointsList()
                             .observeOn(Schedulers.io()).take(1).blockingFirst();
 
                     for(BadgeInfo info : infoList){
@@ -46,6 +46,7 @@ public class BadgeInfoModel implements Model {
                                                 .displayName(points.getUserName())
                                                 .team(points.getTeam())
                                                 .build());
+                        views.add(view);
                     }
                     return views;
                 });
