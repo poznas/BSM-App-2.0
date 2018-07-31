@@ -10,6 +10,7 @@ import java.util.List;
 import io.reactivex.Observable;
 
 import static com.bsm.mobile.common.resource.Constants.BRAND_ADMIN;
+import static com.bsm.mobile.common.resource.Constants.BRAND_BADGE;
 import static com.bsm.mobile.common.resource.Constants.BRAND_BET;
 import static com.bsm.mobile.common.resource.Constants.BRAND_JUDGE;
 import static com.bsm.mobile.common.resource.Constants.BRAND_MAIN_COMPETITION;
@@ -63,6 +64,8 @@ public class LocalUserPrivilegeRepository implements IUserPrivilegeRepository {
                     .iconId(R.mipmap.icon_small_mc_info).brand(BRAND_MC_INFO).build());
         }
         if( userLabel.equals(LABEL_PROFESSOR) || userLabel.equals(LABEL_WIZARD) || userLabel.equals(LABEL_JUDGE)){
+            privileges.add(Privilege.builder()
+                    .iconId(R.mipmap.icon_badge).brand(BRAND_BADGE).build());
             privileges.add(Privilege.builder()
                     .iconId(R.mipmap.icon_small_calendar).brand(BRAND_TUTORIAL).build());
         }

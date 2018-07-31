@@ -1,6 +1,9 @@
 package com.bsm.mobile.backend.score.points.badge;
 
+import android.util.Log;
+
 import com.bsm.mobile.backend.AbstractFirebaseRepository;
+import com.bsm.mobile.common.Tagable;
 import com.bsm.mobile.domain.wizard.badge.model.BadgeInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.Query;
@@ -12,7 +15,7 @@ import io.reactivex.Observable;
 
 import static com.bsm.mobile.common.resource.Constants.BRANCH_BADGE_INFO;
 
-public class FirebaseBadgeInfoRepository extends AbstractFirebaseRepository implements IBadgeInfoRepository {
+public class FirebaseBadgeInfoRepository extends AbstractFirebaseRepository implements IBadgeInfoRepository, Tagable {
 
     @Override
     protected Query getRepositoryQuery() {
@@ -33,6 +36,7 @@ public class FirebaseBadgeInfoRepository extends AbstractFirebaseRepository impl
                                 infoList.add(info);
                             }
                         }
+                        Log.d(getTag(), "retrieved badge info : " + infoList);
                         emitter.onNext(infoList);
                     })
         );

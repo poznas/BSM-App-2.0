@@ -8,6 +8,7 @@ import com.bsm.mobile.domain.judge.list.JudgeSMListActivity;
 import com.bsm.mobile.domain.points.list.PointsListActivity;
 import com.bsm.mobile.domain.professor.admin.AdminActivity;
 import com.bsm.mobile.domain.professor.sm.list.RateSMListActivity;
+import com.bsm.mobile.domain.wizard.badge.BadgeInfoActivity;
 import com.bsm.mobile.legacy.domain.info.mc.MainCompetitionInfoActivity;
 import com.bsm.mobile.legacy.domain.info.sm.SideMissionsInfoActivity;
 import com.bsm.mobile.legacy.domain.professor.bet.AddBetActivity;
@@ -20,6 +21,7 @@ import com.bsm.mobile.legacy.domain.zongler.ZonglerActivity;
 import java.util.HashMap;
 
 import static com.bsm.mobile.common.resource.Constants.BRAND_ADMIN;
+import static com.bsm.mobile.common.resource.Constants.BRAND_BADGE;
 import static com.bsm.mobile.common.resource.Constants.BRAND_BET;
 import static com.bsm.mobile.common.resource.Constants.BRAND_JUDGE;
 import static com.bsm.mobile.common.resource.Constants.BRAND_MAIN_COMPETITION;
@@ -53,6 +55,7 @@ public class HomeIntentFactory {
             put(BRAND_JUDGE, new Intent(context, JudgeSMListActivity.class));
             put(BRAND_PROF_RATE, new Intent(context, RateSMListActivity.class));
             put(BRAND_ADMIN, new Intent(context, AdminActivity.class));
+            put(BRAND_BADGE, new Intent(context, BadgeInfoActivity.class));
         }};
     }
 
