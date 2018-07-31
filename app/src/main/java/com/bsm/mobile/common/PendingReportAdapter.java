@@ -11,19 +11,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bsm.mobile.R;
+import com.bsm.mobile.common.utils.DateTimeUtils;
 import com.bsm.mobile.legacy.model.PendingReport;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.bsm.mobile.common.resource.Constants.dateFormat;
-import static com.bsm.mobile.common.resource.Constants.timeFormat;
 
 public class PendingReportAdapter extends RecyclerView.Adapter<PendingReportAdapter.PendingReportViewHolder>{
 
@@ -89,8 +86,8 @@ public class PendingReportAdapter extends RecyclerView.Adapter<PendingReportAdap
         public void setReportData(PendingReport report) {
             this.report = report;
 
-            dateView.setText(dateFormat.format(new Date(report.getTimestamp())));
-            timeView.setText(timeFormat.format(new Date(report.getTimestamp())));
+            dateView.setText(DateTimeUtils.getDate(report.getTimestamp()));
+            timeView.setText(DateTimeUtils.getTime(report.getTimestamp()));
 
             smNameView.setText(report.getSm_name());
             userNameView.setText(report.getPerforming_user());

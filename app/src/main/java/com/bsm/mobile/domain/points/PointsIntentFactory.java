@@ -5,14 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.bsm.mobile.legacy.domain.points.details.badge.BadgeResultDisplayActivity;
 import com.bsm.mobile.legacy.domain.points.details.bet.BetResultDisplayActivity;
 import com.bsm.mobile.legacy.domain.points.details.mc.MCResultDisplayActivity;
 import com.bsm.mobile.legacy.domain.points.details.medal.MedalResultDisplayActivity;
 import com.bsm.mobile.legacy.domain.points.details.sm.SMResultDisplayActivity;
 import com.bsm.mobile.legacy.domain.points.details.sm.post.SMPostResultDisplayActivity;
 import com.bsm.mobile.legacy.model.PointsInfo;
-
-import java.util.Date;
 
 import static com.bsm.mobile.common.resource.Constants.KEY_DATE;
 import static com.bsm.mobile.common.resource.Constants.KEY_INFO;
@@ -23,12 +22,13 @@ import static com.bsm.mobile.common.resource.Constants.KEY_REPORT_ID;
 import static com.bsm.mobile.common.resource.Constants.KEY_TEAM;
 import static com.bsm.mobile.common.resource.Constants.KEY_TIME;
 import static com.bsm.mobile.common.resource.Constants.KEY_WINNER;
+import static com.bsm.mobile.common.resource.Constants.LABEL_POINTS_BADGE;
 import static com.bsm.mobile.common.resource.Constants.LABEL_POINTS_BET;
 import static com.bsm.mobile.common.resource.Constants.LABEL_POINTS_MAIN_COMPETITION;
 import static com.bsm.mobile.common.resource.Constants.LABEL_POINTS_MEDAL;
 import static com.bsm.mobile.common.resource.Constants.LABEL_POINTS_SIDE_MISSION;
-import static com.bsm.mobile.common.resource.Constants.dateFormat;
-import static com.bsm.mobile.common.resource.Constants.timeFormat;
+import static com.bsm.mobile.common.utils.DateTimeUtils.getDate;
+import static com.bsm.mobile.common.utils.DateTimeUtils.getTime;
 
 @SuppressLint("SimpleDateFormat")
 public class PointsIntentFactory {
@@ -40,8 +40,8 @@ public class PointsIntentFactory {
         Bundle basicExtras = new Bundle();
         basicExtras.putLong(KEY_POINTS, pointsInfo.getPoints());
         basicExtras.putString(KEY_TEAM, pointsInfo.getTeam());
-        basicExtras.putString(KEY_TIME, timeFormat.format(new Date(pointsInfo.getTimestamp())));
-        basicExtras.putString(KEY_DATE, dateFormat.format(new Date(pointsInfo.getTimestamp())));
+        basicExtras.putString(KEY_TIME, getTime(pointsInfo.getTimestamp()));
+        basicExtras.putString(KEY_DATE, getDate(pointsInfo.getTimestamp()));
 
         switch (pointsInfo.getLabel()){
 
@@ -71,7 +71,9 @@ public class PointsIntentFactory {
                         new Intent(context, SMResultDisplayActivity.class)
                                 .putExtras(basicExtras)
                                 .putExtra(KEY_REPORT_ID, pointsInfo.getId());
-
+            case LABEL_POINTS_BADGE:
+                return new Intent(context, BadgeResultDisplayActivity.class)
+                        .putExtra(KEY_INFO, pointsInfo);
             default:
                 return null;
         }

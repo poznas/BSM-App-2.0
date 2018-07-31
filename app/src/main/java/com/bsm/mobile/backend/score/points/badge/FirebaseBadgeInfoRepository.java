@@ -37,4 +37,15 @@ public class FirebaseBadgeInfoRepository extends AbstractFirebaseRepository impl
                     })
         );
     }
+
+    @Override
+    public Observable<BadgeInfo> getBadgeInfo(String sideMissionName) {
+        return Observable.create(emitter ->
+            new SimpleValueEventListener(emitter, getRepositoryReference().child(sideMissionName))
+                .setOnDataChange(dataSnapshot -> {
+                   BadgeInfo badgeInfo = dataSnapshot.getValue(BadgeInfo.class);
+                   if(badgeInfo != null) emitter.onNext(badgeInfo);
+                })
+        );
+    }
 }

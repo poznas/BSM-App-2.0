@@ -20,6 +20,7 @@ import com.bsm.mobile.domain.professor.sm.list.RateSMListActivity;
 import com.bsm.mobile.domain.professor.sm.list.RateSMListActivityModule;
 import com.bsm.mobile.domain.wizard.badge.BadgeInfoActivity;
 import com.bsm.mobile.domain.wizard.badge.BadgeInfoActivityModule;
+import com.bsm.mobile.legacy.domain.points.details.badge.BadgeResultDisplayActivity;
 import com.bsm.mobile.legacy.domain.wizard.sm.list.AddSMListActivity;
 
 import javax.inject.Singleton;
@@ -52,5 +53,7 @@ public interface ApplicationComponent {
     void inject(AdminActivity activity);
     void inject(EditUserActivity activity);
     void inject(BadgeInfoActivity activity);
+
     void inject(AddSMListActivity legacyActivity);
+    void inject(BadgeResultDisplayActivity legacyActivity);
 }

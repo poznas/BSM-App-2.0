@@ -87,7 +87,7 @@ public class BadgeInfoAdapter extends RecyclerView.Adapter<BadgeInfoAdapter.Badg
         }
 
         public void setBadgeInfo(BadgeInfoView data) {
-            Glide.with(context).load(data.getSideMissionImageUrl()).into(sideMissionImage);
+            Glide.with(context).load(data.getBadgeInfo().getSideMissionImageUrl()).into(sideMissionImage);
             sideMissionTextView.setText(data.getBadgeInfo().getSideMissionName());
             totalAmountTextView.setText(String.valueOf(data.getBadgeInfo().getTotalAmount()));
             remainingBadgesTextView.setText(String.valueOf(data.getBadgeInfo().getRemainingBadges()));

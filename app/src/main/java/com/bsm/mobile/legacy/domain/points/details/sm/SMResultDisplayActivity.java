@@ -239,6 +239,7 @@ public class SMResultDisplayActivity extends AppCompatActivity {
     }
 
     private void setRecordingUserData(){
+        if(mRecordingUser == null){ return; }
         recordingUserName.setText(mRecordingUser.getDisplayName());
         Glide.with(this)
                 .load(mRecordingUser.getPhotoUrl())

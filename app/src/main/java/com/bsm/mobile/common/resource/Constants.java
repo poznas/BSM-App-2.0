@@ -1,10 +1,5 @@
 package com.bsm.mobile.common.resource;
 
-import android.annotation.SuppressLint;
-
-import java.text.SimpleDateFormat;
-
-@SuppressLint("SimpleDateFormat")
 public class Constants {
 
     public static final String KEY_POINTS = "points";
@@ -80,7 +75,4 @@ public class Constants {
     public static final int REPORTS_NO_PENDING = 0;
 
     public static final String TOPIC_JUDGE = "reportsToJudge";
-
-    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM");
-    public static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 }

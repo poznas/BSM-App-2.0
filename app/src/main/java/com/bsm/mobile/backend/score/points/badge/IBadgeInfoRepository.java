@@ -10,4 +10,6 @@ import io.reactivex.Observable;
 public interface IBadgeInfoRepository {
 
     Observable<List<BadgeInfo>> getBadgeInfoList();
+
+    Observable<BadgeInfo> getBadgeInfo(String sideMissionName);
 }

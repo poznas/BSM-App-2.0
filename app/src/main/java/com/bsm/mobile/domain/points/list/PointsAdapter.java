@@ -11,15 +11,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bsm.mobile.R;
-import com.bsm.mobile.common.resource.TeamResources;
 import com.bsm.mobile.common.SimpleAlertDialog;
 import com.bsm.mobile.common.Tagable;
+import com.bsm.mobile.common.resource.TeamResources;
+import com.bsm.mobile.common.utils.DateTimeUtils;
 import com.bsm.mobile.domain.points.PointsIntentFactory;
 import com.bsm.mobile.legacy.model.PointsInfo;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -33,8 +33,6 @@ import static android.view.View.GONE;
 import static com.bsm.mobile.common.resource.Constants.LABEL_POINTS_BET;
 import static com.bsm.mobile.common.resource.Constants.LABEL_POINTS_MAIN_COMPETITION;
 import static com.bsm.mobile.common.resource.Constants.LABEL_POINTS_MEDAL;
-import static com.bsm.mobile.common.resource.Constants.dateFormat;
-import static com.bsm.mobile.common.resource.Constants.timeFormat;
 import static com.bsm.mobile.common.resource.Message.MESSAGE_DIALOG_INVALIDATE;
 import static com.bsm.mobile.domain.points.list.PointsListActivityMVP.Presenter;
 
@@ -134,8 +132,8 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.PointsView
         void setPointsInfo(PointsInfo pointsInfo) {
             this.pointsInfo = pointsInfo;
 
-            itemDate.setText(dateFormat.format(new Date(pointsInfo.getTimestamp())));
-            itemTime.setText(timeFormat.format(new Date(pointsInfo.getTimestamp())));
+            itemDate.setText(DateTimeUtils.getDate(pointsInfo.getTimestamp()));
+            itemTime.setText(DateTimeUtils.getTime(pointsInfo.getTimestamp()));
 
             itemPoints.setText(String.valueOf(pointsInfo.getPoints()));
             itemPoints.setTextColor(TeamResources.COLORS(context).get(pointsInfo.getTeam()));

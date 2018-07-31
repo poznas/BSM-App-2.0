@@ -3,9 +3,8 @@ package com.bsm.mobile.common;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.bsm.mobile.common.utils.DateTimeUtils;
 import com.bsm.mobile.legacy.model.PendingReport;
-
-import java.util.Date;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,8 +14,6 @@ import static com.bsm.mobile.common.resource.Constants.KEY_SM_NAME;
 import static com.bsm.mobile.common.resource.Constants.KEY_TIME;
 import static com.bsm.mobile.common.resource.Constants.KEY_USER_IMAGE_URL;
 import static com.bsm.mobile.common.resource.Constants.KEY_USER_NAME;
-import static com.bsm.mobile.common.resource.Constants.dateFormat;
-import static com.bsm.mobile.common.resource.Constants.timeFormat;
 
 @RequiredArgsConstructor
 public class ReportIntentFactory {
@@ -34,8 +31,8 @@ public class ReportIntentFactory {
         commonExtras.putString(KEY_USER_IMAGE_URL, report.getUser_photoUrl());
         commonExtras.putString(KEY_REPORT_ID, report.getRpid());
         commonExtras.putString(KEY_SM_NAME, report.getSm_name());
-        commonExtras.putString(KEY_TIME, timeFormat.format(new Date(report.getTimestamp())));
-        commonExtras.putString(KEY_DATE, dateFormat.format(new Date(report.getTimestamp())));
+        commonExtras.putString(KEY_TIME, DateTimeUtils.getTime(report.getTimestamp()));
+        commonExtras.putString(KEY_DATE, DateTimeUtils.getDate(report.getTimestamp()));
 
         return commonExtras;
     }
