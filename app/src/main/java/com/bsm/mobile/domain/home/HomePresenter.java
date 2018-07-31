@@ -110,6 +110,8 @@ public class HomePresenter implements Presenter {
                                     subscribeForProfessorPendingReports();
                                 }
                             }
+                        }else {
+                            view.updatePrivileges(Collections.emptyList());
                         }
                     },error -> view.showMessage(error.getMessage())
                 )
@@ -172,7 +174,6 @@ public class HomePresenter implements Presenter {
     private boolean userIsAuthorized(String userLabel) {
         boolean authorized = UserDataValidator.validLabel(userLabel);
         view.showUnauthorizedMessage(!authorized);
-        view.updatePrivileges(Collections.emptyList());
         return authorized;
     }
 }
