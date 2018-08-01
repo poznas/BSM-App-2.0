@@ -6,6 +6,7 @@ import android.net.Uri;
 
 import com.bsm.mobile.domain.judge.list.JudgeSMListActivity;
 import com.bsm.mobile.domain.points.list.PointsListActivity;
+import com.bsm.mobile.domain.points.ranking.SideMissionRankingActivity;
 import com.bsm.mobile.domain.professor.admin.AdminActivity;
 import com.bsm.mobile.domain.professor.sm.list.RateSMListActivity;
 import com.bsm.mobile.domain.wizard.badge.BadgeInfoActivity;
@@ -28,6 +29,7 @@ import static com.bsm.mobile.common.resource.Constants.BRAND_MAIN_COMPETITION;
 import static com.bsm.mobile.common.resource.Constants.BRAND_MC_INFO;
 import static com.bsm.mobile.common.resource.Constants.BRAND_MEDAL;
 import static com.bsm.mobile.common.resource.Constants.BRAND_PROF_RATE;
+import static com.bsm.mobile.common.resource.Constants.BRAND_RANKING;
 import static com.bsm.mobile.common.resource.Constants.BRAND_REPORT;
 import static com.bsm.mobile.common.resource.Constants.BRAND_SM_INFO;
 import static com.bsm.mobile.common.resource.Constants.BRAND_TUTORIAL;
@@ -56,6 +58,7 @@ public class HomeIntentFactory {
             put(BRAND_PROF_RATE, new Intent(context, RateSMListActivity.class));
             put(BRAND_ADMIN, new Intent(context, AdminActivity.class));
             put(BRAND_BADGE, new Intent(context, BadgeInfoActivity.class));
+            put(BRAND_RANKING, new Intent(context, SideMissionRankingActivity.class));
         }};
     }
 

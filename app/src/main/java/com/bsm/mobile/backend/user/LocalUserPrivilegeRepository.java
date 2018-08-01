@@ -17,6 +17,7 @@ import static com.bsm.mobile.common.resource.Constants.BRAND_MAIN_COMPETITION;
 import static com.bsm.mobile.common.resource.Constants.BRAND_MC_INFO;
 import static com.bsm.mobile.common.resource.Constants.BRAND_MEDAL;
 import static com.bsm.mobile.common.resource.Constants.BRAND_PROF_RATE;
+import static com.bsm.mobile.common.resource.Constants.BRAND_RANKING;
 import static com.bsm.mobile.common.resource.Constants.BRAND_REPORT;
 import static com.bsm.mobile.common.resource.Constants.BRAND_SM_INFO;
 import static com.bsm.mobile.common.resource.Constants.BRAND_TUTORIAL;
@@ -66,6 +67,8 @@ public class LocalUserPrivilegeRepository implements IUserPrivilegeRepository {
         if( userLabel.equals(LABEL_PROFESSOR) || userLabel.equals(LABEL_WIZARD) || userLabel.equals(LABEL_JUDGE)){
             privileges.add(Privilege.builder()
                     .iconId(R.mipmap.icon_badge).brand(BRAND_BADGE).build());
+            privileges.add(Privilege.builder()
+                    .iconId(R.mipmap.icon_ranking).brand(BRAND_RANKING).build());
             privileges.add(Privilege.builder()
                     .iconId(R.mipmap.icon_small_calendar).brand(BRAND_TUTORIAL).build());
         }

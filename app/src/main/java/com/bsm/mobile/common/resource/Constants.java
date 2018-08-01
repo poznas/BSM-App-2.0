@@ -66,6 +66,7 @@ public class Constants {
     public static final String BRAND_BADGE = "Odznaki";
     public static final String BRAND_ADMIN = "Administracja";
     public static final String BRAND_TUTORIAL = "Tutoriale";
+    public static final String BRAND_RANKING = "Ranking";
 
     public static final String URL_TUTORIAL_FOLDER =
             "https://drive.google.com/drive/folders/16wudyPdZ3IToMthfmT8tGqa0YU7Gf8O2";

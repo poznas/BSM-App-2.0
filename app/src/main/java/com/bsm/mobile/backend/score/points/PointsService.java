@@ -2,12 +2,12 @@ package com.bsm.mobile.backend.score.points;
 
 import android.util.Log;
 
-import com.bsm.mobile.common.resource.TeamResources;
 import com.bsm.mobile.backend.score.points.bet.IBetPointsRepository;
 import com.bsm.mobile.backend.score.points.mc.IMainCompetitionPointsRepository;
 import com.bsm.mobile.backend.score.points.medal.IMedalPointsRepository;
 import com.bsm.mobile.backend.score.points.sm.ISideMissionPointsRepository;
 import com.bsm.mobile.common.Tagable;
+import com.bsm.mobile.common.resource.TeamResources;
 import com.bsm.mobile.legacy.model.PointsInfo;
 
 import java.util.LinkedList;
@@ -17,7 +17,10 @@ import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 import lombok.AllArgsConstructor;
 
-import static com.bsm.mobile.common.resource.Constants.*;
+import static com.bsm.mobile.common.resource.Constants.LABEL_POINTS_BET;
+import static com.bsm.mobile.common.resource.Constants.LABEL_POINTS_MAIN_COMPETITION;
+import static com.bsm.mobile.common.resource.Constants.LABEL_POINTS_MEDAL;
+import static com.bsm.mobile.common.resource.Constants.LABEL_POINTS_SIDE_MISSION;
 
 @AllArgsConstructor
 public class PointsService implements IPointsService, Tagable{
@@ -29,6 +32,11 @@ public class PointsService implements IPointsService, Tagable{
     private final IMedalPointsRepository medalPointsRepository;
     private final ISideMissionPointsRepository sideMissionPointsRepository;
 
+
+    @Override
+    public Observable<List<PointsInfo>> getAllPoints() {
+        return pointsRepository.getAllPoints();
+    }
 
     @Override
     public Observable<List<PointsInfo>> getAllPoints(String teamId) {

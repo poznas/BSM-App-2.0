@@ -12,6 +12,8 @@ import com.bsm.mobile.domain.login.LoginActivity;
 import com.bsm.mobile.domain.login.LoginActivityModule;
 import com.bsm.mobile.domain.points.list.PointsListActivity;
 import com.bsm.mobile.domain.points.list.PointsListActivityModule;
+import com.bsm.mobile.domain.points.ranking.SideMissionRankingActivity;
+import com.bsm.mobile.domain.points.ranking.SideMissionRankingActivityModule;
 import com.bsm.mobile.domain.professor.admin.AdminActivity;
 import com.bsm.mobile.domain.professor.admin.AdminActivityModule;
 import com.bsm.mobile.domain.professor.admin.user.EditUserActivity;
@@ -41,7 +43,8 @@ import dagger.Component;
         RateSMListActivityModule.class,
         AdminActivityModule.class,
         EditUserActivityModule.class,
-        BadgeInfoActivityModule.class
+        BadgeInfoActivityModule.class,
+        SideMissionRankingActivityModule.class
 })
 public interface ApplicationComponent {
 
@@ -53,7 +56,10 @@ public interface ApplicationComponent {
     void inject(AdminActivity activity);
     void inject(EditUserActivity activity);
     void inject(BadgeInfoActivity activity);
+    void inject(SideMissionRankingActivity activity);
 
     void inject(AddSMListActivity legacyActivity);
     void inject(BadgeResultDisplayActivity legacyActivity);
+
+
 }

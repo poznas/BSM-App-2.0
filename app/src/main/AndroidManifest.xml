@@ -56,6 +56,7 @@
         <activity android:name=".domain.professor.admin.user.EditUserActivity" />
         <activity android:name=".domain.wizard.badge.BadgeInfoActivity" />
         <activity android:name=".legacy.domain.points.details.badge.BadgeResultDisplayActivity" />
+        <activity android:name=".domain.points.ranking.SideMissionRankingActivity" />
 
         <service android:name=".legacy.domain.wizard.sm.ReportUploader"
             android:exported="true"/>

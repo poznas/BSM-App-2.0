@@ -8,6 +8,8 @@ import io.reactivex.Observable;
 
 public interface IPointsService {
 
+    Observable<List<PointsInfo>> getAllPoints();
+
     Observable<List<PointsInfo>> getAllPoints(String teamId);
 
     void invalidatePoints(PointsInfo points);
