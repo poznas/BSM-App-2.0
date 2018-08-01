@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.bsm.mobile.R;
 import com.bsm.mobile.common.SimpleAlertDialog;
 import com.bsm.mobile.common.Tagable;
-import com.bsm.mobile.common.resource.TeamResources;
 import com.bsm.mobile.common.utils.DateTimeUtils;
 import com.bsm.mobile.domain.points.PointsIntentFactory;
 import com.bsm.mobile.legacy.model.PointsInfo;
@@ -34,6 +33,7 @@ import static com.bsm.mobile.common.resource.Constants.LABEL_POINTS_BET;
 import static com.bsm.mobile.common.resource.Constants.LABEL_POINTS_MAIN_COMPETITION;
 import static com.bsm.mobile.common.resource.Constants.LABEL_POINTS_MEDAL;
 import static com.bsm.mobile.common.resource.Message.MESSAGE_DIALOG_INVALIDATE;
+import static com.bsm.mobile.common.resource.TeamResources.getColor;
 import static com.bsm.mobile.domain.points.list.PointsListActivityMVP.Presenter;
 
 @Setter
@@ -136,7 +136,7 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.PointsView
             itemTime.setText(DateTimeUtils.getTime(pointsInfo.getTimestamp()));
 
             itemPoints.setText(String.valueOf(pointsInfo.getPoints()));
-            itemPoints.setTextColor(TeamResources.COLORS(context).get(pointsInfo.getTeam()));
+            itemPoints.setTextColor(getColor(context, pointsInfo.getTeam()));
 
             itemLabel.setText(pointsInfo.getLabel());
 

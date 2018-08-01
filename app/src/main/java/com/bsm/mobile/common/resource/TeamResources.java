@@ -1,6 +1,7 @@
 package com.bsm.mobile.common.resource;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 
 import com.bsm.mobile.R;
@@ -37,4 +38,8 @@ public class TeamResources {
         put(TEAM_SENSUM, R.mipmap.sensum);
         put(TEAM_MUTINIUM, R.mipmap.mutinium);
     }};
+
+    public static int getColor(Context context, String team) {
+        return team != null ? TeamResources.COLORS(context).get(team) : Color.BLACK;
+    }
 }

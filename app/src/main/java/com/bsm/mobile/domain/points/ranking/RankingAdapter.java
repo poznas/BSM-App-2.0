@@ -1,7 +1,6 @@
 package com.bsm.mobile.domain.points.ranking;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bsm.mobile.R;
-import com.bsm.mobile.common.resource.TeamResources;
 import com.bsm.mobile.legacy.model.PointsInfo;
 import com.bumptech.glide.Glide;
 
@@ -20,6 +18,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.bsm.mobile.common.resource.TeamResources.getColor;
 
 public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.RankingViewHolder> {
 
@@ -81,8 +81,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.RankingV
                     .load(pointsInfo.getUser_photo())
                     .into(userImageView);
             pointsView.setText(String.valueOf(pointsInfo.getPoints()));
-            pointsView.setTextColor(pointsInfo.getTeam() != null ?
-                    TeamResources.COLORS(context).get(pointsInfo.getTeam()) : Color.BLACK);
+            pointsView.setTextColor(getColor(context, pointsInfo.getTeam()));
             userNameView.setText(pointsInfo.getUser_name());
         }
     }

@@ -7,12 +7,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bsm.mobile.common.resource.TeamResources;
 import com.bumptech.glide.Glide;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+import static com.bsm.mobile.common.resource.TeamResources.getColor;
 
 public class WizardView extends LinearLayout {
 
@@ -65,7 +65,7 @@ public class WizardView extends LinearLayout {
         textView.setText(String.format("  %s", userName));
         textView.setTypeface(null, Typeface.BOLD);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-        textView.setTextColor(TeamResources.COLORS(context).get(team));
+        textView.setTextColor(getColor(context, team));
         textView.setLayoutParams(params(36));
 
         return textView;

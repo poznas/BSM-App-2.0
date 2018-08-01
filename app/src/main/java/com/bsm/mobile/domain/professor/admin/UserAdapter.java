@@ -15,7 +15,6 @@ import com.bsm.mobile.common.NullFighter;
 import com.bsm.mobile.common.SimpleAlertDialog;
 import com.bsm.mobile.common.Tagable;
 import com.bsm.mobile.common.resource.Message;
-import com.bsm.mobile.common.resource.TeamResources;
 import com.bsm.mobile.common.utils.UserDataValidator;
 import com.bsm.mobile.domain.professor.admin.user.EditUserActivity;
 import com.bsm.mobile.legacy.model.User;
@@ -34,6 +33,7 @@ import static android.view.View.VISIBLE;
 import static com.bsm.mobile.common.resource.Constants.GENDER_FEMALE;
 import static com.bsm.mobile.common.resource.Constants.GENDER_MALE;
 import static com.bsm.mobile.common.resource.Constants.KEY_USER;
+import static com.bsm.mobile.common.resource.TeamResources.getColor;
 import static com.bsm.mobile.domain.professor.admin.AdminActivityMVP.Presenter;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> implements Tagable, NullFighter{
@@ -126,7 +126,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             displayNameView.setText(user.getDisplayName());
             teamNameView.setText(user.getTeam());
             teamNameView.setTextColor(UserDataValidator.validTeam(user) ?
-                    TeamResources.COLORS(context).get(user.getTeam()) : TRANSPARENT);
+                    getColor(context, user.getTeam()) : TRANSPARENT);
 
             labelView.setText(user.getLabel());
 
