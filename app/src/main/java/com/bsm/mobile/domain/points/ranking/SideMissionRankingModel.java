@@ -7,10 +7,9 @@ import com.bsm.mobile.common.utils.UserDataValidator;
 import com.bsm.mobile.legacy.model.PointsInfo;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
@@ -27,37 +26,27 @@ public class SideMissionRankingModel implements Model {
     @Override
     public Observable<List<PointsInfo>> getRanking() {
         return pointsService.getAllPoints()
-                .observeOn(Schedulers.computation())
+                .observeOn(Schedulers.io())
                 .map(pointsList -> {
-                    pointsList.addAll(getZeroPointsUsers());
 
-                    HashMap<String, PointsInfo> userPointsMap = new HashMap<>();
+                    Map<String, PointsInfo> wizardPointsMap = getWizardZeroPointsMap();
                     for(PointsInfo pointsInfo : pointsList){
                         if(!pointsInfo.getLabel().equals(Constants.LABEL_POINTS_SIDE_MISSION)) continue;
 
-                        PointsInfo existingUserPointsRecord = userPointsMap.get(pointsInfo.getUser_name());
-
-                        if(existingUserPointsRecord == null){
-                            userPointsMap.put(pointsInfo.getUser_name(),
-                                    PointsInfo.builder()
-                                            .user_name(pointsInfo.getUser_name())
-                                            .team(pointsInfo.getTeam())
-                                            .user_photo(pointsInfo.getUser_photo())
-                                            .points(pointsInfo.getPoints())
-                                            .build());
-                        }else{
-                            existingUserPointsRecord.setPoints(
-                                    existingUserPointsRecord.getPoints() + pointsInfo.getPoints());
+                        PointsInfo userPointsRecord = wizardPointsMap.get(pointsInfo.getUser_name());
+                        if (userPointsRecord != null) {
+                            userPointsRecord.setPoints(
+                                    userPointsRecord.getPoints() + pointsInfo.getPoints());
                         }
                     }
-                    return toList(userPointsMap);
+                    return toList(wizardPointsMap);
                 })
                 .observeOn(Schedulers.computation())
                 .doOnEach(points -> Collections.sort(points.getValue()));
 
     }
 
-    private Collection<PointsInfo> getZeroPointsUsers() {
+    private Map<String, PointsInfo> getWizardZeroPointsMap() {
         return userRepository.getUserList().take(1)
                 .observeOn(Schedulers.io())
                 .flatMapIterable(users -> users)
@@ -69,10 +58,11 @@ public class SideMissionRankingModel implements Model {
                         .team(user.getTeam())
                         .points(0L)
                         .build())
-                .toList().blockingGet();
+                .toMap(PointsInfo::getUser_name, pointsInfo -> pointsInfo)
+                .blockingGet();
     }
 
-    private List<PointsInfo> toList(HashMap<String, PointsInfo> userPointsMap){
+    private List<PointsInfo> toList(Map<String, PointsInfo> userPointsMap){
         return new ArrayList<>(userPointsMap.values());
     }
 }

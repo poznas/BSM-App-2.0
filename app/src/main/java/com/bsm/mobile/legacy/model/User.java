@@ -34,7 +34,7 @@ public class User implements Comparable<User>, Serializable{
     public int compareTo(@NonNull User user) {
         return ComparisonChain.start()
                 .compare(team, user.getTeam(), Ordering.natural().nullsLast())
-                .compare(label, user.getLabel(), Ordering.natural().nullsLast())
+                .compare(label, user.getLabel(), Ordering.natural().reverse().nullsLast())
                 .compare(displayName, user.getDisplayName(), Ordering.natural().nullsLast())
                 .result();
     }
