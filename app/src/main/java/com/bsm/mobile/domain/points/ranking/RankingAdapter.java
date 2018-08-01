@@ -1,6 +1,7 @@
 package com.bsm.mobile.domain.points.ranking;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -80,7 +81,8 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.RankingV
                     .load(pointsInfo.getUser_photo())
                     .into(userImageView);
             pointsView.setText(String.valueOf(pointsInfo.getPoints()));
-            pointsView.setTextColor(TeamResources.COLORS(context).get(pointsInfo.getTeam()));
+            pointsView.setTextColor(pointsInfo.getTeam() != null ?
+                    TeamResources.COLORS(context).get(pointsInfo.getTeam()) : Color.BLACK);
             userNameView.setText(pointsInfo.getUser_name());
         }
     }

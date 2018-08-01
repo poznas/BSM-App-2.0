@@ -14,7 +14,7 @@ import static com.bsm.mobile.common.resource.Constants.LABEL_JUDGE;
 import static com.bsm.mobile.common.resource.Constants.LABEL_PROFESSOR;
 import static com.bsm.mobile.common.resource.Constants.LABEL_WIZARD;
 
-public class UserDataValidator {
+public class UserDataValidator{
 
     public static final List<String> VALID_GENDERS
             = Arrays.asList(GENDER_MALE, GENDER_FEMALE);
@@ -44,6 +44,12 @@ public class UserDataValidator {
         return user.getDisplayName() != null
                 && user.getDisplayName().length() > 3
                 && user.getDisplayName().length() <= 8;
+    }
+
+    public static boolean isWizard(User user){
+        return user.getLabel() != null &&
+                (user.getLabel().equals(LABEL_WIZARD)
+                        || user.getLabel().equals(LABEL_PROFESSOR));
     }
 
     public static User getValidData(User user, boolean forDetailsBranch) {
