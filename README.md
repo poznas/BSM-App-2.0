@@ -1,1 +1,5 @@
-# BSM Android app 2.0
+# Rx BSM
+
+Bulgarian School of Magic
+<br><br>
+download APK : 
