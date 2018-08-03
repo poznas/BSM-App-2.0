@@ -56,6 +56,8 @@ public class LocalUserPrivilegeRepository implements IUserPrivilegeRepository {
             privileges.add(Privilege.builder()
                     .iconId(R.mipmap.icon_small_zongler).brand(BRAND_ZONGLER).build());
             privileges.add(Privilege.builder()
+                    .iconId(R.mipmap.icon_ranking).brand(BRAND_RANKING).build());
+            privileges.add(Privilege.builder()
                     .iconId(R.mipmap.icon_small_sm_info).brand(BRAND_SM_INFO).build());
         }
         if( userLabel.equals(LABEL_PROFESSOR) || userLabel.equals(LABEL_WIZARD)){
@@ -67,8 +69,6 @@ public class LocalUserPrivilegeRepository implements IUserPrivilegeRepository {
         if( userLabel.equals(LABEL_PROFESSOR) || userLabel.equals(LABEL_WIZARD) || userLabel.equals(LABEL_JUDGE)){
             privileges.add(Privilege.builder()
                     .iconId(R.mipmap.icon_badge).brand(BRAND_BADGE).build());
-            privileges.add(Privilege.builder()
-                    .iconId(R.mipmap.icon_ranking).brand(BRAND_RANKING).build());
             privileges.add(Privilege.builder()
                     .iconId(R.mipmap.icon_small_calendar).brand(BRAND_TUTORIAL).build());
         }

@@ -15,6 +15,8 @@ import com.google.firebase.database.Query;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.bsm.mobile.common.resource.Constants.BRAND_ZONGLER;
+
 public class ZonglerActivity extends AppCompatActivity {
 
 
@@ -30,6 +32,7 @@ public class ZonglerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_recycler_list);
         ButterKnife.bind(this);
+        setTitle(BRAND_ZONGLER);
 
         mRootRef = FirebaseDatabase.getInstance().getReference();
 

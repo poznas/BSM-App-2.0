@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.bsm.mobile.R;
 import com.bsm.mobile.backend.score.points.badge.IBadgeInfoRepository;
 import com.bsm.mobile.common.NullFighter;
+import com.bsm.mobile.common.resource.TeamResources;
 import com.bsm.mobile.legacy.model.PointsInfo;
 import com.bsm.mobile.root.App;
 import com.bumptech.glide.Glide;
@@ -58,6 +59,7 @@ public class BadgeResultDisplayActivity extends AppCompatActivity implements Nul
         ButterKnife.bind(this);
 
         pointsInfo = (PointsInfo) getIntent().getSerializableExtra(KEY_INFO);
+        compositeDisposable = new CompositeDisposable();
     }
 
     @Override
@@ -79,8 +81,11 @@ public class BadgeResultDisplayActivity extends AppCompatActivity implements Nul
         Glide.with(this).load(pointsInfo.getUser_photo()).into(userImageView);
         userNameView.setText(pointsInfo.getUser_name());
         pointsView.setText(String.valueOf(pointsInfo.getPoints()));
+        pointsView.setTextColor(TeamResources.getColor(this, pointsInfo.getTeam()));
         timeView.setText(getTime(pointsInfo.getTimestamp()));
         dateView.setText(getDate(pointsInfo.getTimestamp()));
+
+        setTitle(TeamResources.DISPLAY_NAMES.get(pointsInfo.getTeam()));
     }
 
     private Disposable subscribeForSideMissionImage() {

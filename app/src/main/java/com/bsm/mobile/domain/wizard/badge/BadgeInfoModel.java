@@ -39,7 +39,10 @@ public class BadgeInfoModel implements Model {
                                 .build();
 
                         for(BadgePoints points : pointsList)
-                            if(points.getSideMissionName().equals(info.getSideMissionName()))
+                            if(points.getSideMissionName()
+                                    .equals(info.getSideMissionName())
+                                    && points.getValid())
+
                                 view.getAwardedUsers().add(
                                         User.builder()
                                                 .photoUrl(points.getUserPhotoUrl())

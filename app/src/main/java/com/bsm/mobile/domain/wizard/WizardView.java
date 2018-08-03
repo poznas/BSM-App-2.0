@@ -3,6 +3,7 @@ package com.bsm.mobile.domain.wizard;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -62,11 +63,15 @@ public class WizardView extends LinearLayout {
 
     private TextView getUserNameTextView() {
         TextView textView = new TextView(context);
+        LayoutParams layoutParams = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+        layoutParams.gravity = Gravity.CENTER_VERTICAL;
+        layoutParams.setMargins(dpToPx(8),0,0,0);
+        textView.setLayoutParams(layoutParams);
         textView.setText(String.format("  %s", userName));
         textView.setTypeface(null, Typeface.BOLD);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         textView.setTextColor(getColor(context, team));
-        textView.setLayoutParams(params(36));
+
 
         return textView;
     }

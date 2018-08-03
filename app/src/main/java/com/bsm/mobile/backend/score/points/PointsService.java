@@ -2,6 +2,7 @@ package com.bsm.mobile.backend.score.points;
 
 import android.util.Log;
 
+import com.bsm.mobile.backend.score.points.badge.IBadgePointsRepository;
 import com.bsm.mobile.backend.score.points.bet.IBetPointsRepository;
 import com.bsm.mobile.backend.score.points.mc.IMainCompetitionPointsRepository;
 import com.bsm.mobile.backend.score.points.medal.IMedalPointsRepository;
@@ -17,6 +18,7 @@ import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 import lombok.AllArgsConstructor;
 
+import static com.bsm.mobile.common.resource.Constants.LABEL_POINTS_BADGE;
 import static com.bsm.mobile.common.resource.Constants.LABEL_POINTS_BET;
 import static com.bsm.mobile.common.resource.Constants.LABEL_POINTS_MAIN_COMPETITION;
 import static com.bsm.mobile.common.resource.Constants.LABEL_POINTS_MEDAL;
@@ -31,6 +33,7 @@ public class PointsService implements IPointsService, Tagable{
     private final IMainCompetitionPointsRepository mainCompetitionPointsRepository;
     private final IMedalPointsRepository medalPointsRepository;
     private final ISideMissionPointsRepository sideMissionPointsRepository;
+    private final IBadgePointsRepository badgePointsRepository;
 
 
     @Override
@@ -59,6 +62,9 @@ public class PointsService implements IPointsService, Tagable{
         Log.d(getTag(), "attempt to invalidate points : " + points);
 
         switch (points.getLabel()){
+            case LABEL_POINTS_BADGE:
+                badgePointsRepository.invalidateBadge(points.getId());
+                break;
             case LABEL_POINTS_SIDE_MISSION:
                 sideMissionPointsRepository.invalidateSideMission(points.getId());
                 break;

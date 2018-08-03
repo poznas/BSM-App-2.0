@@ -13,17 +13,18 @@
             <RelativeLayout
                 android:background="@color/grey"
                 android:layout_width="match_parent"
-                android:layout_height="160dp">
+                android:layout_height="200dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/sm_image_view"
-                    android:layout_width="128dp"
-                    android:layout_height="128dp"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
                     android:layout_centerInParent="true"/>
 
             </RelativeLayout>
 
             <TextView
+                android:layout_marginTop="16dp"
                 android:id="@+id/sm_name_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,6 +40,7 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:layout_marginTop="8dp"
                     android:orientation="horizontal"
                     android:layout_centerInParent="true"
                     android:layout_width="wrap_content"
@@ -67,22 +69,23 @@
             </RelativeLayout>
 
 
-
-            <TextView
-                android:layout_marginTop="48dp"
-                android:id="@+id/points_view"
+            <RelativeLayout
+                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="48sp"
-                android:textStyle="bold"
-                tools:text="100"
-                tools:textColor="@color/red" />
+                android:layout_height="0dp">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/points_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textSize="48sp"
+                    android:textStyle="bold"
+                    tools:text="100"
+                    tools:textColor="@color/red" />
+
+
+            </RelativeLayout>
 
 
             <TextView

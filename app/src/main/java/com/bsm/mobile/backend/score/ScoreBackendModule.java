@@ -38,14 +38,16 @@ public class ScoreBackendModule {
             IBetPointsRepository betPointsRepository,
             IMainCompetitionPointsRepository mainCompetitionPointsRepository,
             IMedalPointsRepository medalPointsRepository,
-            ISideMissionPointsRepository sideMissionPointsRepository
+            ISideMissionPointsRepository sideMissionPointsRepository,
+            IBadgePointsRepository badgePointsRepository
     ){
         return new PointsService(
                 pointsRepository,
                 betPointsRepository,
                 mainCompetitionPointsRepository,
                 medalPointsRepository,
-                sideMissionPointsRepository
+                sideMissionPointsRepository,
+                badgePointsRepository
         );
     }
 

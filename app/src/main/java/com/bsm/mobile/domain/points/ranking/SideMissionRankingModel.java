@@ -2,7 +2,6 @@ package com.bsm.mobile.domain.points.ranking;
 
 import com.bsm.mobile.backend.score.points.IPointsService;
 import com.bsm.mobile.backend.user.IUserRepository;
-import com.bsm.mobile.common.resource.Constants;
 import com.bsm.mobile.common.utils.UserDataValidator;
 import com.bsm.mobile.legacy.model.PointsInfo;
 
@@ -15,6 +14,8 @@ import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 import lombok.RequiredArgsConstructor;
 
+import static com.bsm.mobile.common.resource.Constants.LABEL_POINTS_SIDE_MISSION;
+import static com.bsm.mobile.common.utils.PointsInfoUtils.directWizardPoints;
 import static com.bsm.mobile.domain.points.ranking.SideMissionRankingActivityMVP.Model;
 
 @RequiredArgsConstructor
@@ -31,7 +32,7 @@ public class SideMissionRankingModel implements Model {
 
                     Map<String, PointsInfo> wizardPointsMap = getWizardZeroPointsMap();
                     for(PointsInfo pointsInfo : pointsList){
-                        if(!pointsInfo.getLabel().equals(Constants.LABEL_POINTS_SIDE_MISSION)) continue;
+                        if(!directWizardPoints(pointsInfo)) continue;
 
                         PointsInfo userPointsRecord = wizardPointsMap.get(pointsInfo.getUser_name());
                         if (userPointsRecord != null) {
@@ -52,7 +53,7 @@ public class SideMissionRankingModel implements Model {
                 .flatMapIterable(users -> users)
                 .filter(UserDataValidator::isWizard)
                 .map(user -> PointsInfo.builder()
-                        .label(Constants.LABEL_POINTS_SIDE_MISSION)
+                        .label(LABEL_POINTS_SIDE_MISSION)
                         .user_photo(user.getPhotoUrl())
                         .user_name(user.getDisplayName())
                         .team(user.getTeam())
