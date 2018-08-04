@@ -124,7 +124,9 @@ public class SMPostResultDisplayActivity extends AppCompatActivity implements Ta
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     mZonglerPost = dataSnapshot.getValue(ZonglerPost.class);
                     Log.d(getTag(), "retrieved post : " + mZonglerPost);
-                    setDisplayedInfo();
+                    if( mZonglerPost != null){
+                        setDisplayedInfo();
+                    }
                 }
 
                 @Override

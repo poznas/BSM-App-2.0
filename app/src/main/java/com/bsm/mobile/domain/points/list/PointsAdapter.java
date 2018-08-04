@@ -92,7 +92,6 @@ public class PointsAdapter extends RecyclerView.Adapter<PointsAdapter.PointsView
         TextView itemPoints;
 
 
-
         Context context;
 
         private PointsInfo pointsInfo;

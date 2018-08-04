@@ -75,7 +75,9 @@ public class UsersAdapter extends FirebaseRecyclerAdapter<User, UsersAdapter.Use
 
         @Override
         public void onClick(View v) {
-            context.startActivity(facebookIntent);
+            if(facebookIntent != null){
+                context.startActivity(facebookIntent);
+            }
         }
 
         void setUser( User user ){
@@ -100,8 +102,8 @@ public class UsersAdapter extends FirebaseRecyclerAdapter<User, UsersAdapter.Use
                     .load(user.getPhotoUrl())
                     .into(itemUserImage);
 
-            facebookIntent = new Intent(Intent.ACTION_VIEW);
-            facebookIntent.setData(Uri.parse(getFacebookPageURL(user)));
+            facebookIntent = user.getFacebook() == null ? null:
+                    new Intent(Intent.ACTION_VIEW).setData(Uri.parse(getFacebookPageURL(user)));
         }
 
 

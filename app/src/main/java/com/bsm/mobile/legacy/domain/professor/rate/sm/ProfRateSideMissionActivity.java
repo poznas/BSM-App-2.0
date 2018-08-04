@@ -200,7 +200,7 @@ public class ProfRateSideMissionActivity extends AppCompatActivity {
     }
 
     private void sendReportRate() {
-        Map<String, Double> profRate = new HashMap<>();
+        Map<String, Object> profRate = new HashMap<>();
         for( int i=0; i<properitiesListView.getChildCount(); i++ ){
 
             PropertyDetails current = (PropertyDetails) properitiesListView.getAdapter().getItem(i);
@@ -229,13 +229,12 @@ public class ProfRateSideMissionActivity extends AppCompatActivity {
                 default:
                     break;
             }
-
-            mRootRef.child("FinalReportRate").child(bRpid).child("properities").setValue(profRate);
-            mRootRef.child("FinalReportRate").child(bRpid).child("requireProfessor").setValue(false);
-            mRootRef.child("requireProfRate").child(bRpid).setValue(null);
-
-            finish();
         }
+        mRootRef.child("FinalReportRate").child(bRpid).child("properities").updateChildren(profRate);
+        mRootRef.child("FinalReportRate").child(bRpid).child("requireProfessor").setValue(false);
+        mRootRef.child("requireProfRate").child(bRpid).setValue(null);
+
+        finish();
     }
 
     private boolean correctJudgeInput() {

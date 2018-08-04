@@ -270,7 +270,7 @@ public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
     }
 
     private void sendReportRate() {
-        Map<String, Long> reportRate = new HashMap<>();
+        Map<String, Object> reportRate = new HashMap<>();
         for(int i = 0; i< propertiesListView.getChildCount(); i++ ){
 
             PropertyDetails current = (PropertyDetails) propertiesListView.getAdapter().getItem(i);
@@ -316,11 +316,10 @@ public class JudgeRateSMActivity extends AppCompatActivity implements Tagable {
                 default:
                     break;
             }
-
-            mRootRef.child("ReportRates").child(bRpid).child(mFirebaseUser.getUid()).setValue(reportRate);
-
-            exitJudgeActivity();
         }
+        mRootRef.child("ReportRates").child(bRpid)
+                .child(mFirebaseUser.getUid()).updateChildren(reportRate);
+        exitJudgeActivity();
     }
 
     private void exitJudgeActivity(){

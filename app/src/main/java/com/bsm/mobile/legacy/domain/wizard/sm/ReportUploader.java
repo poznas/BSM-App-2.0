@@ -176,10 +176,8 @@ public class ReportUploader extends Service implements Tagable{
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(success -> {
                     if(success) Toast.makeText(this, "misja zameldowana", Toast.LENGTH_SHORT).show();
+                    this.success = false;
                 });
-
-
-
 
         shutdownAllExecutors();
         stopForeground(true);

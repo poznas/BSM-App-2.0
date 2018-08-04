@@ -445,7 +445,7 @@ public class JudgeRateSMPostActivity extends AppCompatActivity {
     }
 
     private void sendReportRate() {
-        Map<String, Long> reportRate = new HashMap<>();
+        Map<String, Object> reportRate = new HashMap<>();
         for(int i = 0; i< propertiesListView.getChildCount(); i++ ){
 
             PropertyDetails current = (PropertyDetails) propertiesListView.getAdapter().getItem(i);
@@ -491,13 +491,13 @@ public class JudgeRateSMPostActivity extends AppCompatActivity {
                 default:
                     break;
             }
-
-            mRootRef.child("ReportRates").child(bRpid).child(mFirebaseUser.getUid()).setValue(reportRate);
-
-            Intent home = new Intent(this, HomeActivity.class);
-            startActivity(home);
-            finish();
         }
+        mRootRef.child("ReportRates").child(bRpid)
+                .child(mFirebaseUser.getUid()).updateChildren(reportRate);
+
+        Intent home = new Intent(this, HomeActivity.class);
+        startActivity(home);
+        finish();
     }
 
     private boolean correctJudgeInput() {

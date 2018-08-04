@@ -47,7 +47,7 @@ public abstract class AbstractFirebaseRepository implements Tagable{
         private DataChangeHandler onDataChange;
 
         public SimpleValueEventListener(@NonNull ObservableEmitter emitter, @NonNull final Query reference) {
-            Log.d(getTag(), "accessing firebase reference : " + reference.toString());
+            Log.d(getTag(), "accessing firebase reference : " + reference.getRef().toString());
 
             emitter.setCancellable(() -> reference.removeEventListener(this));
             reference.addValueEventListener(this);
