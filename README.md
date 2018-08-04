@@ -2,4 +2,4 @@
 
 Bulgarian School of Magic
 <br><br>
-download APK : https://github.com/poznas/Rx-BSM/raw/master/bsm_2018.apk
+download APK : https://drive.google.com/open?id=1HtfTcKoO4WkFAvMH83dmiNgNO5XFPD9T
