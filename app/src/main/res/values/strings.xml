@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BSM</string>
+    <string name="app_name">Outdoor</string>
     <string name="sign_out">Wyloguj</string>
 
     <string name="title_activity_photo_video_fullscreen">PhotoVideoFullscreen</string>

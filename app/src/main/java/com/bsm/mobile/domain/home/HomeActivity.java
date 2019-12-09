@@ -22,6 +22,7 @@ import com.bsm.mobile.root.App;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -159,7 +160,7 @@ public class HomeActivity extends AppCompatActivity implements View {
     }
 
     @Override
-    public void updateScores(HashMap<String, Long> scores) {
+    public void updateScores(Map<String, Long> scores) {
         cormeumPointsTextView.setText(String.valueOf(scores.get(TEAM_CORMEUM)));
         sensumPointsTextView.setText(String.valueOf(scores.get(TEAM_SENSUM)));
         mutiniumPointsTextView.setText(String.valueOf(scores.get(TEAM_MUTINIUM)));

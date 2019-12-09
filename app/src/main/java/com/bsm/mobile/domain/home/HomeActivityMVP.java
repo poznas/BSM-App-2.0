@@ -8,8 +8,8 @@ import com.bsm.mobile.common.Tagable;
 import com.bsm.mobile.legacy.model.Privilege;
 import com.bsm.mobile.legacy.model.User;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 
@@ -32,7 +32,7 @@ public interface HomeActivityMVP {
 
         void setTeamImagesClickListeners();
 
-        void updateScores(HashMap<String, Long> scores);
+        void updateScores(Map<String, Long> scores);
     }
 
     interface Presenter extends Tagable, MultiSubscriber {
@@ -47,6 +47,8 @@ public interface HomeActivityMVP {
     }
 
     interface Model{
+
+        void attachRoom(Context context);
 
         void signOut();
 
@@ -64,7 +66,7 @@ public interface HomeActivityMVP {
 
         Observable<List<Privilege>> getUserPrivileges(User user);
         
-        Observable<HashMap<String, Long>> getScores();
+        Observable<Map<String, Long>> getScores();
 
         Observable<Long> getJudgePendingReportsNumber();
 

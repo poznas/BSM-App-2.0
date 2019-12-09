@@ -95,5 +95,9 @@ dependencies {
     //Easy runtime permissions
     implementation 'pub.devrel:easypermissions:1.2.0'
 
+    //SQL Room
+    implementation 'android.arch.persistence.room:runtime:1.1.1'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
+
 }
 apply plugin: 'com.google.gms.google-services'

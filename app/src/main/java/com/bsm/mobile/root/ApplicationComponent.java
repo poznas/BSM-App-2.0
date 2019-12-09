@@ -32,6 +32,7 @@ import dagger.Component;
 @Singleton
 @Component(modules = {
         ApplicationModule.class,
+        //RoomModule.class,
         BackendModule.class,
         UserBackendModule.class,
         ReportBackendModule.class,
@@ -61,5 +62,7 @@ public interface ApplicationComponent {
     void inject(AddSMListActivity legacyActivity);
     void inject(BadgeResultDisplayActivity legacyActivity);
 
+    //AppDatabase appDatabase();
+    //TeamScoreDao teamScoreDao();
 
 }

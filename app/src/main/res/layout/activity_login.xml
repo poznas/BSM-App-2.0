@@ -24,12 +24,6 @@
                 android:src="@mipmap/image_mid_bsm_logo"
                 android:layout_gravity="top"/>
 
-            <ImageView
-                android:layout_marginTop="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:src="@mipmap/bsm_text"/>
-
             <RelativeLayout
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="48dp"

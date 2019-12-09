@@ -43,6 +43,7 @@ public class HomePresenter implements Presenter {
         privileges = new LinkedList<>();
         subscriptions = new CompositeDisposable();
         model.createGoogleApiClient((Context) view);
+        model.attachRoom((Context) view);
         this.view.showProgress();
     }
 
